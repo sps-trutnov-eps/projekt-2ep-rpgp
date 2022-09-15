@@ -1,0 +1,39 @@
+Věci označené jako bonus budou nejdříve vynechány...jsou to efekty, co by teoreticky mohly být gify, ale nevím jestli na takovou věc máma kapacitu
+Každopádně kdyby fakt nebylo co, tak jdem do toho
+
+Gener. Válečník
+- startovní zbraň: klacek
+	- meče:
+		- gener. dřevěný meč [vzhled trapný]
+		- gener. bronzový (měděný) meč [klidně nedobře tvarovaný/"nepovedený"]
+		- gener. krátký železný meč [normální]
+		- né tak gener. dlouhý železný meč [např. jinačí tvar čepele, světlejší ocel]
+		- negener. legendární meč [featury jako drahokam v záštitě, runa na čepeli, bonus: plameny]
+	- sekery:
+		- gener. kamenná sekyrka [šutr přivázanej ke klacku]
+		- gener. bronzová sekyrka [podobně jak bronzový meč]
+		- gener. dřevorubcova sekyra [pracovní]
+		- né tak gener. oboustranná sekyra [světlejší ocel, hlavice tpůrka (zakončení)]
+		- negener. oboustranná legendární sekyra [jednoduché rytiny, nestandartnější tvar, bonus: zlato+záře]
+	- palice
+		- gener. dřevěný kyj [bez komentáře]
+		- gener. palička [jednoruční palice, materiál by stále mohl být dřevo, případně kov]
+		- gener. palcát [Žizka hadr]
+		- né tak gener. řemdih [BODÁKY, klidně i jeden na hlavici topůrka]
+		- negener. legendární kladivo [inspirace Mjölnir...buď originální a nebo Marvelovej, bonus: blesky (logicky)]
+
+Gener. Střelec
+	- luky
+		- gener. ???
+	- kuše
+		- gener. ???
+	- palné
+		- gener. ???
+
+Gener. Kouzelník
+	- hole
+		- gener. ???
+	- amulety/runy
+		- gener. ???
+	- knihy
+		- gener. ???
