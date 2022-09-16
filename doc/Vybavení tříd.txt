@@ -23,17 +23,38 @@ Gener. Válečník
 		- negener. legendární kladivo [inspirace Mjölnir...buď originální a nebo Marvelovej, bonus: blesky (logicky)]
 
 Gener. Střelec
+- startovní zbraň: prak
 	- luky
-		- gener. ???
+		- gener. malý luk [malinký oblouk]
+		- gener. střední luk [furt jen oblouk]
+		- gener. tvarovaný luk [tvar připodobnělý této závorce "}", ovázané místo pro úchop]
+		- né tak generický velký luk [zvětšená varianta, ozdobná pérka, lepší ovázání místa pro úchop]
+		- negener. legendární ostrostřelcův luk [jiný materiál než dřevo, ještě šílenější tvar (insipraci by šlo najít v Terrarii), bonsu: blesky]
 	- kuše
-		- gener. ???
+		- gener. nepovedená kuše [nejvíc nevzhledný co to půjde, prkno na něm přidělaný ohlý prkno na kterým je lano]
+		- gener. malá kuše [krátká kuše, do rukou]
+		- gener. standartní kuše [větší co jde opřít o rameno]
+		- né tak gener. kuše lovčího [kovové prvky zesilující odstřelovačský vzhled]
+		- negener. legendární kuše hlavy půlící [skoro příruční balista, podrobnější kovové prvky (skoro až krycí pláty), bonus: materiál zlato+záře]
 	- palné
-		- gener. ???
+		- gener. menší pistole
+		- gener. bambitka
+		- gener. mušketa
+		- né tak gener. střelcova puška
+		- negener. dračí kanón 
 
 Gener. Kouzelník
 	- hole
-		- gener. ???
+		- gener. neupravená hůlka
+		- gener. kouzelnická hůlka
+		- gener. druidova hůl
+		- né tak gener. stromová hůl
+		- negener. legendární hůl všech mágů
 	- amulety/runy
 		- gener. ???
 	- knihy
-		- gener. ???
+		- gener. list základních kouzel
+		- gener. knížka čar pro amatéry
+		- gener. kniha....
+		- né tak gener. kniha čarodějného sněmu
+		- negener. zapomenutá kniha nejvyššího řádu sil
