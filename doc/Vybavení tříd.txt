@@ -37,24 +37,31 @@ Gener. Střelec
 		- né tak gener. kuše lovčího [kovové prvky zesilující odstřelovačský vzhled]
 		- negener. legendární kuše hlavy půlící [skoro příruční balista, podrobnější kovové prvky (skoro až krycí pláty), bonus: materiál zlato+záře]
 	- palné
-		- gener. menší pistole
-		- gener. bambitka
-		- gener. mušketa
-		- né tak gener. střelcova puška
-		- negener. dračí kanón 
+		- gener. menší pistole [něco jak derringer, ale jedna hlaveň]
+		- gener. bambitka [větší ráže]
+		- gener. mušketa [malorážní puška]
+		- né tak gener. střelcova puška [puška většího kalibru]
+		- negener. dračí kanón [nevim jestli to není overkill, případně by stačila nějaká jiná forma ručního děla, ale kdyby to mělo hlaveň jako dračí tlamu, tak by to byl styl]
 
 Gener. Kouzelník
 	- hole
-		- gener. neupravená hůlka
-		- gener. kouzelnická hůlka
-		- gener. druidova hůl
-		- né tak gener. stromová hůl
-		- negener. legendární hůl všech mágů
+		- gener. neupravená hůlka [něco jako wand of sparking z Terrarie]
+		- gener. kouzelnická hůlka [už né jen klacík, nějaká úprva...Harry Potter hadr]
+		- gener. druidova hůl [stereotypně na konci zatočená dřevěná hůl]
+		- né tak gener. stromová hůl [větev třímající nějaký křišťál/drahokam]
+		- negener. legendární hůl všech mágů [kov + kupa drahokamů, barevně sladění kovu a drahokamu může být jakékoliv]
 	- amulety/runy
-		- gener. ???
+		- gener. dřevěný přívěšek [dřevěný amuletík vysící na provázku, který by mág držel v ruce]
+		- gener. kovový amulet [podobně jako předchozí, jen z kovu -> jiný tvar]
+		- gener. runové kameny [šutry na kterých svítí nějaké symboly, tady si ještě nedokážu představit jejich požití...jakože by ho prostě držel v ruce a posílal z toho kouzla]
+		- né tak gener. levitující runové kameny [mohly by být nějak opracované, symboly na nich ve světlejších barvách a lítaly by čarodějovi nad rukama]
+		- negener. smršť křišťálových run [kolem čaroděje na styl Zenyyatta, nějaký barevný drahokamy a na nich by byly tmavě vidět runy]
 	- knihy
-		- gener. list základních kouzel
-		- gener. knížka čar pro amatéry
-		- gener. kniha....
-		- né tak gener. kniha čarodějného sněmu
-		- negener. zapomenutá kniha nejvyššího řádu sil
+		- gener. list základních kouzel [ještě žádná kniha, jen listina]
+		- gener. knížka čar pro amatéry [slaboučká menší kniha]
+		- gener. kniha kouzel [větší BooK, jednodušší lem kolem okrajů obalu]
+		- né tak gener. kniha čarodějného sněmu [jiná barva než hnědá, kovové plíšky]
+		- negener. zapomenutá kniha nejvyššího řádu sil [obličej...co víc by mohlo bejt na tak vysoký úrovni, než kniha co má XICHT]
+
+Spousta z těhle nápadů je určitě hodně na prd, proto v případě, že narazíš na něco brykulosáckýho, tak mi to řekni a nebo to rovnou přepiš/předělej, neboj se toho...bude na tom přeci jen třeba hodně zapracovat
+Taky je jasný, že nemusímě dělat všechno, třeba nám ve finále budou stačit jen 4 itemy za každý větve
