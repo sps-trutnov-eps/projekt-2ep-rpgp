@@ -1,26 +1,26 @@
 # --- Projekt Role-playing parodie Vojtěcha Nepimacha a Pavla Kotka ---
 import sys
-import pygame
+import pygame as pg
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
 else:
     DATA_ROOT = '..'
 
-rozliseni = 1200, 900
+resolution = 1200, 900
 
-pygame.init()
+pg.init()
 
-okno = pygame.display.set_mode(rozliseni)
-pygame.display.set_caption("Generická hra")
+screen = pg.display.set_mode(resolution)
+pg.display.set_caption("Generic Game")
 
 
 while True:
-    udalosti = pygame.event.get()
-    okno.fill((50,200,50))
-    for udalost in udalosti:
-        if udalost.type == pygame.QUIT:
-            pygame.quit()
+    event = pg.event.get()
+    screen.fill((50,200,50))
+    for event in events:
+        if event.type == pg.QUIT:
+            pg.quit()
             sys.exit()
     
-    pygame.display.update()
+    pg.display.update()
