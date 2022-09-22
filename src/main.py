@@ -10,7 +10,6 @@ else:
     DATA_ROOT = '..'
 
 resolution = 1200, 900
-bt_acc = True
 
 pg.init()
 
@@ -18,6 +17,11 @@ screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
 active_screen = main_menu
+
+dev_shortcut = None
+devmode = False
+
+bt_acc = True
 
 while True:
     pressed = pg.key.get_pressed()
@@ -30,20 +34,38 @@ while True:
             pg.quit()
             sys.exit()
     
-    # Práce Button_tool -> třeba aktivovat
-    bt.find(m_pressed)
-    bt.calculate()
+    if pressed[pg.K_d]:
+        dev_shortcut = 1
     
-    # Vypisování výsledků Button_tool
-    bt.list(pressed, screen)
+    if pressed[pg.K_e] and dev_shortcut == 1:
+        dev_shortcut = 2
     
-    # Aktivace/Deaktivace Button_tool
-    if pressed[pg.K_s] and bt_acc:
-        bt.on_off()
-        bt_acc = False
-    elif pressed[pg.K_s] and not bt_acc:
-        pass
-    else:
-        bt_acc = True
+    if pressed[pg.K_v] and dev_shortcut == 2:
+        if devmode == False:
+            devmode = True
+            dev_shortcut = None
+        else:
+            devmode = False
+            dev_shortcut = None
+    print(devmode)
+    print(dev_shortcut)
+    ### DEVELOPER MODE ###
+    if devmode:
+        ### BUTTON TOOL ###
+        # Práce Button_tool -> třeba aktivovat
+        bt.find(m_pressed)
+        bt.calculate()
+        
+        # Vypisování výsledků Button_tool
+        bt.list(pressed, screen)
+        
+        # Aktivace/Deaktivace Button_tool
+        if pressed[pg.K_s] and bt_acc:
+            bt.on_off()
+            bt_acc = False
+        elif pressed[pg.K_s] and not bt_acc:
+            pass
+        else:
+            bt_acc = True
     
     pg.display.update()
