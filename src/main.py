@@ -20,6 +20,7 @@ active_screen = main_menu
 
 while True:
     pressed = pg.key.get_pressed()
+    events = pg.event.get()
     screen.blit(active_screen.background,(0,0))
     for event in events:
         if event.type == pg.QUIT:
@@ -36,12 +37,12 @@ while True:
     corner1, corner2, width, height = bt.calculate()
     
     # Vypisování výsledků Button_tool
-    if pg.key.get_pressed()[pg.K_SPACE]:
+    if pressed[pg.K_SPACE]:
         print("Šířka: ", width)
         print("Výška: ", height)
         print("1. Roh: ", corner1[0], ", ", corner1[1])
         print("2. Roh: ", corner2[0], ", ", corner2[1])
     if not width == 0 and not height == 0:
-        pg.draw.rect(screen, (0,255,0), (corner1[0], corner1[1], width, height), 2)
+        pg.draw.rect(screen, (0,255,0), (corner1[0], corner1[1], width, height), 3)
     
     pg.display.update()
