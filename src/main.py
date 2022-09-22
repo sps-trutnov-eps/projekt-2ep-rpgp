@@ -10,6 +10,7 @@ else:
     DATA_ROOT = '..'
 
 resolution = 1200, 900
+bt_acc = True
 
 pg.init()
 
@@ -20,6 +21,7 @@ active_screen = main_menu
 
 while True:
     pressed = pg.key.get_pressed()
+    m_pressed = pg.mouse.get_pressed()
     events = pg.event.get()
     screen.blit(active_screen.background,(0,0))
     for event in events:
@@ -28,21 +30,20 @@ while True:
             pg.quit()
             sys.exit()
     
-    # Práce Button_tool
-    if pg.mouse.get_pressed()[0]:
-        bt.find_l()
-    if pg.mouse.get_pressed()[2]:
-        bt.find_r()
-        
-    corner1, corner2, width, height = bt.calculate()
+    # Práce Button_tool -> třeba aktivovat
+    bt.find(m_pressed)
+    bt.calculate()
     
     # Vypisování výsledků Button_tool
-    if pressed[pg.K_SPACE]:
-        print("Šířka: ", width)
-        print("Výška: ", height)
-        print("1. Roh: ", corner1[0], ", ", corner1[1])
-        print("2. Roh: ", corner2[0], ", ", corner2[1])
-    if not width == 0 and not height == 0:
-        pg.draw.rect(screen, (0,255,0), (corner1[0], corner1[1], width, height), 3)
+    bt.list(pressed, screen)
+    
+    # Aktivace/Deaktivace Button_tool
+    if pressed[pg.K_s] and bt_acc:
+        bt.on_off()
+        bt_acc = False
+    elif pressed[pg.K_s] and not bt_acc:
+        pass
+    else:
+        bt_acc = True
     
     pg.display.update()
