@@ -34,6 +34,7 @@ while True:
             pg.quit()
             sys.exit()
     
+    ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
         dev_shortcut = 1
     
@@ -47,8 +48,7 @@ while True:
         else:
             devmode = False
             dev_shortcut = None
-    print(devmode)
-    print(dev_shortcut)
+
     ### DEVELOPER MODE ###
     if devmode:
         ### BUTTON TOOL ###

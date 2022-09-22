@@ -17,4 +17,4 @@ class button():
         self.position = position
         self.link = link
         
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/menu.png"), [])
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [])
