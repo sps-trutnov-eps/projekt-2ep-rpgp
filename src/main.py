@@ -34,6 +34,12 @@ while True:
             pg.quit()
             sys.exit()
     
+    ### Kontrola stisku tlačítek ###
+    for button in link_buttons:
+        result = button.check(m_pressed)
+        if not result == None:
+            active_screen = result
+    
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
         dev_shortcut = 1
