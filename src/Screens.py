@@ -12,6 +12,12 @@ class screen():
         self.background = background
         self.buttons = buttons
 
+class table():
+    def __init__(self, name, size, buttons):
+        self.name = name
+        self.size = size
+        self.buttons = buttons
+
 class link_button():
     def __init__(self, position, width, height, link):
         self.position = position
@@ -31,6 +37,13 @@ class link_button():
                 return screen
             else:
                 pass
+            
+class table_button():
+    def __init__(self, position, width, height, link):
+        self.position = postition
+        self.width = width
+        self.height = height
+        self.link = link
         
 # Tlačítka pro změnu obrazovky
 new_game_b = link_button((75,485), 445, 85, "Game menu")
