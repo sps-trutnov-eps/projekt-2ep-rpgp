@@ -1,7 +1,7 @@
 # --- Projekt Role-playing parodie Vojtěcha Nepimacha a Pavla Kotka ---
 import sys
 import pygame as pg
-from Screens import *
+from screens import *
 from dev_tools import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
