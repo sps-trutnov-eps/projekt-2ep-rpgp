@@ -10,6 +10,7 @@ else:
     DATA_ROOT = '..'
 
 resolution = 1200, 900
+table_colour = (30,30,30)
 
 pg.init()
 
@@ -17,7 +18,7 @@ screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
 active_screen = main_menu
-active_table = None
+active_table = "Close"
 
 dev_shortcut = None
 devmode = False
@@ -30,6 +31,9 @@ while True:
     m_pressed = pg.mouse.get_pressed()
     events = pg.event.get()
     screen.blit(active_screen.background,(0,0))
+    if not active_table == "Close":
+        pg.draw.rect(screen, table_colour, (active_table.position, (active_table.size[0], active_table.size[1])))
+        
     for event in events:
         if event.type == pg.QUIT:
             running = False
@@ -43,7 +47,10 @@ while True:
             active_screen = result
             
     for button in active_screen.t_buttons:
-        pass
+        result = False
+        result = button.check(m_pressed)
+        if not result == None:
+            active_table = result
             
     if not active_table == None:
         pass
