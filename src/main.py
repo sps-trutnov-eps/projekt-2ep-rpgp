@@ -17,6 +17,7 @@ screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
 active_screen = main_menu
+active_table = None
 
 dev_shortcut = None
 devmode = False
@@ -36,10 +37,16 @@ while True:
             sys.exit()
     
     ### Kontrola stisku tlačítek ###
-    for button in link_buttons:
+    for button in active_screen.l_buttons:
         result = button.check(m_pressed)
         if not result == None:
             active_screen = result
+            
+    for button in active_screen.t_buttons:
+        pass
+            
+    if not active_table == None:
+        pass
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:

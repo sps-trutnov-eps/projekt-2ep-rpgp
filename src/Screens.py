@@ -8,16 +8,19 @@ else:
     DATA_ROOT = '..'
 
 class screen():
-    def __init__(self, name, background, buttons):
+    def __init__(self, name, background, l_buttons, t_buttons):
         self.name = name
         self.background = background
-        self.buttons = buttons
+        self.l_buttons = l_buttons
+        self.t_buttons = t_buttons
 
 class table():
-    def __init__(self, name, size, buttons):
+    def __init__(self, name, position, size, l_buttons, t_buttons):
         self.name = name
+        self.position = position
         self.size = size
-        self.buttons = buttons
+        l_buttons = l_buttons
+        self.t_buttons = t_buttons
 
 class link_button():
     def __init__(self, position, width, height, link):
@@ -53,10 +56,17 @@ link_buttons = [
             new_game_b
                 ]
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [])
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [new_game_b], [])
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [])
 
 screens = [
             main_menu,
             game_menu
+            ]
+
+# Tabulky
+new_game_table = table("New game table", [100,100], [1000,700], [], [])
+
+tables = [
+            new_game_table
             ]
