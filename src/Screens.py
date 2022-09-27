@@ -68,11 +68,13 @@ link_buttons = [
 
                 ]
 
-# Tlačítka pro vytvoření tabulek
+# Tlačítka tabulek
 new_game_tb = table_button((75,485), 445, 85, "New game table")
+t_new_game_close = table_button((975,125), 100, 100, "Close")
 
 table_buttons = [
-            new_game_tb
+            new_game_tb,
+            t_new_game_close
                 ]
 
 # Obrazovky
@@ -85,7 +87,7 @@ screens = [
             ]
 
 # Tabulky
-new_game_table = table("New game table", [], [])
+new_game_table = table("New game table", [], [t_new_game_close])
 
 tables = [
             new_game_table

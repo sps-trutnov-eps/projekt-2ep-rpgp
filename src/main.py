@@ -11,6 +11,7 @@ else:
 
 resolution = 1200, 900
 table_colour = (30,30,30)
+button_colour = (200,200,200)
 
 pg.init()
 
@@ -41,19 +42,31 @@ while True:
             sys.exit()
     
     ### Kontrola stisku tlačítek ###
-    for button in active_screen.l_buttons:
-        result = button.check(m_pressed)
-        if not result == None:
-            active_screen = result
+    
+    if active_table == "Close":
+        for button in active_screen.l_buttons:
+            result = button.check(m_pressed)
+            if not result == None:
+                active_screen = result
+                
+        for button in active_screen.t_buttons:
+            result = button.check(m_pressed)
+            if not result == None:
+                active_table = result
             
-    for button in active_screen.t_buttons:
-        result = False
-        result = button.check(m_pressed)
-        if not result == None:
-            active_table = result
-            
-    if not active_table == None:
-        pass
+    else:
+        for button in active_table.l_buttons:
+            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)))
+            result = button.check(m_pressed)
+            if not result == None:
+                active_screen = result
+                active_table = "Close"
+                
+        for button in active_table.t_buttons:
+            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)))
+            result = button.check(m_pressed)
+            if not result == None:
+                active_table = result
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
