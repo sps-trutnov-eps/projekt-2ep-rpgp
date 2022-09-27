@@ -59,9 +59,12 @@ while True:
     ### DEVELOPER MODE ###
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/stick.png")
+        # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/3.png")
+        # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         
+        # Aktivace a deaktivate Texture Preview Toolu
         if pressed[pg.K_r] and pt_acc:
             pt.on_off()
             pt_acc = False

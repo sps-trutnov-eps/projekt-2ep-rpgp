@@ -31,6 +31,10 @@ class texture_preview_tool():
 
     def on_off(self):
         self.activity = not self.activity
+        
+    def texture_queue(self):
+        pass
+    
 ### Nástroj pro získání místa a rozměrů tlačítek ###
 
 # LMB = určení prvního rohu
