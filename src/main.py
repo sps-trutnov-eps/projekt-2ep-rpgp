@@ -60,7 +60,7 @@ while True:
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
         # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/3.png")
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/1.png")
         # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         
@@ -90,13 +90,5 @@ while True:
             pass
         else:
             bt_acc = True
-    
-    #item_texture = pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png").convert_alpha()
-    #item_surface = pg.transform.scale(item_texture, (64, 64))
-    #item_surface_large = pg.transform.scale(item_texture, (128, 128))
-    #item_rect = item_surface.get_rect(center = (resolution[0]/2 + 100, resolution[1]/2))
-    #item_rect_large = item_surface_large.get_rect(center = (resolution[0]/2 - 100, resolution[1]/2))
-    #screen.blit(item_surface, item_rect)
-    #screen.blit(item_surface_large, item_rect_large)
     
     pg.display.update()
