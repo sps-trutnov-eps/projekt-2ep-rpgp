@@ -1,4 +1,37 @@
 import pygame as pg
+import sys
+
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    DATA_ROOT = '.'
+else:
+    DATA_ROOT = '..'
+
+### Nástroj pro náhled textur previewů ###
+
+class texture_preview_tool():
+    def __init__(self):
+        self.activity = False
+        
+    def get_texture(self, texture):
+        self.texture = texture
+        
+    def render_preview(self, screen, resolution):
+        self.preview_texture = pg.image.load(self.texture).convert_alpha()
+        self.preview_surface = pg.transform.scale(self.preview_texture, (64, 64))
+        self.preview_surface_large = pg.transform.scale(self.preview_texture, (128, 128))
+        self.preview_rect = self.preview_surface.get_rect(center = (resolution[0]/2 + 100, resolution[1]/2))
+        self.preview_rect_large = self.preview_surface_large.get_rect(center = (resolution[0]/2 - 100, resolution[1]/2))
+        if self.activity:
+            rect_w = 400
+            rect_h = 200
+            pg.draw.rect(screen,(0,0,0),(resolution[0]/2 - rect_w/2, resolution[1]/2 - rect_h/2, rect_w, rect_h))
+            pg.draw.rect(screen,(255,255,255),(resolution[0]/2 - rect_w/2, resolution[1]/2 - rect_h/2, rect_w, rect_h),10)
+            screen.blit(self.preview_surface, self.preview_rect)
+            screen.blit(self.preview_surface_large, self.preview_rect_large)
+
+    def on_off(self):
+        self.activity = not self.activity
+### Nástroj pro získání místa a rozměrů tlačítek ###
 
 # LMB = určení prvního rohu
 # RMB = určení druhého rohu
@@ -56,3 +89,5 @@ class button_tool():
             pass
 
 bt = button_tool()
+pt = texture_preview_tool()
+

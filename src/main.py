@@ -1,8 +1,8 @@
 # --- Projekt Role-playing parodie Vojtěcha Nepimacha a Pavla Kotka ---
 import sys
 import pygame as pg
-from screens import *
-from button_tool import *
+from Screens import *
+from dev_tools import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -22,6 +22,7 @@ dev_shortcut = None
 devmode = False
 
 bt_acc = True
+pt_acc = True
 
 while True:
     pressed = pg.key.get_pressed()
@@ -57,6 +58,19 @@ while True:
 
     ### DEVELOPER MODE ###
     if devmode:
+        ### TEXTURE PREVIEW TOOL ###
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/stick.png")
+        pt.render_preview(screen, resolution)
+        
+        if pressed[pg.K_r] and pt_acc:
+            pt.on_off()
+            pt_acc = False
+            
+        elif pressed[pg.K_r] and not pt_acc:
+            pass
+        else:
+            pt_acc = True
+        
         ### BUTTON TOOL ###
         # Práce Button_tool -> třeba aktivovat
         bt.find(m_pressed)
@@ -73,5 +87,13 @@ while True:
             pass
         else:
             bt_acc = True
+    
+    #item_texture = pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png").convert_alpha()
+    #item_surface = pg.transform.scale(item_texture, (64, 64))
+    #item_surface_large = pg.transform.scale(item_texture, (128, 128))
+    #item_rect = item_surface.get_rect(center = (resolution[0]/2 + 100, resolution[1]/2))
+    #item_rect_large = item_surface_large.get_rect(center = (resolution[0]/2 - 100, resolution[1]/2))
+    #screen.blit(item_surface, item_rect)
+    #screen.blit(item_surface_large, item_rect_large)
     
     pg.display.update()

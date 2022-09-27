@@ -1,0 +1,5 @@
+originální velikost textury itemu - 32*32
+velikost po vyškálování v pygame - 128*128
+
+originální velikost ikony itemu - 32*32
+velikost po vyškálování v pygame - 64*64
