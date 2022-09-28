@@ -49,24 +49,26 @@ while True:
             if not result == None:
                 active_screen = result
                 
+    else:
+        for button in active_table.t_buttons:
+            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
+            result = button.check(m_pressed)
+            if not result == None:
+                active_table = result
+                
+    if active_table == "Close":
         for button in active_screen.t_buttons:
             result = button.check(m_pressed)
             if not result == None:
                 active_table = result
             
-    else:
+    else:    
         for button in active_table.l_buttons:
-            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)))
+            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 active_table = "Close"
-                
-        for button in active_table.t_buttons:
-            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)))
-            result = button.check(m_pressed)
-            if not result == None:
-                active_table = result
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:

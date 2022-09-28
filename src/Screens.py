@@ -51,7 +51,10 @@ class table_button():
         
     def check(self, m_pressed):
         if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0]:
-            return self.open_table(tables)
+            if self.link == "Close":
+                return "Close"
+            else:
+                return self.open_table(tables)
         else:
             pass
         
@@ -63,6 +66,7 @@ class table_button():
                 pass
         
 # Tlačítka pro změnu obrazovky
+new_game_lb = link_button((150,675), 900, 75, "Game menu")
 
 link_buttons = [
 
@@ -70,6 +74,7 @@ link_buttons = [
 
 # Tlačítka tabulek
 new_game_tb = table_button((75,485), 445, 85, "New game table")
+
 t_new_game_close = table_button((975,125), 100, 100, "Close")
 
 table_buttons = [
@@ -87,7 +92,7 @@ screens = [
             ]
 
 # Tabulky
-new_game_table = table("New game table", [], [t_new_game_close])
+new_game_table = table("New game table", [new_game_lb], [t_new_game_close])
 
 tables = [
             new_game_table
