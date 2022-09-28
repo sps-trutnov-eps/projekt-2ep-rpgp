@@ -28,41 +28,48 @@ bt_acc = True
 pt_acc = True
 
 while True:
+    # Získání infa o akcích
+    events = pg.event.get()
     pressed = pg.key.get_pressed()
     m_pressed = pg.mouse.get_pressed()
-    events = pg.event.get()
-    screen.blit(active_screen.background,(0,0))
-    if not active_table == "Close":
-        pg.draw.rect(screen, table_colour, (active_table.position, (active_table.size[0], active_table.size[1])))
-        
+    
+    # Možnosti vypnutí
     for event in events:
         if event.type == pg.QUIT:
-            running = False
             pg.quit()
             sys.exit()
     
+    if active_screen == "Exit":
+        pg.quit()
+        sys.exit()
+    
+    # Vykreslení obrazovky/tabulky
+    screen.blit(active_screen.background,(0,0))
+    if not active_table == "Close":
+        pg.draw.rect(screen, table_colour, (active_table.position, (active_table.size[0], active_table.size[1])))
+    
     ### Kontrola stisku tlačítek ###
     
-    if active_table == "Close":
+    if active_table == "Close" and not active_screen == "Exit":
         for button in active_screen.l_buttons:
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 
-    else:
+    elif not active_table == "Close" and not active_screen == "Exit":
         for button in active_table.t_buttons:
             pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_table = result
                 
-    if active_table == "Close":
+    if active_table == "Close" and not active_screen == "Exit":
         for button in active_screen.t_buttons:
             result = button.check(m_pressed)
             if not result == None:
                 active_table = result
             
-    else:    
+    elif not active_table == "Close" and not active_screen == "Exit":    
         for button in active_table.l_buttons:
             pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
