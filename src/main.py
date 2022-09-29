@@ -1,7 +1,7 @@
 # --- Projekt Role-playing parodie Vojtěcha Nepimacha a Pavla Kotka ---
 import sys
 import pygame as pg
-from screens import *
+from Screens import *
 from dev_tools import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
@@ -96,7 +96,7 @@ while True:
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
         # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/1.png")
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/4.png")
         # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         
