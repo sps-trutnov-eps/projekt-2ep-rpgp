@@ -10,11 +10,10 @@ else:
     DATA_ROOT = '..'
 
 resolution = 1200, 900
-table_colour = (30,30,30)
-button_colour = (200,200,200)
 
 pg.init()
 
+clock = pg.time.Clock()
 screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
@@ -46,7 +45,9 @@ while True:
     # Vykreslení obrazovky/tabulky
     screen.blit(active_screen.background,(0,0))
     if not active_table == "Close":
-        pg.draw.rect(screen, table_colour, (active_table.position, (active_table.size[0], active_table.size[1])))
+        table = pg.Surface(active_table.size)
+        table.set_alpha(active_table.alpha)
+        screen.blit(table, (active_table.position))
     
     ### Kontrola stisku tlačítek ###
     
@@ -58,7 +59,7 @@ while True:
                 
     elif not active_table == "Close" and not active_screen == "Exit":
         for button in active_table.t_buttons:
-            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
+            pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_table = result
@@ -71,7 +72,7 @@ while True:
             
     elif not active_table == "Close" and not active_screen == "Exit":    
         for button in active_table.l_buttons:
-            pg.draw.rect(screen, button_colour, (button.position, (button.width, button.height)), 3)
+            pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
@@ -128,3 +129,4 @@ while True:
             bt_acc = True
     
     pg.display.update()
+    clock.tick(144)

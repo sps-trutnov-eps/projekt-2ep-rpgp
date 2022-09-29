@@ -19,6 +19,8 @@ class table():
         self.name = name
         self.position = [100,100]
         self.size = [1000,700]
+        self.colour = (30,30,30)
+        self.alpha = 220
         self.l_buttons = l_buttons
         self.t_buttons = t_buttons
 
@@ -28,6 +30,7 @@ class link_button():
         self.width = width
         self.height = height
         self.link = link
+        self.colour = (200,200,200)
         
     def check(self, m_pressed):
         if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0]:
@@ -51,6 +54,7 @@ class table_button():
         self.width = width
         self.height = height
         self.link = link
+        self.colour = (200,200,200)
         
     def check(self, m_pressed):
         if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0]:
