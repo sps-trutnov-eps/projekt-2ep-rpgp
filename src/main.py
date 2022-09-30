@@ -52,31 +52,34 @@ while True:
     ### Kontrola stisku tlačítek ###
     
     if active_table == "Close" and not active_screen == "Exit":
+        for button in active_screen.t_buttons:
+            if button.draw:
+                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+            result = button.check(m_pressed)
+            if not result == None:
+                active_table = result
         for button in active_screen.l_buttons:
+            if button.draw:
+                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 
     elif not active_table == "Close" and not active_screen == "Exit":
-        for button in active_table.t_buttons:
-            pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
-            result = button.check(m_pressed)
-            if not result == None:
-                active_table = result
-                
-    if active_table == "Close" and not active_screen == "Exit":
-        for button in active_screen.t_buttons:
-            result = button.check(m_pressed)
-            if not result == None:
-                active_table = result
-            
-    elif not active_table == "Close" and not active_screen == "Exit":    
         for button in active_table.l_buttons:
-            pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+            if button.draw:
+                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 active_table = "Close"
+        if not active_table == "Close":
+            for button in active_table.t_buttons:
+                if button.draw:
+                    pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                result = button.check(m_pressed)
+                if not result == None:
+                    active_table = result
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
