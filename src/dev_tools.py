@@ -92,6 +92,13 @@ class button_tool():
         else:
             pass
 
+### Nástroj pro získání místa a rozměrů textu ###
+
+# LMB = určení rohu
+# ARROW UP = zvětšení textu
+# ARROW DOWN = zmenšení textu
+# LEFT CTRL = kurzor neurčuje střed, ale centr
+
 class text_tool():
     def __init__(self):
         self.activity = False

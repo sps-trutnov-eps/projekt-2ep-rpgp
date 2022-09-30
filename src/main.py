@@ -138,7 +138,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Prdění", pressed, screen)
+        tt.show("Generický text", pressed, screen)
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
