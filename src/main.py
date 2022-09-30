@@ -24,6 +24,7 @@ dev_shortcut = None
 devmode = False
 
 bt_acc = True
+tt_acc = True
 pt_acc = True
 
 while True:
@@ -130,6 +131,23 @@ while True:
             pass
         else:
             bt_acc = True
+            
+        ### TEXT TOOL ###
+        # Práce Text_tool -> třeba aktivovat
+        tt.find(m_pressed)
+        tt.change(pressed)
+        
+        # Vypisování a vykreslení výsledků Text_tool
+        tt.show("Prdění", pressed, screen)
+        
+        # Aktivace/Deaktivace Text_tool
+        if pressed[pg.K_t] and tt_acc:
+            tt.on_off()
+            tt_acc = False
+        elif pressed[pg.K_t] and not tt_acc:
+            pass
+        else:
+            tt_acc = True
     
     pg.display.update()
     clock.tick(144)

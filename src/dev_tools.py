@@ -92,6 +92,75 @@ class button_tool():
         else:
             pass
 
+class text_tool():
+    def __init__(self):
+        self.activity = False
+        self.colour = (200,200,200)
+        self.corner = [0,0]
+        self.width = 0
+        self.height = 0
+        self.center = 0
+        self.center_acc = False
+        self.text = None
+        self.size = 10
+        self.font = "freesansbold.ttf"
+        self.list_acc = True
+        self.change_acc = True
+        
+    def on_off(self):
+        self.activity = not self.activity
+        if self.activity:
+            print("Text tool byl zapnut")
+        else:
+            print("Text tool byl vypnut")
+        
+    def find(self, m_pressed):
+        if self.activity:
+            if m_pressed[0]:
+                self.corner = [round(pg.mouse.get_pos()[0]), round(pg.mouse.get_pos()[1])]
+        else:
+            pass
+    
+    def show(self, text, pressed, screen):
+        if self.activity:
+            if self.size > 0:
+                font = pg.font.Font(self.font, self.size)
+                writing = font.render(text, False, self.colour)
+                text_rect = (self.corner, font.size(text))
+                if self.center_acc:
+                    text_rect = ((self.corner[0] - (font.size(text)[0]/2), self.corner[1] - (font.size(text)[1])/2), font.size(text))
+                screen.blit(writing, text_rect)
+                if pressed[pg.K_SPACE] and self.list_acc:
+                    print("Šířka: ", font.size(text)[0])
+                    print("Výška: ", font.size(text)[1])
+                    print("Střed: ", (self.corner[0] + (font.size(text)[0]/2), self.corner[1] + (font.size(text)[1])/2))
+                    print("Veliksot: ", self.size)
+                    print("Roh: ", self.corner[0], ", ", self.corner[1])
+                    self.list_acc = False
+                elif pressed[pg.K_SPACE] and not self.list_acc:
+                    pass
+                else:
+                    self.list_acc = True
+        else:
+            pass
+    
+    def change(self, pressed):
+        if self.activity:
+            if pressed[pg.K_UP] and self.change_acc:
+                self.size += 1
+            elif pressed[pg.K_DOWN] and self.change_acc:
+                self.size -= 1
+            elif pressed[pg.K_LCTRL] and self.change_acc:
+                self.center_acc = not self.center_acc
+                self.change_acc = False
+            elif (pressed[pg.K_UP] or pressed[pg.K_DOWN] or pressed[pg.K_LCTRL]) and not self.change_acc:
+                pass
+            else:
+                self.change_acc = True
+        else:
+            pass
+    
 bt = button_tool()
+tt = text_tool()
 pt = texture_preview_tool()
 
