@@ -50,34 +50,64 @@ while True:
         table.set_alpha(active_table.alpha)
         screen.blit(table, (active_table.position))
     
-    ### Kontrola stisku tlačítek ###
+    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
     
     if active_table == "Close" and not active_screen == "Exit":
         for button in active_screen.t_buttons:
+            # Vykreslení table tlačítek
             if button.draw:
                 pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+            if not button.texture == None:
+                screen.blit(button.texture, (button.position))
+            elif button.texture == None:
+                pass
+                
+            # Kontrola table tlačítek
             result = button.check(m_pressed)
             if not result == None:
                 active_table = result
+                
         for button in active_screen.l_buttons:
+            # Vykreslování link tlačítek
             if button.draw:
                 pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+            if not button.texture == None:
+                screen.blit(button.texture, (button.position))
+            elif button.texture == None:
+                pass
+                
+            # Kontrola link talčítek
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 
     elif not active_table == "Close" and not active_screen == "Exit":
         for button in active_table.l_buttons:
+            # Vykreslování link tlačítek
             if button.draw:
                 pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+            if button.texture == None:
+                pass
+            else:
+                screen.blit(button.texture, (button.position))
+                
+            # Kontrola link talčítek
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 active_table = "Close"
+                
         if not active_table == "Close":
             for button in active_table.t_buttons:
+                # Vykreslení table tlačítek
                 if button.draw:
                     pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                if not button.texture == None:
+                    screen.blit(button.texture, (button.position))
+                elif button.texture == None:
+                    pass
+                    
+                # Kontrola table tlačítek
                 result = button.check(m_pressed)
                 if not result == None:
                     active_table = result

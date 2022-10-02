@@ -1,5 +1,5 @@
-import pygame as pg
 import sys
+import pygame as pg
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -100,7 +100,7 @@ class button_tool():
 # LEFT CTRL = kurzor neurčuje střed, ale centr
 
 class text_tool():
-    def __init__(self):
+    def __init__(self, font):
         self.activity = False
         self.colour = (200,200,200)
         self.corner = [0,0]
@@ -110,7 +110,7 @@ class text_tool():
         self.center_acc = False
         self.text = None
         self.size = 10
-        self.font = "freesansbold.ttf"
+        self.font = font
         self.list_acc = True
         self.change_acc = True
         
@@ -168,6 +168,5 @@ class text_tool():
             pass
     
 bt = button_tool()
-tt = text_tool()
+tt = text_tool("freesansbold.ttf")
 pt = texture_preview_tool()
-
