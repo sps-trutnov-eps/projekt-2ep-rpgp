@@ -23,6 +23,7 @@ active_table = "Close"
 dev_shortcut = None
 devmode = False
 
+click_acc = True
 bt_acc = True
 tt_acc = True
 pt_acc = True
@@ -31,7 +32,7 @@ while True:
     # Získání infa o akcích
     events = pg.event.get()
     pressed = pg.key.get_pressed()
-    m_pressed = pg.mouse.get_pressed()
+    m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
     
     # Možnosti vypnutí
     for event in events:
@@ -50,8 +51,17 @@ while True:
         table.set_alpha(active_table.alpha)
         screen.blit(table, (active_table.position))
     
-    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
+    # Zrušení multi-klikání
+    if not devmode:
+        if click_acc and m_pressed[0]:
+            click_acc = False
+        elif not click_acc and m_pressed[0]:
+            m_pressed[0] = False
+        elif not click_acc and not m_pressed[0]:
+            click_acc = True
+        
     
+    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
     if active_table == "Close" and not active_screen == "Exit":
         for button in active_screen.t_buttons:
             # Vykreslení table tlačítek

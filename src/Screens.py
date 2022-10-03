@@ -10,7 +10,7 @@ else:
 class screen():
     def __init__(self, name, background, l_buttons, t_buttons, text):
         self.name = name
-        self.background = background
+        self.background = pg.transform.scale(background, (1200,900))
         self.l_buttons = l_buttons
         self.t_buttons = t_buttons
         if not text == []:
@@ -41,7 +41,7 @@ class link_button():
         else:
             self.text = True
         if not texture == None:
-            self.texture = texture
+            self.texture = pg.transform.scale(texture, (width, height))
         else:
             self.texture = None
         
@@ -73,7 +73,10 @@ class table_button():
             self.text = text
         else:
             self.text = True
-        self.texture = texture
+        if not texture == None:
+            self.texture = pg.transform.scale(texture, (width, height))
+        else:
+            self.texture = None
         
         
     def check(self, m_pressed):
@@ -96,6 +99,8 @@ class table_button():
 exit_lb = link_button((490,760), 215, 85, "Exit", False, [], None)
 new_game_lb = link_button((150,675), 900, 75, "Game menu", True, [], None)
 main_menu_lb = link_button((30,30), 75, 75, "Main menu", True, [], None)
+shop_lb = link_button((950, 600), 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"))
+game_menu_lb = link_button((30,30), 75, 75, "Game menu", True, [], None)
 
 link_buttons = [
 
@@ -117,11 +122,13 @@ table_buttons = [
 
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [])
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb], [], [])
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb], [], [])
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb], [], [])
 
 screens = [
             main_menu,
-            game_menu
+            game_menu,
+            shop
             ]
 
 # Tabulky
