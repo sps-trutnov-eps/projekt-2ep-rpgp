@@ -66,7 +66,9 @@ while True:
         for button in active_screen.t_buttons:
             # Vykreslení table tlačítek
             if button.draw:
-                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                button_sf = pg.Surface((button.width, button.height))
+                button_sf.set_alpha(button.alpha)
+                screen.blit(button_sf, (button.position))
             if not button.texture == None:
                 screen.blit(button.texture, (button.position))
             elif button.texture == None:
@@ -80,7 +82,9 @@ while True:
         for button in active_screen.l_buttons:
             # Vykreslování link tlačítek
             if button.draw:
-                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                button_sf = pg.Surface((button.width, button.height))
+                button_sf.set_alpha(button.alpha)
+                screen.blit(button_sf, (button.position))
             if not button.texture == None:
                 screen.blit(button.texture, (button.position))
             elif button.texture == None:
@@ -95,7 +99,9 @@ while True:
         for button in active_table.l_buttons:
             # Vykreslování link tlačítek
             if button.draw:
-                pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                button_sf = pg.Surface((button.width, button.height))
+                button_sf.set_alpha(button.alpha)
+                screen.blit(button_sf, (button.position))
             if button.texture == None:
                 pass
             else:
@@ -111,7 +117,9 @@ while True:
             for button in active_table.t_buttons:
                 # Vykreslení table tlačítek
                 if button.draw:
-                    pg.draw.rect(screen, button.colour, (button.position, (button.width, button.height)), 3)
+                    button_sf = pg.Surface((button.width, button.height))
+                    button_sf.set_alpha(button.alpha)
+                    screen.blit(button_sf, (button.position))
                 if not button.texture == None:
                     screen.blit(button.texture, (button.position))
                 elif button.texture == None:

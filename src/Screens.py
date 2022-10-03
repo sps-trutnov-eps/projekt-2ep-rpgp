@@ -29,19 +29,23 @@ class table():
             self.text = text
 
 class link_button():
-    def __init__(self, position, width, height, link, draw, text, texture):
+    def __init__(self, position, colour, width, height, link, draw, text, texture, scale):
         self.position = position
         self.width = width
         self.height = height
         self.link = link
         self.draw = draw
-        self.colour = (150,150,150)
+        self.colour = colour
+        self.alpha = 180
         if not text == []:
             self.text = text
         else:
             self.text = True
         if not texture == None:
-            self.texture = pg.transform.scale(texture, (width, height))
+            if scale:
+                self.texture = pg.transform.scale(texture, (width, height))
+            else:
+                self.texture = texture
         else:
             self.texture = None
         
@@ -62,19 +66,23 @@ class link_button():
                 pass
             
 class table_button():
-    def __init__(self, position, width, height, link, draw, text, texture):
+    def __init__(self, position, colour, width, height, link, draw, text, texture, scale):
         self.position = position
         self.width = width
         self.height = height
         self.link = link
-        self.colour = (200,200,200)
+        self.colour = colour
+        self.alpha = 180
         self.draw = draw
         if not text == []:
             self.text = text
         else:
             self.text = True
         if not texture == None:
-            self.texture = pg.transform.scale(texture, (width, height))
+            if scale:
+                self.texture = pg.transform.scale(texture, (width, height))
+            else:
+                self.texture = texture
         else:
             self.texture = None
         
@@ -96,22 +104,22 @@ class table_button():
                 pass
         
 # Tlačítka pro změnu obrazovky
-exit_lb = link_button((490,760), 215, 85, "Exit", False, [], None)
-new_game_lb = link_button((150,675), 900, 75, "Game menu", True, [], None)
-main_menu_lb = link_button((30,30), 75, 75, "Main menu", True, [], None)
-shop_lb = link_button((950, 600), 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"))
-game_menu_lb = link_button((30,30), 75, 75, "Game menu", True, [], None)
+exit_lb = link_button((490,760), None, 215, 85, "Exit", False, [], None, False)
+new_game_lb = link_button((150,675), (200,200,200), 900, 75, "Game menu", True, [], None, False)
+main_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Main menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
+shop_lb = link_button((950, 600), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
+game_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Game menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
 
 link_buttons = [
 
                 ]
 
 # Tlačítka tabulek
-new_game_tb = table_button((75,485), 445, 85, "New game table", False, [], None)
-settings_tb = table_button((75,625),445,85,"Settings table", False, [], None)
-credits_tb = table_button((680,625),445,85,"Credits table", False, [], None)
+new_game_tb = table_button((75,485), None, 445, 85, "New game table", False, [], None, False)
+settings_tb = table_button((75,625), None, 445,85,"Settings table", False, [], None, False)
+credits_tb = table_button((680,625), None, 445,85,"Credits table", False, [], None, False)
 
-t_close = table_button((1000,125), 75, 75, "Close", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"))
+t_close = table_button((1000,125), (30,30,30), 64, 64, "Close", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False)
 
 table_buttons = [
             new_game_tb,
