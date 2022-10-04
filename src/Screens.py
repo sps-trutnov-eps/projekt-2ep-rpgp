@@ -107,7 +107,7 @@ class table_button():
 exit_lb = link_button((490,760), None, 215, 85, "Exit", False, [], None, False)
 new_game_lb = link_button((150,675), (200,200,200), 900, 75, "Game menu", True, [], None, False)
 main_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Main menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
-shop_lb = link_button((950, 600), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
+shop_lb = link_button((939, 550), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
 game_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Game menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
 
 link_buttons = [
