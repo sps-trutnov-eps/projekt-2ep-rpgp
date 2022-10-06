@@ -68,6 +68,7 @@ while True:
             if button.draw:
                 button_sf = pg.Surface((button.width, button.height))
                 button_sf.set_alpha(button.alpha)
+                button_sf.fill(button.colour)
                 screen.blit(button_sf, (button.position))
             if not button.texture == None:
                 screen.blit(button.texture, (button.position))
@@ -84,6 +85,7 @@ while True:
             if button.draw:
                 button_sf = pg.Surface((button.width, button.height))
                 button_sf.set_alpha(button.alpha)
+                button_sf.fill(button.colour)
                 screen.blit(button_sf, (button.position))
             if not button.texture == None:
                 screen.blit(button.texture, (button.position))
@@ -101,6 +103,7 @@ while True:
             if button.draw:
                 button_sf = pg.Surface((button.width, button.height))
                 button_sf.set_alpha(button.alpha)
+                button_sf.fill(button.colour)
                 screen.blit(button_sf, (button.position))
             if button.texture == None:
                 pass
@@ -119,6 +122,7 @@ while True:
                 if button.draw:
                     button_sf = pg.Surface((button.width, button.height))
                     button_sf.set_alpha(button.alpha)
+                    button_sf.fill(button.colour)
                     screen.blit(button_sf, (button.position))
                 if not button.texture == None:
                     screen.blit(button.texture, (button.position))

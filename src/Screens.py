@@ -119,7 +119,7 @@ new_game_tb = table_button((75,485), None, 445, 85, "New game table", False, [],
 settings_tb = table_button((75,625), None, 445,85,"Settings table", False, [], None, False)
 credits_tb = table_button((680,625), None, 445,85,"Credits table", False, [], None, False)
 
-t_close = table_button((1000,125), (30,30,30), 64, 64, "Close", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False)
+t_close = table_button((1000,125), None, 64, 64, "Close", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False)
 
 table_buttons = [
             new_game_tb,
