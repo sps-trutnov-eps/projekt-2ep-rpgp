@@ -46,10 +46,14 @@ while True:
     
     # Vykreslení obrazovky/tabulky
     screen.blit(active_screen.background,(0,0))
+    for t in active_screen.texts:
+        t.draw(screen)
     if not active_table == "Close":
         table = pg.Surface(active_table.size)
         table.set_alpha(active_table.alpha)
         screen.blit(table, (active_table.position))
+        for t in active_table.texts:
+            t.draw(screen)
     
     # Zrušení multi-klikání
     if not devmode:

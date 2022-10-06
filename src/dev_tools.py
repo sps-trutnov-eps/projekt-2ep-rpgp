@@ -168,5 +168,5 @@ class text_tool():
             pass
     
 bt = button_tool()
-tt = text_tool("freesansbold.ttf")
+tt = text_tool(pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf"))
 pt = texture_preview_tool()

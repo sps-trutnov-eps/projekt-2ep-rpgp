@@ -1,5 +1,6 @@
 import sys
 import pygame as pg
+from text import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -8,16 +9,16 @@ else:
 
 #obrazovky
 class screen():
-    def __init__(self, name, background, l_buttons, t_buttons, text):
+    def __init__(self, name, background, l_buttons, t_buttons, texts):
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
         self.l_buttons = l_buttons
         self.t_buttons = t_buttons
         if not text == []:
-            self.text = text
+            self.texts = texts
 
 class table():
-    def __init__(self, name, l_buttons, t_buttons, text):
+    def __init__(self, name, l_buttons, t_buttons, texts):
         self.name = name
         self.position = [100,100]
         self.size = [1000,700]
@@ -26,7 +27,7 @@ class table():
         self.l_buttons = l_buttons
         self.t_buttons = t_buttons
         if not text == []:
-            self.text = text
+            self.texts = texts
 
 class link_button():
     def __init__(self, position, colour, width, height, link, draw, text, texture, scale):
@@ -141,7 +142,7 @@ screens = [
 
 # Tabulky
 new_game_table = table("New game table", [new_game_lb], [t_close], [])
-settings_table = table("Settings table", [], [t_close], [])
+settings_table = table("Settings table", [], [t_close], texts_settings)
 credits_table = table("Credits table", [], [t_close], [])
 
 tables = [
