@@ -108,7 +108,8 @@ class table_button():
 exit_lb = link_button((490,760), None, 215, 85, "Exit", False, [], None, False)
 new_game_lb = link_button((150,675), (200,200,200), 900, 75, "Game menu", True, [], None, False)
 main_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Main menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
-shop_lb = link_button((939, 550), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
+shop_lb = link_button((940, 550), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
+profile_lb = link_button((95,550), None, 100, 100, "Profile", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"),True)
 game_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Game menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
 
 link_buttons = [
@@ -131,13 +132,15 @@ table_buttons = [
 
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [])
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb], [], [])
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb, profile_lb], [], [])
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb], [], [])
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [game_menu_lb], [], [])
 
 screens = [
             main_menu,
             game_menu,
-            shop
+            shop,
+            profile
             ]
 
 # Tabulky
