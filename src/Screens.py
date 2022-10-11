@@ -139,6 +139,7 @@ class blit_object():
     
 # Objekty na vykreslení
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
+armour_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 item_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 
 # Tlačítka pro změnu obrazovky
@@ -180,7 +181,7 @@ profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/pr
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], [weapon_tree])
-armor_board = screen("Armor_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], None)
+armor_board = screen("Armor_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], [armour_tree])
 item_board = screen("Item_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], [item_tree])
 
 screens = [
