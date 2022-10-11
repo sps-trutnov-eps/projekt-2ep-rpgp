@@ -104,6 +104,16 @@ class table_button():
             else:
                 pass
         
+class blit_object():
+    def __init__(self, position, texture, surface, screen):
+        self.texture = texture
+        self.position = position
+        self.surface = surface
+        self.screen = screen
+        
+    def draw(self):
+        self.surface.blit()
+        
 # Tlačítka pro změnu obrazovky
 exit_lb = link_button((490,760), None, 215, 85, "Exit", False, [], None, False)
 new_game_lb = link_button((150,675), (200,200,200), 900, 75, "Game menu", True, [], None, False)
@@ -111,6 +121,11 @@ main_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Main menu", True, [], p
 shop_lb = link_button((940, 550), None, 100, 100, "Shop", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True)
 profile_lb = link_button((95,550), None, 100, 100, "Profile", False, [], pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"),True)
 game_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Game menu", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
+
+shop_back_lb = link_button((30,30), (30,30,30), 64, 64, "Shop", True, [], pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False)
+weapon_board_lb = link_button((731,245), (255,0,0), 221, 267, "Weapon_Board", False, [], None, False)
+armor_board_lb = link_button((239,240), (255,0,0), 232, 126, "Armor_Board", False, [], None, False)
+item_board_lb = link_button((248,395), (255,0,0), 224, 105, "Item_Board", False, [], None, False)
 
 link_buttons = [
 
@@ -133,13 +148,21 @@ table_buttons = [
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [])
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb, profile_lb], [], [])
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb], [], [])
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb, weapon_board_lb, armor_board_lb, item_board_lb], [], [])
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [game_menu_lb], [], [])
+
+# Podobrazovky obchodu
+weapon_board = screen("Weapon_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
+armor_board = screen("Armor_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
+item_board = screen("Item_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
 
 screens = [
             main_menu,
             game_menu,
             shop,
+            weapon_board,
+            armor_board,
+            item_board,
             profile
             ]
 
