@@ -22,13 +22,21 @@ class text():
         text_rect.topleft = self.position
         active_screen.blit(text, text_rect)
         
-heading_size = 66
+heading0_size  = 80
+heading1_size = 66
 regular_size = 30
 
+def_link = DATA_ROOT + "/data/fonts/VeniceClassic.ttf"
+def_colour = (200,200,200)
+
+# Texty v tabulce nové hry
+tn1 = text("Choose your role:", (342,330), pg.font.Font(def_link, heading0_size), def_colour) 
+texts_new_game = [tn1]
+
 # Texty v tabulce nastavení
-ts1 = text("Settings", (499,130), pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", heading_size), (200,200,200))
+ts1 = text("Settings", (499,130), pg.font.Font(def_link, heading1_size), def_colour)
 texts_settings = [ts1]
 
 # Texty v tabulce credits
-tc1 = text("Credits", (512, 130), pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", heading_size), (200,200,200))
+tc1 = text("Credits", (512, 130), pg.font.Font(def_link, heading1_size), def_colour)
 texts_credits = [tc1]

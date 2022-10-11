@@ -29,6 +29,7 @@ tt_acc = True
 pt_acc = True
 
 while True:
+    print(player.role)
     # Získání infa o akcích
     events = pg.event.get()
     pressed = pg.key.get_pressed()
@@ -68,12 +69,18 @@ while True:
             click_acc = True
         
     
+    
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
     if active_table == "Close" and not active_screen == "Exit":
+        for button in active_screen.f_buttons:
+            # Vykreslení funkcionálních tlačítek
+            button.blit_self(screen)
+            # Kontrola funkcionálních tlačítek
+            button.check()
+            
         for button in active_screen.t_buttons:
             # Vykreslení table tlačítek
             button.blit_self(screen)
-                
             # Kontrola table tlačítek
             result = button.check(m_pressed)
             if not result == None:
@@ -82,17 +89,21 @@ while True:
         for button in active_screen.l_buttons:
             # Vykreslování link tlačítek
             button.blit_self(screen)
-                
             # Kontrola link talčítek
             result = button.check(m_pressed)
             if not result == None:
                 active_screen = result
                 
     elif not active_table == "Close" and not active_screen == "Exit":
+        for button in active_table.f_buttons:
+            # Vykreslení funkcionálních tlačítek
+            button.blit_self(screen)
+            # Kontrola funkcionálních tlačítek
+            button.check(m_pressed)
+                
         for button in active_table.l_buttons:
             # Vykreslování link tlačítek
             button.blit_self(screen)
-                
             # Kontrola link talčítek
             result = button.check(m_pressed)
             if not result == None:
@@ -103,11 +114,12 @@ while True:
             for button in active_table.t_buttons:
                 # Vykreslení table tlačítek
                 button.blit_self(screen)
-                    
                 # Kontrola table tlačítek
                 result = button.check(m_pressed)
                 if not result == None:
                     active_table = result
+    
+    
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
@@ -165,7 +177,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Credits", pressed, screen)
+        tt.show("Choose your role:", pressed, screen)
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
