@@ -46,14 +46,17 @@ while True:
     
     # Vykreslení obrazovky/tabulky
     screen.blit(active_screen.background,(0,0))
+    if not active_screen.objects == None:
+        for object in active_screen.objects:
+            object.blit_self(screen)
     for t in active_screen.texts:
-        t.draw(screen)
+        t.blit_self(screen)
     if not active_table == "Close":
         table = pg.Surface(active_table.size)
         table.set_alpha(active_table.alpha)
         screen.blit(table, (active_table.position))
         for t in active_table.texts:
-            t.draw(screen)
+            t.blit_self(screen)
     
     # Zrušení multi-klikání
     if not devmode:
@@ -69,15 +72,7 @@ while True:
     if active_table == "Close" and not active_screen == "Exit":
         for button in active_screen.t_buttons:
             # Vykreslení table tlačítek
-            if button.draw:
-                button_sf = pg.Surface((button.width, button.height))
-                button_sf.set_alpha(button.alpha)
-                button_sf.fill(button.colour)
-                screen.blit(button_sf, (button.position))
-            if not button.texture == None:
-                screen.blit(button.texture, (button.position))
-            elif button.texture == None:
-                pass
+            button.blit_self(screen)
                 
             # Kontrola table tlačítek
             result = button.check(m_pressed)
@@ -86,15 +81,7 @@ while True:
                 
         for button in active_screen.l_buttons:
             # Vykreslování link tlačítek
-            if button.draw:
-                button_sf = pg.Surface((button.width, button.height))
-                button_sf.set_alpha(button.alpha)
-                button_sf.fill(button.colour)
-                screen.blit(button_sf, (button.position))
-            if not button.texture == None:
-                screen.blit(button.texture, (button.position))
-            elif button.texture == None:
-                pass
+            button.blit_self(screen)
                 
             # Kontrola link talčítek
             result = button.check(m_pressed)
@@ -104,15 +91,7 @@ while True:
     elif not active_table == "Close" and not active_screen == "Exit":
         for button in active_table.l_buttons:
             # Vykreslování link tlačítek
-            if button.draw:
-                button_sf = pg.Surface((button.width, button.height))
-                button_sf.set_alpha(button.alpha)
-                button_sf.fill(button.colour)
-                screen.blit(button_sf, (button.position))
-            if button.texture == None:
-                pass
-            else:
-                screen.blit(button.texture, (button.position))
+            button.blit_self(screen)
                 
             # Kontrola link talčítek
             result = button.check(m_pressed)
@@ -123,15 +102,7 @@ while True:
         if not active_table == "Close":
             for button in active_table.t_buttons:
                 # Vykreslení table tlačítek
-                if button.draw:
-                    button_sf = pg.Surface((button.width, button.height))
-                    button_sf.set_alpha(button.alpha)
-                    button_sf.fill(button.colour)
-                    screen.blit(button_sf, (button.position))
-                if not button.texture == None:
-                    screen.blit(button.texture, (button.position))
-                elif button.texture == None:
-                    pass
+                button.blit_self(screen)
                     
                 # Kontrola table tlačítek
                 result = button.check(m_pressed)
@@ -194,7 +165,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Generický text", pressed, screen)
+        tt.show("Credits", pressed, screen)
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:

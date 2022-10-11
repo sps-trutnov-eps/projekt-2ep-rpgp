@@ -16,13 +16,19 @@ class text():
         self.colour = colour
         self.size = self.font.size(self.text)
         
-    def draw(self, active_screen):
+    def blit_self(self, active_screen):
         text = self.font.render(self.text, True, self.colour)
         text_rect = text.get_rect()
         text_rect.topleft = self.position
         active_screen.blit(text, text_rect)
         
+heading_size = 66
+regular_size = 30
+
 # Texty v tabulce nastavení
-settings_size = 26
-ts1 = text("Something", (150,150), pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", settings_size), (200,120,100))
+ts1 = text("Settings", (499,130), pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", heading_size), (200,200,200))
 texts_settings = [ts1]
+
+# Texty v tabulce credits
+tc1 = text("Credits", (512, 130), pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", heading_size), (200,200,200))
+texts_credits = [tc1]

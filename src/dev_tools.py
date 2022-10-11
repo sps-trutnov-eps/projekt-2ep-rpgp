@@ -109,7 +109,7 @@ class text_tool():
         self.center = 0
         self.center_acc = False
         self.text = None
-        self.size = 10
+        self.size = 30
         self.font = font
         self.list_acc = True
         self.change_acc = True

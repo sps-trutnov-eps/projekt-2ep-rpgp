@@ -9,13 +9,14 @@ else:
 
 #obrazovky
 class screen():
-    def __init__(self, name, background, l_buttons, t_buttons, texts):
+    def __init__(self, name, background, l_buttons, t_buttons, texts, objects):
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
         self.l_buttons = l_buttons
         self.t_buttons = t_buttons
         if not text == []:
             self.texts = texts
+        self.objects = objects
 
 class table():
     def __init__(self, name, l_buttons, t_buttons, texts):
@@ -65,6 +66,17 @@ class link_button():
                 return screen
             else:
                 pass
+    
+    def blit_self(self, screen):
+        if self.draw:
+            button_sf = pg.Surface((self.width, self.height))
+            button_sf.set_alpha(self.alpha)
+            button_sf.fill(self.colour)
+            screen.blit(button_sf, (self.position))
+        if self.texture == None:
+            pass
+        else:
+            screen.blit(self.texture, (self.position))
             
 class table_button():
     def __init__(self, position, colour, width, height, link, draw, text, texture, scale):
@@ -103,17 +115,32 @@ class table_button():
                 return table
             else:
                 pass
+            
+    def blit_self(self, screen):
+        if self.draw:
+            button_sf = pg.Surface((self.width, self.height))
+            button_sf.set_alpha(self.alpha)
+            button_sf.fill(self.colour)
+            screen.blit(button_sf, (self.position))
+        if self.texture == None:
+            pass
+        else:
+            screen.blit(self.texture, (self.position))
         
 class blit_object():
-    def __init__(self, position, texture, surface, screen):
+    def __init__(self, position, texture, scale, width, height):
         self.texture = texture
         self.position = position
-        self.surface = surface
-        self.screen = screen
+        if scale:
+            self.texture = pg.transform.scale(texture, (width, height))
         
-    def draw(self):
-        self.surface.blit()
-        
+    def blit_self(self, screen):
+        screen.blit(self.texture, self.position)
+    
+# Objekty na vykreslení
+weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
+item_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
+
 # Tlačítka pro změnu obrazovky
 exit_lb = link_button((490,760), None, 215, 85, "Exit", False, [], None, False)
 new_game_lb = link_button((150,675), (200,200,200), 900, 75, "Game menu", True, [], None, False)
@@ -146,15 +173,15 @@ table_buttons = [
                 ]
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [])
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb, profile_lb], [], [])
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb, weapon_board_lb, armor_board_lb, item_board_lb], [], [])
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [game_menu_lb], [], [])
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [], None)
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb, profile_lb], [], [], None)
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb, weapon_board_lb, armor_board_lb, item_board_lb], [], [], None)
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [game_menu_lb], [], [], None)
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
-armor_board = screen("Armor_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
-item_board = screen("Item_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [])
+weapon_board = screen("Weapon_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], [weapon_tree])
+armor_board = screen("Armor_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], None)
+item_board = screen("Item_Board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), [shop_back_lb], [], [], [item_tree])
 
 screens = [
             main_menu,
@@ -169,7 +196,7 @@ screens = [
 # Tabulky
 new_game_table = table("New game table", [new_game_lb], [t_close], [])
 settings_table = table("Settings table", [], [t_close], texts_settings)
-credits_table = table("Credits table", [], [t_close], [])
+credits_table = table("Credits table", [], [t_close], texts_credits)
 
 tables = [
             new_game_table,
