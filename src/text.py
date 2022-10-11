@@ -30,7 +30,7 @@ def_link = DATA_ROOT + "/data/fonts/VeniceClassic.ttf"
 def_colour = (200,200,200)
 
 # Texty v tabulce nové hry
-tn1 = text("Choose your role:", (342,330), pg.font.Font(def_link, heading0_size), def_colour) 
+tn1 = text("Choose your role:", (342,130), pg.font.Font(def_link, heading0_size), def_colour) 
 texts_new_game = [tn1]
 
 # Texty v tabulce nastavení

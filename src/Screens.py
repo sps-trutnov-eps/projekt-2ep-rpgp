@@ -216,9 +216,9 @@ credits_tb = table_button((680,625), None, 445,85,"Credits table", False, None, 
 t_close = table_button((1000,125), None, 64, 64, "Close", False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Funkcionální tlačítka
-warrior_class_fb = function_button((200, 500), None, 200, 200, [("change_role", player, "warrior")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
-ranger_class_fb = function_button((500, 500), None, 200, 200, [("change_role", player, "ranger")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
-mage_class_fb = function_button((800, 500), None, 200, 200, [("change_role", player, "mage")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
+warrior_class_fb = function_button((230, 400), None, 180, 220, [("change_role", player, "warrior")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
+ranger_class_fb = function_button((510, 400), None, 180, 220, [("change_role", player, "ranger")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
+mage_class_fb = function_button((790, 400), None, 180, 220, [("change_role", player, "mage")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [], [], None)

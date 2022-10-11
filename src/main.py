@@ -29,7 +29,6 @@ tt_acc = True
 pt_acc = True
 
 while True:
-    print(player.role)
     # Získání infa o akcích
     events = pg.event.get()
     pressed = pg.key.get_pressed()
