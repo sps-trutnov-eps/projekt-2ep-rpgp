@@ -8,7 +8,15 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 else:
     DATA_ROOT = '..'
 
-#obrazovky
+class on_screen():
+    def __init__(self):
+        self.active_screen = None
+        self.active_table = "Close"
+
+
+on_screen = on_screen()
+
+
 class screen():
     def __init__(self, name, background, l_buttons, t_buttons, f_buttons, texts, objects):
         self.name = name
@@ -130,7 +138,7 @@ class table_button():
         else:
             screen.blit(self.texture, (self.position))
             
-class function_button():
+class button():
     def __init__(self, position, colour, width, height, tasks, draw, texture, scale, condition):
         self.position = position
         self.width = width
@@ -171,9 +179,30 @@ class function_button():
     def work(self):
         for task in self.tasks:
             if task[0] == "change_role":
-                self.change_role(task[1], task[2])
+                self.change_role(task[1], player)
+            if task[0] == "change_screen":
+                self.change_screen(task[1], task[2], on_screen)
+            if task[1] == "change_tables":
+                self.change_tables(task[1], task[2], on_screen)
         
-    def change_role(self, player, role):
+    def change_screen(self, screens, new_screen, on_screen):
+        if new_screen == "Exit":
+            on_screen.active_screen = "Exit"
+        else:
+            for screen in screens:
+                if screen.name == new_screen:
+                    on_screen.active_screen = screen
+                    on_screen.active_table = "Close"
+                
+    def change_tables(self, tables, new_table, on_screen):
+        if new_table == "Close":
+            on_screen.table = "Close"
+        else:
+            for table in tables:
+                if table.name == new_table:
+                    on_screen.active_table = table
+        
+    def change_role(self, role, player):
         player.role = role
         
 class blit_object():
@@ -192,11 +221,11 @@ armour_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/scree
 item_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 
 # Tlačítka pro změnu obrazovky
-exit_lb = link_button((490,760), None, 215, 85, "Exit", False, None, False, None)
+exit_b = button((490,760), None, 215, 85, [["change_screen", [], "Exit"]], False, None, False, None)
 
-warrior_class_lb = link_button((200, 500), None, 200, 200,"Game menu", False, None, False, None)
-ranger_class_lb = link_button((500,500), None, 200, 200,"Game menu", False, None, False, None)
-mage_class_lb = link_button((800, 500), None, 200, 200,"Game menu", False, None, False, None)
+warrior_class = button((230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", [], "Game menu"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
+ranger_class = button((510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", [], "Game menu"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
+mage_class = button((790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", [], "Game menu"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
 main_menu_lb = link_button((30,30), (30,30,30), 64, 64, "Main menu", True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 shop_lb = link_button((940, 550), None, 100, 100, "Shop", False, pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
@@ -215,13 +244,17 @@ credits_tb = table_button((680,625), None, 445,85,"Credits table", False, None, 
 
 t_close = table_button((1000,125), None, 64, 64, "Close", False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
-# Funkcionální tlačítka
-warrior_class_fb = function_button((230, 400), None, 180, 220, [("change_role", player, "warrior")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
-ranger_class_fb = function_button((510, 400), None, 180, 220, [("change_role", player, "ranger")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
-mage_class_fb = function_button((790, 400), None, 180, 220, [("change_role", player, "mage")], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
+
+buttons = [
+            exit_b,
+            warrior_class,
+            ranger_class,
+            mage_class,
+            ]
+
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [exit_lb], [new_game_tb, settings_tb, credits_tb], [], [], None)
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [], [new_game_tb, settings_tb, credits_tb], [exit_b], [], None)
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [main_menu_lb, shop_lb, profile_lb], [], [], [], None)
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [game_menu_lb, weapon_board_lb, armor_board_lb, item_board_lb], [], [], [], None)
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [game_menu_lb], [], [], [], None)
@@ -242,7 +275,7 @@ screens = [
             ]
 
 # Tabulky
-new_game_table = table("New game table", [warrior_class_lb, ranger_class_lb, mage_class_lb], [t_close], [warrior_class_fb, ranger_class_fb, mage_class_fb], texts_new_game)
+new_game_table = table("New game table", [], [t_close], [warrior_class, ranger_class, mage_class], texts_new_game)
 settings_table = table("Settings table", [], [t_close], [], texts_settings)
 credits_table = table("Credits table", [], [t_close], [], texts_credits)
 
@@ -251,3 +284,12 @@ tables = [
             settings_table,
             credits_table
             ]
+
+# Speciální vyjímky pro přepínací čudlíky
+for button in buttons:
+    for task in button.tasks:
+        if task[0] == "change_screen":
+            task[1] = screens
+        if task[0] == "change_tables":
+            task[1] = tables
+from main import active_screen, active_table

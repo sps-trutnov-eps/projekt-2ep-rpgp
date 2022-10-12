@@ -17,8 +17,8 @@ clock = pg.time.Clock()
 screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
-active_screen = main_menu
-active_table = "Close"
+on_screen.active_screen = main_menu
+on_screen.active_table = "Close"
 
 dev_shortcut = None
 devmode = False
@@ -40,22 +40,22 @@ while True:
             pg.quit()
             sys.exit()
     
-    if active_screen == "Exit":
+    if on_screen.active_screen == "Exit":
         pg.quit()
         sys.exit()
     
     # Vykreslení obrazovky/tabulky
-    screen.blit(active_screen.background,(0,0))
-    if not active_screen.objects == None:
-        for object in active_screen.objects:
+    screen.blit(on_screen.active_screen.background,(0,0))
+    if not on_screen.active_screen.objects == None:
+        for object in on_screen.active_screen.objects:
             object.blit_self(screen)
-    for t in active_screen.texts:
+    for t in on_screen.active_screen.texts:
         t.blit_self(screen)
-    if not active_table == "Close":
-        table = pg.Surface(active_table.size)
-        table.set_alpha(active_table.alpha)
-        screen.blit(table, (active_table.position))
-        for t in active_table.texts:
+    if not on_screen.active_table == "Close":
+        table = pg.Surface(on_screen.active_table.size)
+        table.set_alpha(on_screen.active_table.alpha)
+        screen.blit(table, (on_screen.active_table.position))
+        for t in on_screen.active_table.texts:
             t.blit_self(screen)
     
     # Zrušení multi-klikání
@@ -70,54 +70,55 @@ while True:
     
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    if active_table == "Close" and not active_screen == "Exit":
-        for button in active_screen.f_buttons:
-            # Vykreslení funkcionálních tlačítek
-            button.blit_self(screen)
-            # Kontrola funkcionálních tlačítek
-            button.check()
-            
-        for button in active_screen.t_buttons:
-            # Vykreslení table tlačítek
-            button.blit_self(screen)
-            # Kontrola table tlačítek
-            result = button.check(m_pressed)
-            if not result == None:
-                active_table = result
-                
-        for button in active_screen.l_buttons:
-            # Vykreslování link tlačítek
-            button.blit_self(screen)
-            # Kontrola link talčítek
-            result = button.check(m_pressed)
-            if not result == None:
-                active_screen = result
-                
-    elif not active_table == "Close" and not active_screen == "Exit":
-        for button in active_table.f_buttons:
+    if on_screen.active_table == "Close" and not on_screen.active_screen == "Exit":
+        for button in on_screen.active_screen.f_buttons:
             # Vykreslení funkcionálních tlačítek
             button.blit_self(screen)
             # Kontrola funkcionálních tlačítek
             button.check(m_pressed)
-                
-        for button in active_table.l_buttons:
-            # Vykreslování link tlačítek
-            button.blit_self(screen)
-            # Kontrola link talčítek
-            result = button.check(m_pressed)
-            if not result == None:
-                active_screen = result
-                active_table = "Close"
-                
-        if not active_table == "Close":
-            for button in active_table.t_buttons:
+        
+        if not on_screen.active_screen == "Exit":
+            for button in on_screen.active_screen.t_buttons:
                 # Vykreslení table tlačítek
                 button.blit_self(screen)
                 # Kontrola table tlačítek
                 result = button.check(m_pressed)
                 if not result == None:
-                    active_table = result
-    
+                    on_screen.active_table = result
+                    
+            for button in on_screen.active_screen.l_buttons:
+                # Vykreslování link tlačítek
+                button.blit_self(screen)
+                # Kontrola link talčítek
+                result = button.check(m_pressed)
+                if not result == None:
+                    on_screen.active_screen = result
+                
+    elif not on_screen.active_table == "Close" and not on_screen.active_screen == "Exit":
+        for button in on_screen.active_table.f_buttons:
+            # Vykreslení funkcionálních tlačítek
+            button.blit_self(screen)
+            # Kontrola funkcionálních tlačítek
+            button.check(m_pressed)
+                
+        if not on_screen.active_table == "Close":
+            for button in on_screen.active_table.l_buttons:
+                # Vykreslování link tlačítek
+                button.blit_self(screen)
+                # Kontrola link talčítek
+                result = button.check(m_pressed)
+                if not result == None:
+                    active_screen = result
+                    on_screen.active_table = "Close"
+            
+            if not on_screen.active_table == "Close":
+                for button in on_screen.active_table.t_buttons:
+                    # Vykreslení table tlačítek
+                    button.blit_self(screen)
+                    # Kontrola table tlačítek
+                    result = button.check(m_pressed)
+                    if not result == None:
+                        on_screen.active_table = result
     
     
     ### DEVELOPER MODE ###
