@@ -3,6 +3,7 @@ import sys
 import pygame as pg
 from Screens import *
 from dev_tools import *
+from items import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -27,6 +28,8 @@ click_acc = True
 bt_acc = True
 tt_acc = True
 pt_acc = True
+
+item = item("Stick", "Nothing but a very\ngeneric stick.", pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), screen)
 
 while True:
     # Získání infa o akcích
@@ -148,6 +151,8 @@ while True:
             pass
         else:
             tt_acc = True
+    
+    item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf")
     
     pg.display.update()
     clock.tick(144)
