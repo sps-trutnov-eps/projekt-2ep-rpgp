@@ -29,8 +29,6 @@ bt_acc = True
 tt_acc = True
 pt_acc = True
 
-item = item("Stick", "Nothing but a very\ngeneric stick.", pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), screen)
-
 while True:
     # Získání infa o akcích
     events = pg.event.get()
@@ -152,7 +150,9 @@ while True:
         else:
             tt_acc = True
     
-    item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf")
+    if not on_screen.active_screen == "Exit":
+        item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on_screen)
     
     pg.display.update()
     clock.tick(144)
+    
