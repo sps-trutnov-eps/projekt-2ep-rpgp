@@ -14,7 +14,7 @@ class on_screen():
         self.active_table = "Close"
 
 
-on_screen = on_screen()
+on__screen = on_screen()
 
 
 class screen():

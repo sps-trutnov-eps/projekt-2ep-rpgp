@@ -18,8 +18,8 @@ clock = pg.time.Clock()
 screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
 
-on_screen.active_screen = main_menu
-on_screen.active_table = "Close"
+on__screen.active_screen = main_menu
+on__screen.active_table = "Close"
 
 dev_shortcut = None
 devmode = False
@@ -41,22 +41,22 @@ while True:
             pg.quit()
             sys.exit()
     
-    if on_screen.active_screen == "Exit":
+    if on__screen.active_screen == "Exit":
         pg.quit()
         sys.exit()
     
     # Vykreslení obrazovky/tabulky
-    screen.blit(on_screen.active_screen.background,(0,0))
-    if not on_screen.active_screen.objects == None:
-        for object in on_screen.active_screen.objects:
+    screen.blit(on__screen.active_screen.background,(0,0))
+    if not on__screen.active_screen.objects == None:
+        for object in on__screen.active_screen.objects:
             object.blit_self(screen)
-    for t in on_screen.active_screen.texts:
+    for t in on__screen.active_screen.texts:
         t.blit_self(screen)
-    if not on_screen.active_table == "Close":
-        table = pg.Surface(on_screen.active_table.size)
-        table.set_alpha(on_screen.active_table.alpha)
-        screen.blit(table, (on_screen.active_table.position))
-        for t in on_screen.active_table.texts:
+    if not on__screen.active_table == "Close":
+        table = pg.Surface(on__screen.active_table.size)
+        table.set_alpha(on__screen.active_table.alpha)
+        screen.blit(table, (on__screen.active_table.position))
+        for t in on__screen.active_table.texts:
             t.blit_self(screen)
     
     # Zrušení multi-klikání
@@ -71,13 +71,13 @@ while True:
     
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    if on_screen.active_table == "Close" and not on_screen.active_screen == "Exit":
-        for button in on_screen.active_screen.buttons:
+    if on__screen.active_table == "Close" and not on__screen.active_screen == "Exit":
+        for button in on__screen.active_screen.buttons:
             button.blit_self(screen)
             button.check(m_pressed)
                 
-    elif not on_screen.active_table == "Close" and not on_screen.active_screen == "Exit":
-        for button in on_screen.active_table.buttons:
+    elif not on__screen.active_table == "Close" and not on__screen.active_screen == "Exit":
+        for button in on__screen.active_table.buttons:
             button.blit_self(screen)
             button.check(m_pressed)
     
@@ -150,8 +150,10 @@ while True:
         else:
             tt_acc = True
     
-    if not on_screen.active_screen == "Exit":
-        item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on_screen)
+    if not on__screen.active_screen == "Exit":
+        print(type(on__screen))
+        print(on__screen)
+        item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
     
     pg.display.update()
     clock.tick(144)

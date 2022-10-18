@@ -5,7 +5,7 @@ contin = False
 
 class player():
     def __init__(self):
-        self.role = None
+        self.role = "warrior"
         
 player = player()
         
