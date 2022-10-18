@@ -1,7 +1,11 @@
 import pygame as pg
 import sys
-from Screens import *
 from data import *
+
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    DATA_ROOT = '.'
+else:
+    DATA_ROOT = '..'
 
 pg.init()
 pg.font.init()
@@ -52,13 +56,13 @@ class item():
         self.description = description
         self.texture = texture
         self.position = position
-        self.screen = screen
         self.name_size = 100
         self.desc_size = 50
         self.belonging = belonging
+        self.shown = False
         
     def draw(self, font, screen, on_screen):
-        if self.belonging == on_screen.active_screen.name:
+        if self.belonging == on_screen.active_screen.name and self.shown:
             texture_scaled = pg.transform.scale(self.texture, (192, 192))
             
             self.name_font = pg.font.Font(font, self.name_size)
@@ -86,9 +90,19 @@ class item():
             screen.blit(name_text, name_text_rect)
         
 starter_weapon = item("Stick", "Nothing but a very\ngeneric stick.", pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+starter_weapon.shown = True
 weapon_1_type_1 = item(weapon_name_1_type_1, weapon_desc_1_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_2_type_1 = item(weapon_name_2_type_1, weapon_desc_2_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_3_type_1 = item(weapon_name_3_type_1, weapon_desc_3_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_4_type_1 = item(weapon_name_4_type_1, weapon_desc_4_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    
+weapons = [
+            starter_weapon,
+            weapon_1_type_1,
+            weapon_2_type_1,
+            weapon_3_type_1,
+            weapon_4_type_1,
+            weapon_5_type_1
+            ]
     

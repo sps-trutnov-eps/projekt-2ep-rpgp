@@ -2,6 +2,7 @@ import sys
 import pygame as pg
 from text import *
 from data import *
+from items import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -89,9 +90,11 @@ class button():
             if task[0] == "change_role":
                 self.change_role(task[1], player)
             if task[0] == "change_screen":
-                self.change_screen(task[1], task[2], on_screen)
+                self.change_screen(task[1], task[2], on__screen)
             if task[0] == "change_table":
-                self.change_table(task[1], task[2], on_screen)
+                self.change_table(task[1], task[2], on__screen)
+            if task[0] == "change_item":
+                self.change_item(task[1], task[2])
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -109,6 +112,11 @@ class button():
             for table in tables:
                 if table.name == new_table:
                     on_screen.active_table = table
+                    
+    def change_item(self, new_item, items):
+        for item in items:
+            item.shown = False
+        new_item.shown = True
         
     def change_role(self, role, player):
         player.role = role
@@ -152,6 +160,14 @@ credits_b = button(["Main menu"], (680,625), None, 445,85, [["change_table", [],
 
 close_b = button(["New game table", "Settings table", "Credits table"], (1000,125), None, 64, 64, [["change_table", [], "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
+# Tlačítka v obchodu
+sw = button(["Weapon board"], (840,70), None, 105,105, [["change_item", starter_weapon, weapons]], False, starter_weapon.texture, True, None)
+w1t1 = button(["Weapon board"], (685,200), None, 105,105, [["change_item", weapon_1_type_1, weapons]], False, weapon_1_type_1.texture, True, None)
+w2t1 = button(["Weapon board"], (685,330), None, 105,105, [["change_item", weapon_2_type_1, weapons]], False, weapon_2_type_1.texture, True, None)
+w3t1 = button(["Weapon board"], (685,460), None, 105,105, [["change_item", weapon_3_type_1, weapons]], False, weapon_3_type_1.texture, True, None)
+w4t1 = button(["Weapon board"], (685,590), None, 105,105, [["change_item", weapon_4_type_1, weapons]], False, weapon_4_type_1.texture, True, None)
+w5t1 = button(["Weapon board"], (685,720), None, 105,105, [["change_item", weapon_5_type_1, weapons]], False, weapon_5_type_1.texture, True, None)
+
 
 buttons = [
             exit_b,
@@ -170,8 +186,13 @@ buttons = [
             warrior_class_b,
             ranger_class_b,
             mage_class_b,
+            sw,
+            w1t1,
+            w2t1,
+            w3t1,
+            w4t1,
+            w5t1
             ]
-
 
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), buttons, [], None)
@@ -212,3 +233,4 @@ for button in buttons:
             task[1] = screens
         if task[0] == "change_table":
             task[1] = tables
+        

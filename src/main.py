@@ -59,6 +59,10 @@ while True:
         for t in on__screen.active_table.texts:
             t.blit_self(screen)
     
+    # Vykreslování itemů v obchodě
+    for weapon in weapons:
+        weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    
     # Zrušení multi-klikání
     if not devmode:
         if click_acc and m_pressed[0]:
@@ -102,7 +106,7 @@ while True:
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
         # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/swords/4.png")
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/stick.png")
         # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         
@@ -149,11 +153,6 @@ while True:
             pass
         else:
             tt_acc = True
-    
-    if not on__screen.active_screen == "Exit":
-        print(type(on__screen))
-        print(on__screen)
-        item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
     
     pg.display.update()
     clock.tick(144)
