@@ -109,6 +109,11 @@ weapons = [
             weapon_2_type_1,
             weapon_3_type_1,
             weapon_4_type_1,
-            weapon_5_type_1
+            weapon_5_type_1,
+            weapon_1_type_2,
+            weapon_2_type_2,
+            weapon_3_type_2,
+            weapon_4_type_2,
+            weapon_5_type_2
             ]
     
