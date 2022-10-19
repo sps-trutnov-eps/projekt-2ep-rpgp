@@ -106,7 +106,7 @@ while True:
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
         # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/stick.png")
+        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/type_2/5.png")
         # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         

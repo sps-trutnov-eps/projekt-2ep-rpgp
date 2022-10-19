@@ -21,21 +21,21 @@ if player.role == "warrior":
     weapon_desc_1_type_1 = "A slight upgrade to your stick.\nStill not much to look at but\natleast its sword shaped."
     weapon_desc_2_type_1 = "A crooked poorly crafted\ncopper sword."
     weapon_desc_3_type_1 = "A small iron dagger. It doesn't\nhave much range but it won't break."
-    weapon_desc_4_type_1 = "A long, quality fencing sword. Much better\nthan anything you've hanled before."
-    weapon_desc_5_type_1 = "The Legendary sword of the demon\nslayer Ivanovic Yankov. It is imbued with\nthe essence of fire and originality."
+    weapon_desc_4_type_1 = "A long, quality fencing sword.\nMuch better than anything\n you've hanled before."
+    weapon_desc_5_type_1 = "The Legendary sword of the demon\nslayer Ivanovic Yankov. It is imbued\nwith the essence of fire and originality."
     
     
-    weapon_name_1_type_2 = ""
-    weapon_name_2_type_2 = ""
-    weapon_name_3_type_2 = ""
-    weapon_name_4_type_2 = ""
-    weapon_name_5_type_2 = ""
+    weapon_name_1_type_2 = "Primitive Axe"
+    weapon_name_2_type_2 = "Copper Hatchet"
+    weapon_name_3_type_2 = "Lumberjack Axe"
+    weapon_name_4_type_2 = "Steel Waraxe"
+    weapon_name_5_type_2 = "Vorneag's Waraxe"
     
-    weapon_desc_1_type_2 = ""
-    weapon_desc_2_type_2 = ""
-    weapon_desc_3_type_2 = ""
-    weapon_desc_4_type_2 = ""
-    weapon_desc_5_type_2 = ""
+    weapon_desc_1_type_2 = "A sharpened stone\ntied to a branch."
+    weapon_desc_2_type_2 = "A chipped copper hatchet.\nIt has seen better days\nbut it still holds up."
+    weapon_desc_3_type_2 = "An axe of a lumberjack\n by profession."
+    weapon_desc_4_type_2 = "A large, hefty but\nproper waraxe."
+    weapon_desc_5_type_2 = "The Waraxe of the\nlegendary dwarf warrior\nVorneag Grimbow."
     
     
     weapon_name_1_type_3 = ""
@@ -56,8 +56,8 @@ class item():
         self.description = description
         self.texture = texture
         self.position = position
-        self.name_size = 100
-        self.desc_size = 50
+        self.name_size = 75
+        self.desc_size = 35
         self.belonging = belonging
         self.shown = False
         
@@ -96,6 +96,12 @@ weapon_2_type_1 = item(weapon_name_2_type_1, weapon_desc_2_type_1, pg.image.load
 weapon_3_type_1 = item(weapon_name_3_type_1, weapon_desc_3_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_4_type_1 = item(weapon_name_4_type_1, weapon_desc_4_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
 weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+
+weapon_1_type_2 = item(weapon_name_1_type_2, weapon_desc_1_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+weapon_2_type_2 = item(weapon_name_2_type_2, weapon_desc_2_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+weapon_3_type_2 = item(weapon_name_3_type_2, weapon_desc_3_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+weapon_4_type_2 = item(weapon_name_4_type_2, weapon_desc_4_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+weapon_5_type_2 = item(weapon_name_5_type_2, weapon_desc_5_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
     
 weapons = [
             starter_weapon,

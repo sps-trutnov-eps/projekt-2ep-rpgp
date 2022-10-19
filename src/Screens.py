@@ -168,6 +168,12 @@ w3t1 = button(["Weapon board"], (685,460), None, 105,105, [["change_item", weapo
 w4t1 = button(["Weapon board"], (685,590), None, 105,105, [["change_item", weapon_4_type_1, weapons]], False, weapon_4_type_1.texture, True, None)
 w5t1 = button(["Weapon board"], (685,720), None, 105,105, [["change_item", weapon_5_type_1, weapons]], False, weapon_5_type_1.texture, True, None)
 
+w1t2 = button(["Weapon board"], (837,200), None, 105,105, [["change_item", weapon_1_type_2, weapons]], False, weapon_1_type_2.texture, True, None)
+w2t2 = button(["Weapon board"], (837,330), None, 105,105, [["change_item", weapon_2_type_2, weapons]], False, weapon_2_type_2.texture, True, None)
+w3t2 = button(["Weapon board"], (837,460), None, 105,105, [["change_item", weapon_3_type_2, weapons]], False, weapon_3_type_2.texture, True, None)
+w4t2 = button(["Weapon board"], (837,590), None, 105,105, [["change_item", weapon_4_type_2, weapons]], False, weapon_4_type_2.texture, True, None)
+w5t2 = button(["Weapon board"], (837,720), None, 105,105, [["change_item", weapon_5_type_2, weapons]], False, weapon_5_type_2.texture, True, None)
+
 
 buttons = [
             exit_b,
@@ -191,7 +197,12 @@ buttons = [
             w2t1,
             w3t1,
             w4t1,
-            w5t1
+            w5t1,
+            w1t2,
+            w2t2,
+            w3t2,
+            w4t2,
+            w5t2
             ]
 
 # Obrazovky
