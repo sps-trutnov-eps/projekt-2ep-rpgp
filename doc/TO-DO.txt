@@ -1,0 +1,7 @@
+Nesplněno:
+* Kulaté, průhledné, šedé pozadí pro ikony na game menu.
+* Ikonky obrázků nepřesahující přes kolečka v item shopu.
+* Dokončení třetího typu zbraní pro válečníka.
+* Vytvoření předmětových objektů až po vybrání classy.
+
+Splněno:

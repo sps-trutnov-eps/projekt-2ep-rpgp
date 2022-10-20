@@ -75,17 +75,10 @@ while True:
     
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    if on__screen.active_table == "Close" and not on__screen.active_screen == "Exit":
-        for button in on__screen.active_screen.buttons:
-            button.blit_self(screen)
-            button.check(m_pressed)
-                
-    elif not on__screen.active_table == "Close" and not on__screen.active_screen == "Exit":
-        for button in on__screen.active_table.buttons:
-            button.blit_self(screen)
-            button.check(m_pressed)
-    
-    
+    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
+        for button in Button_class.buttons:
+            button.blit_self(screen, on__screen)
+            button.check(m_pressed, on__screen)
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
