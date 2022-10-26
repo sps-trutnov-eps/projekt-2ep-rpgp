@@ -189,6 +189,17 @@ def shop_b_init(weapons, buttons):
     w5t2 = Button(["Weapon board"], (840,720), None, 105,105, [["change_item", weapons[10], weapons]], False, textures[10], True, None)
     Button_class.buttons.append(w5t2)
     
+    w1t3 = Button(["Weapon board"], (992,200), None, 105,105, [["change_item", weapons[11], weapons]], False, textures[11], True, None)
+    Button_class.buttons.append(w1t3)
+    w2t3 = Button(["Weapon board"], (992,330), None, 105,105, [["change_item", weapons[12], weapons]], False, textures[12], True, None)
+    Button_class.buttons.append(w2t3)
+    w3t3 = Button(["Weapon board"], (992,460), None, 105,105, [["change_item", weapons[13], weapons]], False, textures[13], True, None)
+    Button_class.buttons.append(w3t3)
+    w4t3 = Button(["Weapon board"], (992,590), None, 105,105, [["change_item", weapons[14], weapons]], False, textures[14], True, None)
+    Button_class.buttons.append(w4t3)
+    w5t3 = Button(["Weapon board"], (992,720), None, 105,105, [["change_item", weapons[15], weapons]], False, textures[15], True, None)
+    Button_class.buttons.append(w5t3)
+    
     
 # Objekty na vykreslení
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)

@@ -41,17 +41,17 @@ def init_items(weapons, role):
         weapon_desc_5_type_2 = "The Waraxe of the\nlegendary dwarf warrior\nVorneag Grimbow."
         
         
-        weapon_name_1_type_3 = ""
-        weapon_name_2_type_3 = ""
-        weapon_name_3_type_3 = ""
-        weapon_name_4_type_3 = ""
-        weapon_name_5_type_3 = ""
+        weapon_name_1_type_3 = "Wooden Mallet"
+        weapon_name_2_type_3 = "Steel Hammer"
+        weapon_name_3_type_3 = "Spiked Mace"
+        weapon_name_4_type_3 = "Metal Flail"
+        weapon_name_5_type_3 = "Thor's Mjölnir"
         
-        weapon_desc_1_type_3 = ""
-        weapon_desc_2_type_3 = ""
-        weapon_desc_3_type_3 = ""
-        weapon_desc_4_type_3 = ""
-        weapon_desc_5_type_3 = ""
+        weapon_desc_1_type_3 = "A wooden simple wooden\nmallet made from a stick\nand a piece of wood."
+        weapon_desc_2_type_3 = "A solid hammer made\nof cast steel."
+        weapon_desc_3_type_3 = "A spiked mace on a stick."
+        weapon_desc_4_type_3 = "A spiky metal ball\non a chain."
+        weapon_desc_5_type_3 = "The mythical hammer\nof the norse god\nof thunder, Thor."
 
     starter_weapon = item("Stick", "Nothing but a very\ngeneric stick.", pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
     starter_weapon.shown = True
@@ -67,6 +67,12 @@ def init_items(weapons, role):
     weapon_4_type_2 = item(weapon_name_4_type_2, weapon_desc_4_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
     weapon_5_type_2 = item(weapon_name_5_type_2, weapon_desc_5_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
         
+    weapon_1_type_3 = item(weapon_name_1_type_3, weapon_desc_1_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    weapon_2_type_3 = item(weapon_name_2_type_3, weapon_desc_2_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    weapon_3_type_3 = item(weapon_name_3_type_3, weapon_desc_3_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    weapon_4_type_3 = item(weapon_name_4_type_3, weapon_desc_4_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    weapon_5_type_3 = item(weapon_name_5_type_3, weapon_desc_5_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board")
+    
     weapons = [
             starter_weapon,
             weapon_1_type_1,
@@ -78,7 +84,12 @@ def init_items(weapons, role):
             weapon_2_type_2,
             weapon_3_type_2,
             weapon_4_type_2,
-            weapon_5_type_2
+            weapon_5_type_2,
+            weapon_1_type_3,
+            weapon_2_type_3,
+            weapon_3_type_3,
+            weapon_4_type_3,
+            weapon_5_type_3
             ]
     
     weapon_class.weapons = weapons
