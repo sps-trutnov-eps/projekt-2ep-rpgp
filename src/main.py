@@ -60,8 +60,9 @@ while True:
             t.blit_self(screen)
     
     # Vykreslování itemů v obchodě
-    for weapon in weapons:
-        weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    if not weapon_class.weapons == []:
+        for weapon in weapon_class.weapons:
+            weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
     
     # Zrušení multi-klikání
     if not devmode:
