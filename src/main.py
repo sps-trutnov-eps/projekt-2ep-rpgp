@@ -78,7 +78,11 @@ while True:
     if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
         for button in Button_class.buttons:
             button.blit_self(screen, on__screen)
-            button.check(m_pressed, on__screen)
+            if on__screen.button_activity:
+                button.check(m_pressed, on__screen)
+                
+    if not on__screen.button_activity:
+        on__screen.button_activity = not on__screen.button_activity
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:

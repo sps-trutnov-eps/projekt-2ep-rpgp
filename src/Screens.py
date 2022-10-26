@@ -13,6 +13,7 @@ class on_screen():
     def __init__(self):
         self.active_screen = None
         self.active_table = "Close"
+        self.button_activity = True
 
 
 on__screen = on_screen()
@@ -75,17 +76,31 @@ class Button():
             self.condition = True
             
     def check(self, m_pressed, on__screen):
-        if not on__screen.active_table == "Close":
-            if on__screen.active_table.name in self.belonging:
+        if not on__screen.active_screen == "Exit":
+            if not on__screen.active_table == "Close":
+                if on__screen.active_table.name in self.belonging:
+                    if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
+                        on__screen.button_activity = False
+                        self.work()
+            elif on__screen.active_screen.name in self.belonging:
                 if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
-                    self.work()
-        elif on__screen.active_screen.name in self.belonging:
-            if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
-                self.work()
+                   on__screen.button_activity = False
+                   self.work()
             
     def blit_self(self, screen, on__screen):
-        if not on__screen.active_table == "Close":
-            if on__screen.active_table.name in self.belonging:
+        if not on__screen.active_screen == "Exit":
+            if not on__screen.active_table == "Close":
+                if on__screen.active_table.name in self.belonging:
+                    if self.draw:
+                        button_sf = pg.Surface((self.width, self.height))
+                        button_sf.set_alpha(self.alpha)
+                        button_sf.fill(self.colour)
+                        screen.blit(button_sf, (self.position))
+                    if self.texture == None:
+                        pass
+                    else:
+                        screen.blit(self.texture, (self.position))
+            elif on__screen.active_screen.name in self.belonging:
                 if self.draw:
                     button_sf = pg.Surface((self.width, self.height))
                     button_sf.set_alpha(self.alpha)
@@ -95,16 +110,6 @@ class Button():
                     pass
                 else:
                     screen.blit(self.texture, (self.position))
-        elif on__screen.active_screen.name in self.belonging:
-            if self.draw:
-                button_sf = pg.Surface((self.width, self.height))
-                button_sf.set_alpha(self.alpha)
-                button_sf.fill(self.colour)
-                screen.blit(button_sf, (self.position))
-            if self.texture == None:
-                pass
-            else:
-                screen.blit(self.texture, (self.position))
         
     def work(self):
         for task in self.tasks:
