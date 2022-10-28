@@ -92,9 +92,8 @@ class Button():
             if not on__screen.active_table == "Close":
                 if on__screen.active_table.name in self.belonging:
                     if self.draw:
-                        button_sf = pg.Surface((self.width, self.height))
-                        button_sf.set_alpha(self.alpha)
-                        button_sf.fill(self.colour)
+                        button_sf = pg.Surface((self.width, self.height), pg.SRCALPHA)
+                        pg.draw.circle(button_sf, self.colour, ((self.position[0]),(self.position[1])), width/2)
                         screen.blit(button_sf, (self.position))
                     if self.texture == None:
                         pass
@@ -102,10 +101,11 @@ class Button():
                         screen.blit(self.texture, (self.position))
             elif on__screen.active_screen.name in self.belonging:
                 if self.draw:
-                    button_sf = pg.Surface((self.width, self.height))
-                    button_sf.set_alpha(self.alpha)
-                    button_sf.fill(self.colour)
-                    screen.blit(button_sf, (self.position))
+                    offset = self.width/3
+                    backgr_size = self.width + offset
+                    button_sf = pg.Surface((backgr_size, backgr_size), pg.SRCALPHA)
+                    pg.draw.circle(button_sf, self.colour, ((backgr_size/2),(backgr_size/2)), backgr_size/2)
+                    screen.blit(button_sf, ((self.position[0] - offset/2),(self.position[1] - offset/2)))
                 if self.texture == None:
                     pass
                 else:
@@ -213,12 +213,12 @@ warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["chan
 ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", [], "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
 mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", [], "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
-main_menu_b = Button(["Game menu"], (30,30), (30,30,30), 64, 64, [["change_screen", [], "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-shop_b = Button(["Game menu"], (940, 550), None, 100, 100, [["change_screen", [], "Shop"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
-profile_b = Button(["Game menu"], (95,550), None, 100, 100, [["change_screen", [], "Profile"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"),True, None)
-game_menu_b = Button(["Shop", "Profile"], (30,30), (30,30,30), 64, 64, [["change_screen", [], "Game menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+main_menu_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", [], "Shop"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
+profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", [], "Profile"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"),True, None)
+game_menu_b = Button(["Shop", "Profile"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Game menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 
-shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30), 64, 64, [["change_screen", [], "Shop"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Shop"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
