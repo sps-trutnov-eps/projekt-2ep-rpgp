@@ -14,6 +14,7 @@ class on_screen():
         self.active_screen = None
         self.active_table = "Close"
         self.button_activity = True
+        self.battle = False
 
 
 on__screen = on_screen()
@@ -216,7 +217,8 @@ mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_
 main_menu_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", [], "Shop"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
 profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", [], "Profile"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"),True, None)
-game_menu_b = Button(["Shop", "Profile"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Game menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", [], "Campaign"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
+game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Game menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Shop"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
@@ -238,6 +240,7 @@ buttons = [
             profile_b,
             game_menu_b,
             shop_back_b,
+            campaign_b,
             weapon_board_b,
             armor_board_b,
             item_board_b,
@@ -258,6 +261,7 @@ main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screen
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), Button_class.buttons, [], None)
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), Button_class.buttons, [], None)
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), Button_class.buttons, [], None)
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), Button_class.buttons, [], None)
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [weapon_tree])
@@ -271,7 +275,8 @@ screens = [
             weapon_board,
             armor_board,
             item_board,
-            profile
+            profile,
+            campaign,
             ]
 
 # Tabulky
