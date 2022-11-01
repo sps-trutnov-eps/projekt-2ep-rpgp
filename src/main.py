@@ -4,6 +4,7 @@ import pygame as pg
 from Screens import *
 from dev_tools import *
 from items import *
+from campaign import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -63,6 +64,9 @@ while True:
     if not weapon_class.weapons == []:
         for weapon in weapon_class.weapons:
             weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+            
+    # Vykreslování věcí v kampani
+    counter.blit_self(screen, on__screen)
     
     # Zrušení multi-klikání
     if not devmode:

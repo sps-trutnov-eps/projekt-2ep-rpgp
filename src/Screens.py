@@ -3,6 +3,7 @@ import pygame as pg
 from text import *
 from data import *
 from items import *
+from campaign import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -125,6 +126,8 @@ class Button():
             if task[0] == "create_items":
                 init_items(weapon_class.weapons, player.role)
                 shop_b_init(weapon_class.weapons, Button_class.buttons)
+            if task[0] == "change_level":
+                self.change_level(task[1])
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -150,6 +153,12 @@ class Button():
         
     def change_role(self, role, player):
         player.role = role
+        
+    def change_level(self, direction):
+        if direction == "up":
+            counter.up()
+        elif direction == "down":
+            counter.down()
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -225,6 +234,9 @@ weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_scre
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
 
+higher_level_b = Button(["Campaign"], (670,810), (30,30,30,180), 64, 64, [["change_level", "up"]], True, None, False, None)
+lower_level_b = Button(["Campaign"], (466,810), (30,30,30,180), 64, 64, [["change_level", "down"]], True, None, False, None)
+
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", [], "New game table"]], False, None, False, None)
 settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", [], "Settings table"]], False, None, False, None)
@@ -251,6 +263,8 @@ buttons = [
             warrior_class_b,
             ranger_class_b,
             mage_class_b,
+            higher_level_b,
+            lower_level_b
             ]
 
 # Pavlovo Objektová hovadina
