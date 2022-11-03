@@ -54,6 +54,7 @@ class table():
 class Button_cl():
     def __init__(self, buttons):
         self.buttons = buttons
+        self.new_buttons = []
 
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
@@ -171,44 +172,45 @@ class blit_object():
         screen.blit(self.texture, self.position)
         
 def shop_b_init(weapons, buttons):
+    Button_class.new_buttons = []
     textures = []
     for weapon in weapons:
         textures.append(weapon.texture)
         
     sw = Button(["Weapon board"], (840,70), None, 105,105, [["change_item", weapons[0], weapons]], False, textures[0], True, None)
-    Button_class.buttons.append(sw)
+    Button_class.new_buttons.append(sw)
     w1t1 = Button(["Weapon board"], (685,200), None, 105,105, [["change_item", weapons[1], weapons]], False, textures[1], True, None)
-    Button_class.buttons.append(w1t1)
+    Button_class.new_buttons.append(w1t1)
     w2t1 = Button(["Weapon board"], (685,330), None, 105,105, [["change_item", weapons[2], weapons]], False, textures[2], True, None)
-    Button_class.buttons.append(w2t1)
+    Button_class.new_buttons.append(w2t1)
     w3t1 = Button(["Weapon board"], (685,460), None, 105,105, [["change_item", weapons[3], weapons]], False, textures[3], True, None)
-    Button_class.buttons.append(w3t1)
+    Button_class.new_buttons.append(w3t1)
     w4t1 = Button(["Weapon board"], (685,590), None, 105,105, [["change_item", weapons[4], weapons]], False, textures[4], True, None)
-    Button_class.buttons.append(w4t1)
+    Button_class.new_buttons.append(w4t1)
     w5t1 = Button(["Weapon board"], (685,720), None, 105,105, [["change_item", weapons[5], weapons]], False, textures[5], True, None)
-    Button_class.buttons.append(w5t1)
+    Button_class.new_buttons.append(w5t1)
 
     w1t2 = Button(["Weapon board"], (840,200), None, 105,105, [["change_item", weapons[6], weapons]], False, textures[6], True, None)
-    Button_class.buttons.append(w1t2)
+    Button_class.new_buttons.append(w1t2)
     w2t2 = Button(["Weapon board"], (840,330), None, 105,105, [["change_item", weapons[7], weapons]], False, textures[7], True, None)
-    Button_class.buttons.append(w2t2)
+    Button_class.new_buttons.append(w2t2)
     w3t2 = Button(["Weapon board"], (840,460), None, 105,105, [["change_item", weapons[8], weapons]], False, textures[8], True, None)
-    Button_class.buttons.append(w3t2)
+    Button_class.new_buttons.append(w3t2)
     w4t2 = Button(["Weapon board"], (840,590), None, 105,105, [["change_item", weapons[9], weapons]], False, textures[9], True, None)
-    Button_class.buttons.append(w4t2)
+    Button_class.new_buttons.append(w4t2)
     w5t2 = Button(["Weapon board"], (840,720), None, 105,105, [["change_item", weapons[10], weapons]], False, textures[10], True, None)
-    Button_class.buttons.append(w5t2)
+    Button_class.new_buttons.append(w5t2)
     
     w1t3 = Button(["Weapon board"], (995,200), None, 105,105, [["change_item", weapons[11], weapons]], False, textures[11], True, None)
-    Button_class.buttons.append(w1t3)
+    Button_class.new_buttons.append(w1t3)
     w2t3 = Button(["Weapon board"], (995,330), None, 105,105, [["change_item", weapons[12], weapons]], False, textures[12], True, None)
-    Button_class.buttons.append(w2t3)
+    Button_class.new_buttons.append(w2t3)
     w3t3 = Button(["Weapon board"], (995,460), None, 105,105, [["change_item", weapons[13], weapons]], False, textures[13], True, None)
-    Button_class.buttons.append(w3t3)
+    Button_class.new_buttons.append(w3t3)
     w4t3 = Button(["Weapon board"], (995,590), None, 105,105, [["change_item", weapons[14], weapons]], False, textures[14], True, None)
-    Button_class.buttons.append(w4t3)
+    Button_class.new_buttons.append(w4t3)
     w5t3 = Button(["Weapon board"], (995,720), None, 105,105, [["change_item", weapons[15], weapons]], False, textures[15], True, None)
-    Button_class.buttons.append(w5t3)
+    Button_class.new_buttons.append(w5t3)
     
     
 # Objekty na vykreslení
