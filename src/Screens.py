@@ -129,6 +129,8 @@ class Button():
                 shop_b_init(weapon_class.weapons, Button_class.buttons)
             if task[0] == "change_level":
                 self.change_level(task[1])
+            if task[0] == "start_battle":
+                self.start_battle(on__screen)
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -160,6 +162,9 @@ class Button():
             counter.up()
         elif direction == "down":
             counter.down()
+    
+    def start_battle(self, on_screen):
+        on_screen.battle = True
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -238,13 +243,15 @@ item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen
 
 higher_level_b = Button(["Campaign"], (670,810), (30,30,30,180), 64, 64, [["change_level", "up"]], True, None, False, None)
 lower_level_b = Button(["Campaign"], (466,810), (30,30,30,180), 64, 64, [["change_level", "down"]], True, None, False, None)
+fight_b = Button(["Campaign"], (1000, 700), (30,30,30,180), 150, 150, [["start_battle"]], True, None, False, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", [], "New game table"]], False, None, False, None)
 settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", [], "Settings table"]], False, None, False, None)
 credits_b = Button(["Main menu"], (680,625), None, 445,85, [["change_table", [], "Credits table"]], False, None, False, None)
+game_b = Button(["Game menu"], (1106,30), (30,30,30,180), 64, 64, [["change_table", [], "Game table"]], True, None, False, None)
 
-close_b = Button(["New game table", "Settings table", "Credits table"], (1000,125), None, 64, 64, [["change_table", [], "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
+close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", [], "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 
 buttons = [
@@ -253,6 +260,7 @@ buttons = [
             shop_b,
             profile_b,
             game_menu_b,
+            game_b,
             shop_back_b,
             campaign_b,
             weapon_board_b,
@@ -266,7 +274,8 @@ buttons = [
             ranger_class_b,
             mage_class_b,
             higher_level_b,
-            lower_level_b
+            lower_level_b,
+            fight_b
             ]
 
 # Pavlovo Objektová hovadina
@@ -299,11 +308,13 @@ screens = [
 new_game_table = table("New game table", buttons, texts_new_game)
 settings_table = table("Settings table", buttons, texts_settings)
 credits_table = table("Credits table", buttons, texts_credits)
+game_table = table("Game table", buttons, [])
 
 tables = [
             new_game_table,
             settings_table,
-            credits_table
+            credits_table,
+            game_table
             ]
 
 

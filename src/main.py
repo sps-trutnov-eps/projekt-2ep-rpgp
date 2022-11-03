@@ -159,7 +159,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Choose your role:", pressed, screen)
+        tt.show("Fight", pressed, screen)
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
