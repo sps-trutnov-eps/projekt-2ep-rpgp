@@ -11,6 +11,9 @@ class Level():
         self.number = number
         self.completed = False
         
+    def get_enemies(enemies):
+        self.enemies = enemies
+        
 class Counter():
     def __init__(self):
         self.number = 1

@@ -76,8 +76,22 @@ while True:
             m_pressed[0] = False
         elif not click_acc and not m_pressed[0]:
             click_acc = True
+     
+     
+    # BITVA
+    if on__screen.battle:
+        while on__screen.battle:
+            events = pg.event.get()
+            pressed = pg.key.get_pressed()
+            m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
+            
+            for event in events:
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
         
-    
+            pg.display.update()
+            clock.tick(144)
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
     if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
