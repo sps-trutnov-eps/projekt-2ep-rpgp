@@ -93,17 +93,17 @@ def init_items(weapons, role):
         weapon_desc_5_type_3 = "The mythical hammer\nof the norse god\nof thunder, Thor."
         
     if role == "ranger":
-        weapon_name_1_type_1 = "Wooden Sword"
-        weapon_name_2_type_1 = "Copper Sword"
-        weapon_name_3_type_1 = "Iron Dagger"
-        weapon_name_4_type_1 = "Fencing Sword"
-        weapon_name_5_type_1 = "Yankov Avenger"
+        weapon_name_1_type_1 = "Wooden Bow"
+        weapon_name_2_type_1 = "Ebony Longbow"
+        weapon_name_3_type_1 = "Elven Longbow"
+        weapon_name_4_type_1 = "Dryad's Bow"
+        weapon_name_5_type_1 = "Ice Typhoon"
         
-        weapon_desc_1_type_1 = "A slight upgrade to your stick.\nStill not much to look at but\natleast its sword shaped."
-        weapon_desc_2_type_1 = "A crooked poorly crafted\ncopper sword."
-        weapon_desc_3_type_1 = "A small iron dagger. It doesn't\nhave much range but it won't break."
-        weapon_desc_4_type_1 = "A long, quality fencing sword.\nMuch better than anything\n you've hanled before."
-        weapon_desc_5_type_1 = "The Legendary sword of the demon\nslayer Ivanovic Yankov. It is imbued\nwith the essence of fire and originality."
+        weapon_desc_1_type_1 = "A curved stick with a\ntwine string tied to it."
+        weapon_desc_2_type_1 = "A longbow carved from\na piece of old ebony wood."
+        weapon_desc_3_type_1 = "A carved ash wood longbow\ncommonly used by elves."
+        weapon_desc_4_type_1 = "A bow made from cherry wood\nwith painted feathers."
+        weapon_desc_5_type_1 = "A bow carved from ice\nwith an imbedded frost core.\nThis rare weapon belonged\nto the frost emperor\nKheirad Nezan."
         
         
         weapon_name_1_type_2 = "Primitive Axe"
