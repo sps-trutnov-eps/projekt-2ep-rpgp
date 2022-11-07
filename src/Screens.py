@@ -22,9 +22,13 @@ on__screen = on_screen()
 
 
 buttons = []
+screens = []
+tables = []
+buttons = []
 
 class screen():
     def __init__(self, name, background, buttons, texts, objects):
+        screens.append(self)
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
         self.buttons = []
@@ -38,6 +42,7 @@ class screen():
 
 class table():
     def __init__(self, name, buttons, texts):
+        tables.append(self)
         self.name = name
         self.position = [100,100]
         self.size = [1000,700]
@@ -58,6 +63,7 @@ class Button_cl():
 
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
+        buttons.append(self)
         self.belonging = belonging
         self.position = position
         self.width = width
@@ -253,31 +259,6 @@ game_b = Button(["Game menu"], (1106,30), (30,30,30,180), 64, 64, [["change_tabl
 
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", [], "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
-
-buttons = [
-            exit_b,
-            main_menu_b,
-            shop_b,
-            profile_b,
-            game_menu_b,
-            game_b,
-            shop_back_b,
-            campaign_b,
-            weapon_board_b,
-            armor_board_b,
-            item_board_b,
-            new_game_b,
-            settings_b,
-            credits_b,
-            close_b,
-            warrior_class_b,
-            ranger_class_b,
-            mage_class_b,
-            higher_level_b,
-            lower_level_b,
-            fight_b
-            ]
-
 # Pavlovo Objektová hovadina
 Button_class = Button_cl(buttons)
 
@@ -293,29 +274,11 @@ weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/s
 armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [armour_tree])
 item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [item_tree])
 
-screens = [
-            main_menu,
-            game_menu,
-            shop,
-            weapon_board,
-            armor_board,
-            item_board,
-            profile,
-            campaign,
-            ]
-
 # Tabulky
 new_game_table = table("New game table", buttons, texts_new_game)
 settings_table = table("Settings table", buttons, texts_settings)
 credits_table = table("Credits table", buttons, texts_credits)
 game_table = table("Game table", buttons, [])
-
-tables = [
-            new_game_table,
-            settings_table,
-            credits_table,
-            game_table
-            ]
 
 
 # Speciální vyjímky pro přepínací čudlíky
