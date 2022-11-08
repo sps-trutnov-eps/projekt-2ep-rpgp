@@ -17,14 +17,14 @@ class Level():
 class Counter():
     def __init__(self):
         self.number = 1
-        self.font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", 120)
+        self.font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", 100)
         
     def blit_self(self, screen, on_screen):
         if on_screen.active_screen.name == "Campaign":
             text = str(self.number)
             surf = self.font.render(text, True, (30,30,30))
             width = self.font.size(text)[0]
-            screen.blit(surf, ((600 - (width / 2) + 2),745))
+            screen.blit(surf, ((600 - (width / 2)+2),754))
         
     def up(self):
         if not self.number == 20:

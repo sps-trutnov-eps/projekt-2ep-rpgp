@@ -19,8 +19,8 @@ class text():
         
     def blit_self(self, active_screen):
         surf = self.font.render(self.text, True, self.colour)
-        width = self.font.size(self.text)[0]
-        active_screen.blit(surf, ((self.position[0] - (width / 2)),self.position[1]))
+        width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
+        active_screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
         
 heading0_size  = 80
 heading1_size = 66
@@ -31,17 +31,19 @@ def_colour = (200,200,200)
 dark_colour = (30,30,30)
 
 # Texty v tabulce nové hry
-tn1 = text("Choose your role:", (600,130), pg.font.Font(def_link, heading0_size), def_colour) 
+tn1 = text("Choose your role:", (600,200), pg.font.Font(def_link, heading0_size), def_colour) 
 texts_new_game = [tn1]
 
 # Texty v tabulce nastavení
-ts1 = text("Settings", (600,130), pg.font.Font(def_link, heading1_size), def_colour)
+ts1 = text("Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
 texts_settings = [ts1]
 
 # Texty v tabulce credits
-tc1 = text("Credits", (600, 130), pg.font.Font(def_link, heading1_size), def_colour)
+tc1 = text("Credits", (600, 200), pg.font.Font(def_link, heading1_size), def_colour)
 texts_credits = [tc1]
 
 # Texty v obchodě
 tsh_gold = text("You own: " + str(player.gold) + " G.olds", (170,700), pg.font.Font(def_link, regular_size), dark_colour)
-texts_shop = [tsh_gold]
+tsh_buy = text("Buy", (162, 810), pg.font.Font(def_link, heading1_size), dark_colour)
+tsh_equip = text("Equip", (437, 810), pg.font.Font(def_link, heading1_size), dark_colour)
+texts_shop = [tsh_gold, tsh_buy, tsh_equip]

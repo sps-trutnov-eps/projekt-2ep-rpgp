@@ -246,6 +246,8 @@ shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
+buy_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,180), 225, 100, [], False, None, False, None)
+equip_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [], False, None, False, None)
 
 higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
