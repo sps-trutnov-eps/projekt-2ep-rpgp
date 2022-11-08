@@ -247,9 +247,9 @@ weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_scre
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
 
-higher_level_b = Button(["Campaign"], (670,810), (30,30,30,180), 64, 64, [["change_level", "up"]], True, None, False, None)
-lower_level_b = Button(["Campaign"], (466,810), (30,30,30,180), 64, 64, [["change_level", "down"]], True, None, False, None)
-fight_b = Button(["Campaign"], (1000, 700), (30,30,30,180), 150, 150, [["start_battle"]], True, None, False, None)
+higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
+lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
+#fight_b = Button(["Campaign"], (1000, 700), (30,30,30,180), 150, 150, [["start_battle"]], True, None, False, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", [], "New game table"]], False, None, False, None)
@@ -270,9 +270,9 @@ profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/pr
 campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), Button_class.buttons, [], None)
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [weapon_tree])
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [armour_tree])
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, [], [item_tree])
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [weapon_tree])
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [armour_tree])
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [item_tree])
 
 # Tabulky
 new_game_table = table("New game table", buttons, texts_new_game)

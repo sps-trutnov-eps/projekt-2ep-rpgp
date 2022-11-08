@@ -24,7 +24,7 @@ class Counter():
             text = str(self.number)
             surf = self.font.render(text, True, (30,30,30))
             width = self.font.size(text)[0]
-            screen.blit(surf, ((600 - (width / 2)),780))
+            screen.blit(surf, ((600 - (width / 2) + 2),745))
         
     def up(self):
         if not self.number == 20:

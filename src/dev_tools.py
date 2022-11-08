@@ -102,7 +102,7 @@ class button_tool():
 class text_tool():
     def __init__(self, font):
         self.activity = False
-        self.colour = (200,200,200)
+        self.colour = (30,30,30)
         self.corner = [0,0]
         self.width = 0
         self.height = 0
@@ -137,12 +137,19 @@ class text_tool():
                 if self.center_acc:
                     text_rect = ((self.corner[0] - (font.size(text)[0]/2), self.corner[1] - (font.size(text)[1])/2), font.size(text))
                 screen.blit(writing, text_rect)
-                if pressed[pg.K_SPACE] and self.list_acc:
+                if pressed[pg.K_SPACE] and self.list_acc and not self.center_acc:
                     print("Šířka: ", font.size(text)[0])
                     print("Výška: ", font.size(text)[1])
                     print("Střed: ", (self.corner[0] + (font.size(text)[0]/2), self.corner[1] + (font.size(text)[1])/2))
                     print("Veliksot: ", self.size)
                     print("Roh: ", self.corner[0], ", ", self.corner[1])
+                    self.list_acc = False
+                elif pressed[pg.K_SPACE] and self.list_acc and self.center_acc:
+                    print("Šířka: ", font.size(text)[0])
+                    print("Výška: ", font.size(text)[1])
+                    print("Střed: ", (self.corner[0], self.corner[1]))
+                    print("Veliksot: ", self.size)
+                    print("Roh: ", self.corner[0] - (font.size(text)[0]/2), ", ", self.corner[1] - (font.size(text)[1])/2)
                     self.list_acc = False
                 elif pressed[pg.K_SPACE] and not self.list_acc:
                     pass

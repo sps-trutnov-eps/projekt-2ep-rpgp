@@ -51,14 +51,10 @@ while True:
     if not on__screen.active_screen.objects == None:
         for object in on__screen.active_screen.objects:
             object.blit_self(screen)
-    for t in on__screen.active_screen.texts:
-        t.blit_self(screen)
     if not on__screen.active_table == "Close":
         table = pg.Surface(on__screen.active_table.size)
         table.set_alpha(on__screen.active_table.alpha)
         screen.blit(table, (on__screen.active_table.position))
-        for t in on__screen.active_table.texts:
-            t.blit_self(screen)
     
     # Vykreslování itemů v obchodě
     if not weapon_class.weapons == []:
@@ -102,6 +98,13 @@ while True:
                 
     if not on__screen.button_activity:
         on__screen.button_activity = not on__screen.button_activity
+        
+    if not on__screen.active_screen == "Exit":
+        for t in on__screen.active_screen.texts:
+            t.blit_self(screen)
+        if not on__screen.active_table == "Close":
+            for t in on__screen.active_table.texts:
+                t.blit_self(screen)
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
@@ -159,7 +162,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Fight", pressed, screen)
+        tt.show("You own: 200 G.olds", pressed, screen)
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
