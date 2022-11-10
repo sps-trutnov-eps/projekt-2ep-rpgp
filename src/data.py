@@ -9,6 +9,7 @@ class player():
         self.weapon = None
         self.gold = 1000
         self.level = 1
+        self.hp = 10
         
 class settings():
     def __init__(self):

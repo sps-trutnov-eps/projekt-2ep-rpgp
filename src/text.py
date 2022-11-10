@@ -24,6 +24,7 @@ class text():
         
 heading0_size  = 80
 heading1_size = 66
+settings_size = 45
 regular_size = 30
 
 def_link = DATA_ROOT + "/data/fonts/VeniceClassic.ttf"
@@ -43,7 +44,15 @@ tc1 = text("Credits", (600, 200), pg.font.Font(def_link, heading1_size), def_col
 texts_credits = [tc1]
 
 # Texty v obchodě
-tsh_gold = text("You own: " + str(player.gold) + " G.olds", (170,700), pg.font.Font(def_link, regular_size), dark_colour)
+#tsh_gold = text("You own: " + str(player.gold) + " G.olds", (170,700), pg.font.Font(def_link, regular_size), dark_colour)
 tsh_buy = text("Buy", (162, 810), pg.font.Font(def_link, heading1_size), dark_colour)
 tsh_equip = text("Equip", (437, 810), pg.font.Font(def_link, heading1_size), dark_colour)
-texts_shop = [tsh_gold, tsh_buy, tsh_equip]
+texts_shop = [tsh_buy, tsh_equip]
+
+# Texty v nastavení ve hře
+caption = text("Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
+save = text("Save", (600,500), pg.font.Font(def_link, settings_size), def_colour)
+texts_gsettings = [caption, save]
+
+# Texty v bitvě
+texts_battle = []

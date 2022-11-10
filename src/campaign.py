@@ -33,6 +33,13 @@ class Counter():
     def down(self):
         if not self.number == 1:
             self.number -= 1
+            
+class Enemy():
+    def __init__(self, name, hp):
+        self.name = name
+        self.position = (800,450)
+        self.hp = hp
+        #self.texture = texture
         
 counter = Counter()
 levels = []

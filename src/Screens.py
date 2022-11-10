@@ -16,7 +16,8 @@ class on_screen():
         self.active_table = "Close"
         self.button_activity = True
         self.battle = False
-
+        self.active_level = None
+        
 
 on__screen = on_screen()
 
@@ -137,6 +138,8 @@ class Button():
                 self.change_level(task[1])
             if task[0] == "start_battle":
                 self.start_battle(on__screen)
+            if task[0] == "save":
+                self.save()
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -171,6 +174,23 @@ class Button():
     
     def start_battle(self, on_screen):
         on_screen.battle = True
+        for l in levels:
+            if counter.number == l.number:
+                on_screen.active_level = l
+                texts_battle.append(text("Level " + str(l.number), (600,150)))
+                
+    def save(self):
+        file = open("saved_data.csv", "w", encoding = "UTF-8")
+        if player.role == "warrior":
+            file.write("w,")
+        elif player.role == "ranger":
+            file.write("r,")
+        elif player.role == "mage":
+            file.write("m,")
+        file.write(player.weapon.name + ",")
+        file.write(str(player.gold) + ",")
+        file.write(str(player.level))
+        file.close()
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -228,8 +248,8 @@ def shop_b_init(weapons, buttons):
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
 armour_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 item_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
-coin = blit_object((1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 36, 36)
-level = blit_object((1128,75), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 36, 36)
+coin = blit_object((1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
+level = blit_object((1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", [], "Exit"]], False, None, False, None)
@@ -251,9 +271,11 @@ item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,180), 225, 100, [], False, None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [], False, None, False, None)
 
+save_b = Button(["Game table"], (520, 460), None, 165, 80, [["save"]], False, None, False, None)
+
 higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
-#fight_b = Button(["Campaign"], (1000, 700), (30,30,30,180), 150, 150, [["start_battle"]], True, None, False, None)
+fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], True, None, False, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", [], "New game table"]], False, None, False, None)
@@ -271,18 +293,18 @@ main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screen
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), Button_class.buttons, [], [coin, level])
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), Button_class.buttons, [], [coin, level])
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), Button_class.buttons, [], [coin, level])
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), Button_class.buttons, [], None)
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), Button_class.buttons, [], [coin, level])
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [weapon_tree])
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [armour_tree])
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [item_tree])
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [weapon_tree, coin, level])
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [armour_tree, coin, level])
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [item_tree, coin, level])
 
 # Tabulky
 new_game_table = table("New game table", buttons, texts_new_game)
 settings_table = table("Settings table", buttons, texts_settings)
 credits_table = table("Credits table", buttons, texts_credits)
-game_table = table("Game table", buttons, [])
+game_table = table("Game table", buttons, texts_gsettings)
 
 
 # Speciální vyjímky pro přepínací čudlíky
