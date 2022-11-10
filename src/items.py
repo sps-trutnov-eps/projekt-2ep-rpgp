@@ -175,7 +175,7 @@ def init_items(weapons, role):
     weapon_class.weapons = weapons
     
 class item():
-    def __init__(self, name, description, texture, position, belonging):
+    def __init__(self, name, description, texture, position, belonging, stats):
         self.name = name
         self.description = description
         self.texture = texture
@@ -185,6 +185,22 @@ class item():
         self.belonging = belonging
         self.shown = False
         self.bought = False
+        self.price = stats[0]
+        self.damage = stats[1]
+        self.armor = stats[2]
+        self.misc_stat = stats[3]
+        self.special_effect = stats[4]
+        self.item_type = None
+        
+    def item_type_check(self):
+        if self.misc_stat == None and armor == None:
+            self.item_type = weapon
+            
+        if self.damage == None and self.misc_stat == None:
+            self.item_type = armor
+            
+        else:
+            self.item_type = misc
         
     def draw(self, font, screen, on_screen):
         if self.belonging == on_screen.active_screen.name and self.shown:
