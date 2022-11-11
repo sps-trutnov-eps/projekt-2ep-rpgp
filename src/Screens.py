@@ -140,6 +140,8 @@ class Button():
                 self.start_battle(on__screen)
             if task[0] == "save":
                 self.save()
+            if task[0] == "buy_item":
+                self.buy_item(task[1])
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -191,6 +193,26 @@ class Button():
         file.write(str(player.gold) + ",")
         file.write(str(player.level))
         file.close()
+        
+    def item_test(self):
+        if item.bought == False:
+            pass
+        elif item.bought == True:
+            pass
+           
+    def buy_item(self, items):
+        print(items)
+        for item in items:
+            print("item")
+            if item.shown == True:
+                active_item = item
+        
+        if active_item.price <= player.gold:
+            active_item.bought = True
+            print("Item purchased")
+            
+        else:
+            print("Insufficient funds")
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -268,8 +290,8 @@ shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
-buy_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,180), 225, 100, [], False, None, False, None)
-equip_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [], False, None, False, None)
+buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [["buy_item", weapons]], True, None, False, None)
+equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,180), 225, 100, [], False, None, False, None)
 
 save_b = Button(["Game table"], (520, 460), None, 165, 80, [["save"]], False, None, False, None)
 
