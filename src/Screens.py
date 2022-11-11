@@ -141,7 +141,7 @@ class Button():
             if task[0] == "save":
                 self.save()
             if task[0] == "buy_item":
-                self.buy_item(task[1])
+                self.buy_item()
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -200,10 +200,8 @@ class Button():
         elif item.bought == True:
             pass
            
-    def buy_item(self, items):
-        print(items)
-        for item in items:
-            print("item")
+    def buy_item(self):
+        for item in weapon_class.weapons:
             if item.shown == True:
                 active_item = item
         
@@ -290,7 +288,7 @@ shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
-buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [["buy_item", weapons]], True, None, False, None)
+buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,180), 225, 100, [["buy_item"]], True, None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,180), 225, 100, [], False, None, False, None)
 
 save_b = Button(["Game table"], (520, 460), None, 165, 80, [["save"]], False, None, False, None)
