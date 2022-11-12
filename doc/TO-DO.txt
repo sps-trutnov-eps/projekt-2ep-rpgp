@@ -1,6 +1,8 @@
 Nesplněno:
-* Kulaté, průhledné, šedé pozadí pro ikony na game menu.
-* Dokončení třetího typu zbraní pro válečníka.
+* Vykreslení ikonky "completed" (buď v1 nebo v2) vedle koleček itemů, které jsou zakoupené
+* Načítání dat z datového souboru
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
+* Kulaté, průhledné, šedé pozadí pro ikony na game menu.
+* Dokončení třetího typu zbraní pro válečníka.

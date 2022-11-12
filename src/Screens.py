@@ -154,6 +154,9 @@ class Button():
                 self.save()
             if task[0] == "buy_item":
                 self.buy_item()
+                
+            if task[0] == "equip_item":
+                self.equip_item()
         
     def change_screen(self, screens, new_screen, on_screen):
         if new_screen == "Exit":
@@ -196,12 +199,12 @@ class Button():
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
         if player.role == "warrior":
-            file.write("w,")
+            file.write("warrior,")
         elif player.role == "ranger":
-            file.write("r,")
+            file.write("ranger,")
         elif player.role == "mage":
-            file.write("m,")
-        file.write(player.weapon.name + ",")
+            file.write("mage,")
+        file.write(player.weapon + ",")
         file.write(str(player.gold) + ",")
         file.write(str(player.level))
         file.close()
@@ -213,16 +216,55 @@ class Button():
             pass
            
     def buy_item(self):
+        multi_click_prevention = False
+        for item in weapon_class.weapons:
+            if item.shown == True:
+                selected_item_index = weapon_class.weapons.index(item) - 1
+                active_item = item
+            
+        if active_item.bought:
+            ### ZDE NĚJAK KÓD PRO VYKRESLENÍ NOVÉ IKONKY VEDLE JIŽ KOUPENÉHO ITEMU ###
+            pass
+        
+        if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
+            active_item.bought = True
+            player.gold = player.gold - active_item.price
+            print(player.gold)
+            print(active_item.price)
+            print("Item purchased")
+            multi_click_prevention = True
+            
+        if active_item.bought == True and multi_click_prevention == False:
+            print("Item already purchased")
+            multi_click_prevention = True
+            
+        if active_item.price > player.gold and multi_click_prevention == False:
+            print("Insufficient funds")
+            multi_click_prevention = True
+            
+        multi_click_prevention = False
+        
+    def equip_item(self):
+        multi_click_prevention = False
         for item in weapon_class.weapons:
             if item.shown == True:
                 active_item = item
-        
-        if active_item.price <= player.gold:
-            active_item.bought = True
-            print("Item purchased")
+                
+        if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
+            player.weapon = active_item.id
+            print("Equipped")
+            multi_click_prevention = True
+                
+        if player.weapon == active_item.id and active_item.bought and multi_click_prevention == False:
+            player.weapon = None
+            print("Unequipped")
+            multi_click_prevention = True
             
-        else:
-            print("Insufficient funds")
+        if active_item.bought == False and multi_click_prevention == False:
+            print("Item unowned")
+            multi_click_prevention = True
+            
+        multi_click_prevention = False
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -301,7 +343,7 @@ weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_scre
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
 item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,100), 225, 100, [["buy_item"]], "r", None, False, None)
-equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [], False, None, False, None)
+equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [["equip_item"]], "r", None, False, None)
 
 save_b = Button(["Game table"], (520, 460), (30,30,30,180), 165, 80, [["save"]], "r", None, False, None)
 
