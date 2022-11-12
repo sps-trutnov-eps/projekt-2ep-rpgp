@@ -57,9 +57,15 @@ while True:
         screen.blit(table, (on__screen.active_table.position))
     
     # Vykreslování itemů v obchodě
-    if not weapon_class.weapons == []:
-        for weapon in weapon_class.weapons:
+    if not item_class.weapons == []:
+        for weapon in item_class.weapons:
             weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    if not item_class.armors == []:
+        for armor in item_class.armors:
+            armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    if not item_class.misc_items == []:
+        for mics_item in item_class.misc_items:
+            misc_items.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
             
     # Vykreslování věcí v kampani
     counter.blit_self(screen, on__screen)

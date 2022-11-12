@@ -22,7 +22,6 @@ class on_screen():
 on__screen = on_screen()
 
 
-buttons = []
 screens = []
 tables = []
 buttons = []
@@ -136,7 +135,7 @@ class Button():
     def work(self):
         for task in self.tasks:
             if task[0] == "change_role":
-                self.change_role(task[1], player)
+                self.change_role(task[1])
             if task[0] == "change_screen":
                 self.change_screen(task[1], task[2], on__screen)
             if task[0] == "change_table":
@@ -144,7 +143,7 @@ class Button():
             if task[0] == "change_item":
                 self.change_item(task[1], task[2])
             if task[0] == "create_items":
-                init_items(weapon_class.weapons, player.role, armor_class.armors, None)
+                init_items(player.role)
                 shop_b_init()
             if task[0] == "change_level":
                 self.change_level(task[1])
@@ -175,12 +174,12 @@ class Button():
                 if table.name == new_table:
                     on_screen.active_table = table
                     
-    def change_item(self, new_item, items):
+    def change_item(self, new_item_number, items):
         for item in items:
             item.shown = False
-        new_item.shown = True
+        items[new_item_number].shown = True
         
-    def change_role(self, role, player):
+    def change_role(self, role):
         player.role = role
         
     def change_level(self, direction):
@@ -217,9 +216,9 @@ class Button():
            
     def buy_item(self):
         multi_click_prevention = False
-        for item in weapon_class.weapons:
+        for item in item_class.weapons:
             if item.shown == True:
-                selected_item_index = weapon_class.weapons.index(item) - 1
+                selected_item_index = item_class.weapons.index(item) - 1
                 active_item = item
             
         if active_item.bought:
@@ -246,7 +245,7 @@ class Button():
         
     def equip_item(self):
         multi_click_prevention = False
-        for item in weapon_class.weapons:
+        for item in item_class.weapons:
             if item.shown == True:
                 active_item = item
                 
@@ -280,60 +279,59 @@ def shop_b_init():
     Button_class.new_buttons = []
     weapon_textures = []
     armor_textures = []
-    for weapon in weapon_class.weapons:
+    for weapon in item_class.weapons:
         weapon_textures.append(weapon.texture)
-    for armor in armor_class.armors:
+    for armor in item_class.armors:
         armor_textures.append(armor.texture)
-        print("jedu")
        
     ### Tlačítka zbraní ###
-    sw = Button(["Weapon board"], (840,70), None, 105,105, [["change_item", weapon_class.weapons[0], weapon_class.weapons]], False, weapon_textures[0], True, None)
+    sw = Button(["Weapon board"], (840,70), None, 105,105, [["change_item", 0, item_class.weapons]], False, weapon_textures[0], True, None)
     Button_class.new_buttons.append(sw)
-    w1t1 = Button(["Weapon board"], (685,200), None, 105,105, [["change_item", weapon_class.weapons[1], weapon_class.weapons]], False, weapon_textures[1], True, None)
+    w1t1 = Button(["Weapon board"], (685,200), None, 105,105, [["change_item", 1, item_class.weapons]], False, weapon_textures[1], True, None)
     Button_class.new_buttons.append(w1t1)
-    w2t1 = Button(["Weapon board"], (685,330), None, 105,105, [["change_item", weapon_class.weapons[2], weapon_class.weapons]], False, weapon_textures[2], True, None)
+    w2t1 = Button(["Weapon board"], (685,330), None, 105,105, [["change_item", 2, item_class.weapons]], False, weapon_textures[2], True, None)
     Button_class.new_buttons.append(w2t1)
-    w3t1 = Button(["Weapon board"], (685,460), None, 105,105, [["change_item", weapon_class.weapons[3], weapon_class.weapons]], False, weapon_textures[3], True, None)
+    w3t1 = Button(["Weapon board"], (685,460), None, 105,105, [["change_item", 3, item_class.weapons]], False, weapon_textures[3], True, None)
     Button_class.new_buttons.append(w3t1)
-    w4t1 = Button(["Weapon board"], (685,590), None, 105,105, [["change_item", weapon_class.weapons[4], weapon_class.weapons]], False, weapon_textures[4], True, None)
+    w4t1 = Button(["Weapon board"], (685,590), None, 105,105, [["change_item", 4, item_class.weapons]], False, weapon_textures[4], True, None)
     Button_class.new_buttons.append(w4t1)
-    w5t1 = Button(["Weapon board"], (685,720), None, 105,105, [["change_item", weapon_class.weapons[5], weapon_class.weapons]], False, weapon_textures[5], True, None)
+    w5t1 = Button(["Weapon board"], (685,720), None, 105,105, [["change_item", 5, item_class.weapons]], False, weapon_textures[5], True, None)
     Button_class.new_buttons.append(w5t1)
 
-    w1t2 = Button(["Weapon board"], (840,200), None, 105,105, [["change_item", weapon_class.weapons[6], weapon_class.weapons]], False, weapon_textures[6], True, None)
+    w1t2 = Button(["Weapon board"], (840,200), None, 105,105, [["change_item", 6, item_class.weapons]], False, weapon_textures[6], True, None)
     Button_class.new_buttons.append(w1t2)
-    w2t2 = Button(["Weapon board"], (840,330), None, 105,105, [["change_item", weapon_class.weapons[7], weapon_class.weapons]], False, weapon_textures[7], True, None)
+    w2t2 = Button(["Weapon board"], (840,330), None, 105,105, [["change_item", 7, item_class.weapons]], False, weapon_textures[7], True, None)
     Button_class.new_buttons.append(w2t2)
-    w3t2 = Button(["Weapon board"], (840,460), None, 105,105, [["change_item", weapon_class.weapons[8], weapon_class.weapons]], False, weapon_textures[8], True, None)
+    w3t2 = Button(["Weapon board"], (840,460), None, 105,105, [["change_item", 8, item_class.weapons]], False, weapon_textures[8], True, None)
     Button_class.new_buttons.append(w3t2)
-    w4t2 = Button(["Weapon board"], (840,590), None, 105,105, [["change_item", weapon_class.weapons[9], weapon_class.weapons]], False, weapon_textures[9], True, None)
+    w4t2 = Button(["Weapon board"], (840,590), None, 105,105, [["change_item", 9, item_class.weapons]], False, weapon_textures[9], True, None)
     Button_class.new_buttons.append(w4t2)
-    w5t2 = Button(["Weapon board"], (840,720), None, 105,105, [["change_item", weapon_class.weapons[10], weapon_class.weapons]], False, weapon_textures[10], True, None)
+    w5t2 = Button(["Weapon board"], (840,720), None, 105,105, [["change_item", 10, item_class.weapons]], False, weapon_textures[10], True, None)
     Button_class.new_buttons.append(w5t2)
     
-    w1t3 = Button(["Weapon board"], (995,200), None, 105,105, [["change_item", weapon_class.weapons[11], weapon_class.weapons]], False, weapon_textures[11], True, None)
+    w1t3 = Button(["Weapon board"], (995,200), None, 105,105, [["change_item", 11, item_class.weapons]], False, weapon_textures[11], True, None)
     Button_class.new_buttons.append(w1t3)
-    w2t3 = Button(["Weapon board"], (995,330), None, 105,105, [["change_item", weapon_class.weapons[12], weapon_class.weapons]], False, weapon_textures[12], True, None)
+    w2t3 = Button(["Weapon board"], (995,330), None, 105,105, [["change_item", 12, item_class.weapons]], False, weapon_textures[12], True, None)
     Button_class.new_buttons.append(w2t3)
-    w3t3 = Button(["Weapon board"], (995,460), None, 105,105, [["change_item", weapon_class.weapons[13], weapon_class.weapons]], False, weapon_textures[13], True, None)
+    w3t3 = Button(["Weapon board"], (995,460), None, 105,105, [["change_item", 13, item_class.weapons]], False, weapon_textures[13], True, None)
     Button_class.new_buttons.append(w3t3)
-    w4t3 = Button(["Weapon board"], (995,590), None, 105,105, [["change_item", weapon_class.weapons[14], weapon_class.weapons]], False, weapon_textures[14], True, None)
+    w4t3 = Button(["Weapon board"], (995,590), None, 105,105, [["change_item", 14, item_class.weapons]], False, weapon_textures[14], True, None)
     Button_class.new_buttons.append(w4t3)
-    w5t3 = Button(["Weapon board"], (995,720), None, 105,105, [["change_item", weapon_class.weapons[15], weapon_class.weapons]], False, weapon_textures[15], True, None)
+    w5t3 = Button(["Weapon board"], (995,720), None, 105,105, [["change_item", 15, item_class.weapons]], False, weapon_textures[15], True, None)
     Button_class.new_buttons.append(w5t3)
     
     ### Tlačítka brnění ###
-    sa = Button(["Armor board"], (840, 70), None, 105,105, [["change_item", armor_class.armors[0], armor_class.armors]], False, armor_textures[0], True, None)
+    sa = Button(["Armor board"], (840, 70), None, 105,105, [["change_item", 0, item_class.armors]], False, armor_textures[0], True, None)
     Button_class.new_buttons.append(sa)
-    a1 = Button(["Armor board"], (840, 200), None, 105,105, [["change_item", armor_class.armors[1], armor_class.armors]], False, armor_textures[1], True, None)
+    a1 = Button(["Armor board"], (840, 200), None, 105,105, [["change_item", 1, item_class.armors]], False, armor_textures[1], True, None)
     Button_class.new_buttons.append(a1)
-    a2 = Button(["Armor board"], (840, 330), None, 105,105, [["change_item", armor_class.armors[2], armor_class.armors]], False, armor_textures[2], True, None)
+    a2 = Button(["Armor board"], (840, 330), None, 105,105, [["change_item", 2, item_class.armors]], False, armor_textures[2], True, None)
     Button_class.new_buttons.append(a2)
-    a3 = Button(["Armor board"], (840, 460), None, 105,105, [["change_item", armor_class.armors[3], armor_class.armors]], False, armor_textures[3], True, None)
+    a3 = Button(["Armor board"], (840, 460), None, 105,105, [["change_item", 3, item_class.armors]], False, armor_textures[3], True, None)
     Button_class.new_buttons.append(a3)
-    a4 = Button(["Armor board"], (840, 590), None, 105,105, [["change_item", armor_class.armors[4], armor_class.armors]], False, armor_textures[4], True, None)
+    a4 = Button(["Armor board"], (840, 590), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
     Button_class.new_buttons.append(a4)
-    a5 = Button(["Armor board"], (840, 720), None, 105,105, [["change_item", armor_class.armors[5], armor_class.armors]], False, armor_textures[5], True, None)
+    a5 = Button(["Armor board"], (840, 720), None, 105,105, [["change_item", 5, item_class.armors]], False, armor_textures[5], True, None)
     Button_class.new_buttons.append(a5)
     
 # Objekty na vykreslení

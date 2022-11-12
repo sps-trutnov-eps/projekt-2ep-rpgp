@@ -11,11 +11,17 @@ pg.init()
 pg.font.init()
 resolution = 1200, 900
 
-weapons = []
-armors = []
-misc_items = []
 
-def init_items(weapons, role, armors, misc_items):
+class item_cl():
+    def __init__(self):
+        self.weapons = []
+        self.armors = []
+        self.misc_items = []
+
+item_class = item_cl()
+
+
+def init_items(role):
     ### ZBRANĚ ###
     if role == "warrior":
         weapon_name_1_type_1 = "Wooden Sword"
@@ -156,7 +162,7 @@ def init_items(weapons, role, armors, misc_items):
     weapon_4_type_3 = item(weapon_name_4_type_3, weapon_desc_4_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,1,1,None],"weapon_4_3")
     weapon_5_type_3 = item(weapon_name_5_type_3, weapon_desc_5_type_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_3/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,1,1,None],"weapon_5_3")
     
-    weapons = [
+    item_class.weapons = [
             starter_weapon,
             weapon_1_type_1,
             weapon_2_type_1,
@@ -174,8 +180,6 @@ def init_items(weapons, role, armors, misc_items):
             weapon_4_type_3,
             weapon_5_type_3
             ]
-    
-    weapon_class.weapons = weapons
     
     ### BRNĚNÍ ###
     armor_name_1 = "ARMOR 1"
@@ -199,7 +203,7 @@ def init_items(weapons, role, armors, misc_items):
     armor_4 = item(armor_name_4, armor_desc_4, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_4")
     armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_5")
     
-    armors = [
+    item_class.armors = [
         starter_armor,
         armor_1,
         armor_2,
@@ -207,8 +211,6 @@ def init_items(weapons, role, armors, misc_items):
         armor_4,
         armor_5
         ]
-    
-    armor_class.armors = armors
     
 class item():
     def __init__(self, name, description, texture, position, belonging, bought, stats, identificator):
@@ -268,13 +270,3 @@ class item():
             screen.blit(texture_scaled, self.position)
             screen.blit(name_text, name_text_rect)
     
-class weapon_cl():
-    def __init__(self, weapons):
-        self.weapons = weapons
-        
-class armor_cl():
-    def __init__(self, armors):
-        self.armors = armors
-        
-weapon_class = weapon_cl(weapons)
-armor_class = armor_cl(armors)
