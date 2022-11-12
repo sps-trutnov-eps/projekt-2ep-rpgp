@@ -200,12 +200,15 @@ def init_items(weapons, role, armors, misc_items):
     armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_5")
     
     armors = [
+        starter_armor,
         armor_1,
         armor_2,
         armor_3,
         armor_4,
         armor_5
         ]
+    
+    armor_class.armors = armors
     
 class item():
     def __init__(self, name, description, texture, position, belonging, bought, stats, identificator):
