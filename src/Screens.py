@@ -12,6 +12,8 @@ else:
 
 class on_screen():
     def __init__(self):
+        self.screens = []
+        self.tables = []
         self.active_screen = None
         self.active_table = "Close"
         self.button_activity = True
@@ -22,48 +24,46 @@ class on_screen():
 on__screen = on_screen()
 
 
-screens = []
-tables = []
-buttons = []
+class button_cl():
+    def __init__(self):
+        self.buttons = []
+        
+button_class = button_cl()
+
 
 class screen():
-    def __init__(self, name, background, buttons, texts, objects):
-        screens.append(self)
+    def __init__(self, name, background, texts, objects):
+        on__screen.screens.append(self)
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
+        buttons = button_class.buttons
         self.buttons = []
         for button in buttons:
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
-        if not text == []:
-            self.texts = texts
+        self.texts = texts
         self.objects = objects
 
 class table():
-    def __init__(self, name, buttons, texts):
-        tables.append(self)
+    def __init__(self, name, texts):
+        on__screen.tables.append(self)
         self.name = name
         self.position = [100,100]
         self.size = [1000,700]
         self.colour = (30,30,30)
         self.alpha = 220
+        buttons = button_class.buttons
         self.buttons = []
         for button in buttons:
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
-        if not text == []:
-            self.texts = texts
-
-class Button_cl():
-    def __init__(self, buttons):
-        self.buttons = buttons
-        self.new_buttons = []
+        self.texts = texts
 
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
-        buttons.append(self)
+        button_class.buttons.append(self)
         self.belonging = belonging
         self.position = position
         self.width = width
@@ -137,9 +137,9 @@ class Button():
             if task[0] == "change_role":
                 self.change_role(task[1])
             if task[0] == "change_screen":
-                self.change_screen(task[1], task[2], on__screen)
+                self.change_screen(task[1], on__screen)
             if task[0] == "change_table":
-                self.change_table(task[1], task[2], on__screen)
+                self.change_table(task[1], on__screen)
             if task[0] == "change_item":
                 self.change_item(task[1], task[2])
             if task[0] == "create_items":
@@ -157,20 +157,20 @@ class Button():
             if task[0] == "equip_item":
                 self.equip_item()
         
-    def change_screen(self, screens, new_screen, on_screen):
+    def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
             on_screen.active_screen = "Exit"
         else:
-            for screen in screens:
+            for screen in on__screen.screens:
                 if screen.name == new_screen:
                     on_screen.active_screen = screen
                     on_screen.active_table = "Close"
                 
-    def change_table(self, tables, new_table, on_screen):
+    def change_table(self, new_table, on_screen):
         if new_table == "Close":
             on_screen.active_table = "Close"
         else:
-            for table in tables:
+            for table in on__screen.tables:
                 if table.name == new_table:
                     on_screen.active_table = table
                     
@@ -193,7 +193,7 @@ class Button():
         for l in levels:
             if counter.number == l.number:
                 on_screen.active_level = l
-                texts_battle.append(text("Level " + str(l.number), (600,150)))
+                texts_battle.append(text("Level " + str(l.number), (600,150), pg.font.Font(def_link, heading0_size), dark_colour))
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -276,7 +276,6 @@ class blit_object():
         screen.blit(self.texture, self.position)
         
 def shop_b_init():
-    Button_class.new_buttons = []
     weapon_textures = []
     armor_textures = []
     for weapon in item_class.weapons:
@@ -286,53 +285,31 @@ def shop_b_init():
        
     ### Tlačítka zbraní ###
     sw = Button(["Weapon board"], (840,70), None, 105,105, [["change_item", 0, item_class.weapons]], False, weapon_textures[0], True, None)
-    Button_class.new_buttons.append(sw)
     w1t1 = Button(["Weapon board"], (685,200), None, 105,105, [["change_item", 1, item_class.weapons]], False, weapon_textures[1], True, None)
-    Button_class.new_buttons.append(w1t1)
     w2t1 = Button(["Weapon board"], (685,330), None, 105,105, [["change_item", 2, item_class.weapons]], False, weapon_textures[2], True, None)
-    Button_class.new_buttons.append(w2t1)
     w3t1 = Button(["Weapon board"], (685,460), None, 105,105, [["change_item", 3, item_class.weapons]], False, weapon_textures[3], True, None)
-    Button_class.new_buttons.append(w3t1)
     w4t1 = Button(["Weapon board"], (685,590), None, 105,105, [["change_item", 4, item_class.weapons]], False, weapon_textures[4], True, None)
-    Button_class.new_buttons.append(w4t1)
     w5t1 = Button(["Weapon board"], (685,720), None, 105,105, [["change_item", 5, item_class.weapons]], False, weapon_textures[5], True, None)
-    Button_class.new_buttons.append(w5t1)
 
     w1t2 = Button(["Weapon board"], (840,200), None, 105,105, [["change_item", 6, item_class.weapons]], False, weapon_textures[6], True, None)
-    Button_class.new_buttons.append(w1t2)
     w2t2 = Button(["Weapon board"], (840,330), None, 105,105, [["change_item", 7, item_class.weapons]], False, weapon_textures[7], True, None)
-    Button_class.new_buttons.append(w2t2)
     w3t2 = Button(["Weapon board"], (840,460), None, 105,105, [["change_item", 8, item_class.weapons]], False, weapon_textures[8], True, None)
-    Button_class.new_buttons.append(w3t2)
     w4t2 = Button(["Weapon board"], (840,590), None, 105,105, [["change_item", 9, item_class.weapons]], False, weapon_textures[9], True, None)
-    Button_class.new_buttons.append(w4t2)
     w5t2 = Button(["Weapon board"], (840,720), None, 105,105, [["change_item", 10, item_class.weapons]], False, weapon_textures[10], True, None)
-    Button_class.new_buttons.append(w5t2)
     
     w1t3 = Button(["Weapon board"], (995,200), None, 105,105, [["change_item", 11, item_class.weapons]], False, weapon_textures[11], True, None)
-    Button_class.new_buttons.append(w1t3)
     w2t3 = Button(["Weapon board"], (995,330), None, 105,105, [["change_item", 12, item_class.weapons]], False, weapon_textures[12], True, None)
-    Button_class.new_buttons.append(w2t3)
     w3t3 = Button(["Weapon board"], (995,460), None, 105,105, [["change_item", 13, item_class.weapons]], False, weapon_textures[13], True, None)
-    Button_class.new_buttons.append(w3t3)
     w4t3 = Button(["Weapon board"], (995,590), None, 105,105, [["change_item", 14, item_class.weapons]], False, weapon_textures[14], True, None)
-    Button_class.new_buttons.append(w4t3)
     w5t3 = Button(["Weapon board"], (995,720), None, 105,105, [["change_item", 15, item_class.weapons]], False, weapon_textures[15], True, None)
-    Button_class.new_buttons.append(w5t3)
     
     ### Tlačítka brnění ###
     sa = Button(["Armor board"], (840, 70), None, 105,105, [["change_item", 0, item_class.armors]], False, armor_textures[0], True, None)
-    Button_class.new_buttons.append(sa)
     a1 = Button(["Armor board"], (840, 200), None, 105,105, [["change_item", 1, item_class.armors]], False, armor_textures[1], True, None)
-    Button_class.new_buttons.append(a1)
     a2 = Button(["Armor board"], (840, 330), None, 105,105, [["change_item", 2, item_class.armors]], False, armor_textures[2], True, None)
-    Button_class.new_buttons.append(a2)
     a3 = Button(["Armor board"], (840, 460), None, 105,105, [["change_item", 3, item_class.armors]], False, armor_textures[3], True, None)
-    Button_class.new_buttons.append(a3)
     a4 = Button(["Armor board"], (840, 590), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
-    Button_class.new_buttons.append(a4)
     a5 = Button(["Armor board"], (840, 720), None, 105,105, [["change_item", 5, item_class.armors]], False, armor_textures[5], True, None)
-    Button_class.new_buttons.append(a5)
     
 # Objekty na vykreslení
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
@@ -342,22 +319,22 @@ coin = blit_object((1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/mo
 level = blit_object((1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 
 # Tlačítka pro změnu obrazovky
-exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", [], "Exit"]], False, None, False, None)
+exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
 
-warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", [], "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
-ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", [], "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
-mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", [], "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
+warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
+ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
+mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
-#main_menu_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", [], "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
-profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", [], "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
-campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", [], "Campaign"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
-game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+#main_menu_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
+profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
+campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", "Campaign"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
+game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 
-shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", [], "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", [], "Weapon board"]], False, None, False, None)
-armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", [], "Armor board"]], False, None, False, None)
-item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", [], "Item board"]], False, None, False, None)
+shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"]], False, None, False, None)
+armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", "Armor board"]], False, None, False, None)
+item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", "Item board"]], False, None, False, None)
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,100), 225, 100, [["buy_item"]], "r", None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [["equip_item"]], "r", None, False, None)
 
@@ -368,40 +345,28 @@ lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["chang
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
 # Tlačítka tabulek
-new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", [], "New game table"]], False, None, False, None)
-settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", [], "Settings table"]], False, None, False, None)
-credits_b = Button(["Main menu"], (680,625), None, 445,85, [["change_table", [], "Credits table"]], False, None, False, None)
-game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table", [], "Game table"]], "c", None, False, None)
+new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
+settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", "Settings table"]], False, None, False, None)
+credits_b = Button(["Main menu"], (680,625), None, 445,85, [["change_table", "Credits table"]], False, None, False, None)
+game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table", "Game table"]], "c", None, False, None)
 
-close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", [], "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
-
-# Pavlovo Objektová hovadina
-Button_class = Button_cl(buttons)
+close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), Button_class.buttons, [], None)
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), Button_class.buttons, [], [coin, level])
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), Button_class.buttons, [], [coin, level])
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), Button_class.buttons, [], [coin, level])
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), Button_class.buttons, [], [coin, level])
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [], None)
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [], [coin, level])
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [], [coin, level])
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [], [coin, level])
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), [], [coin, level])
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [weapon_tree, coin, level])
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [armour_tree, coin, level])
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), Button_class.buttons, texts_shop, [item_tree, coin, level])
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [weapon_tree, coin, level])
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [armour_tree, coin, level])
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [item_tree, coin, level])
 
 # Tabulky
-new_game_table = table("New game table", buttons, texts_new_game)
-settings_table = table("Settings table", buttons, texts_settings)
-credits_table = table("Credits table", buttons, texts_credits)
-game_table = table("Game table", buttons, texts_gsettings)
-
-
-# Speciální vyjímky pro přepínací čudlíky
-for button in buttons:
-    for task in button.tasks:
-        if task[0] == "change_screen":
-            task[1] = screens
-        if task[0] == "change_table":
-            task[1] = tables
+new_game_table = table("New game table", texts_new_game)
+settings_table = table("Settings table", texts_settings)
+credits_table = table("Credits table", texts_credits)
+game_table = table("Game table", texts_gsettings)
         
