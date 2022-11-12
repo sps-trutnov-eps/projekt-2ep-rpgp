@@ -12,8 +12,11 @@ pg.font.init()
 resolution = 1200, 900
 
 weapons = []
+armors = []
+misc_items = []
 
-def init_items(weapons, role):
+def init_items(weapons, role, armors, misc_items):
+    ### ZBRANĚ ###
     if role == "warrior":
         weapon_name_1_type_1 = "Wooden Sword"
         weapon_name_2_type_1 = "Copper Sword"
@@ -174,6 +177,36 @@ def init_items(weapons, role):
     
     weapon_class.weapons = weapons
     
+    ### BRNĚNÍ ###
+    armor_name_1 = "ARMOR 1"
+    armor_name_2 = "ARMOR 2"
+    armor_name_3 = "ARMOR 3"
+    armor_name_4 = "ARMOR 4"
+    armor_name_5 = "ARMOR 5"
+    
+    armor_desc_1 = "armor desc 1"
+    armor_desc_2 = "armor desc 2"
+    armor_desc_3 = "armor desc 3"
+    armor_desc_4 = "armor desc 4"
+    armor_desc_5 = "armor desc 5"
+    
+    starter_armor = item("Plain Clothes", "Just slightly torn\nwoolen clothes.", pg.image.load(DATA_ROOT + "/data/textures/weapons/stick.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_0")
+    starter_armor.shown = True
+    starter_armor.bought = True
+    armor_1 = item(armor_name_1, armor_desc_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_1")
+    armor_2 = item(armor_name_2, armor_desc_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_2")
+    armor_3 = item(armor_name_3, armor_desc_3, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_3")
+    armor_4 = item(armor_name_4, armor_desc_4, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_4")
+    armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [1,1,1,1,None],"armor_5")
+    
+    armors = [
+        armor_1,
+        armor_2,
+        armor_3,
+        armor_4,
+        armor_5
+        ]
+    
 class item():
     def __init__(self, name, description, texture, position, belonging, bought, stats, identificator):
         self.id = identificator
@@ -236,4 +269,9 @@ class weapon_cl():
     def __init__(self, weapons):
         self.weapons = weapons
         
+class armor_cl():
+    def __init__(self, armors):
+        self.armors = armors
+        
 weapon_class = weapon_cl(weapons)
+armor_class = armor_cl(armors)
