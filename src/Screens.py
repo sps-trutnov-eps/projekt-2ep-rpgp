@@ -14,6 +14,7 @@ class on_screen():
     def __init__(self):
         self.screens = []
         self.tables = []
+        self.blit_objects = []
         self.active_screen = None
         self.active_table = "Close"
         self.button_activity = True
@@ -32,7 +33,7 @@ button_class = button_cl()
 
 
 class screen():
-    def __init__(self, name, background, texts, objects):
+    def __init__(self, name, background, texts):
         on__screen.screens.append(self)
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
@@ -43,7 +44,6 @@ class screen():
                 if place == self.name:
                     self.buttons.append(button)
         self.texts = texts
-        self.objects = objects
 
 class table():
     def __init__(self, name, texts):
@@ -312,14 +312,22 @@ class Button():
 
         
 class blit_object():
-    def __init__(self, position, texture, scale, width, height):
+    def __init__(self, belonging, position, texture, scale, width, height):
+        on__screen.blit_objects.append(self)
+        self.belonging = belonging
         self.texture = texture
         self.position = position
         if scale:
             self.texture = pg.transform.scale(texture, (width, height))
         
-    def blit_self(self, screen):
-        screen.blit(self.texture, self.position)
+    def blit_self(self, screen, on__screen):
+        if not on__screen.active_screen == "Exit":
+            if not on__screen.active_table == "Close":
+                if on__screen.active_table.name in self.belonging:
+                    screen.blit(self.texture, self.position)
+            elif on__screen.active_screen.name in self.belonging:
+                screen.blit(self.texture, self.position)
+                
         
 def shop_b_init():
     weapon_textures = []
@@ -357,11 +365,11 @@ def shop_b_init():
     a5 = Button(["Armor board"], (840, 655), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
     
 # Objekty na vykreslení
-weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
-armour_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
-item_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
-coin = blit_object((1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
-level = blit_object((1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
+weapon_tree = blit_object(["Weapon board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
+armour_tree = blit_object(["Armour board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
+item_tree = blit_object(["Iteam board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
+coin = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armour board", "Iteam board"], (1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
+level = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armour board", "Iteam board"], (1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
@@ -398,16 +406,16 @@ game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table"
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [], None)
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), texts_g_l, [coin, level])
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), texts_g_l, [coin, level])
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), texts_g_l, [coin, level])
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), texts_g_l, [coin, level])
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [])
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), texts_g_l)
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), texts_g_l)
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), texts_g_l)
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), texts_g_l)
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [weapon_tree, coin, level])
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [armour_tree, coin, level])
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [item_tree, coin, level])
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
 
 # Tabulky
 new_game_table = table("New game table", texts_new_game)

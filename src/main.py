@@ -48,9 +48,8 @@ while True:
     
     # Vykreslení obrazovky/tabulky
     screen.blit(on__screen.active_screen.background,(0,0))
-    if not on__screen.active_screen.objects == None:
-        for object in on__screen.active_screen.objects:
-            object.blit_self(screen)
+    for o in on__screen.blit_objects:
+        o.blit_self(screen, on__screen)
     if not on__screen.active_table == "Close":
         table = pg.Surface(on__screen.active_table.size)
         table.set_alpha(on__screen.active_table.alpha)
