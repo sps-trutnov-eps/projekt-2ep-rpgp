@@ -216,10 +216,11 @@ class Button():
            
     def buy_item(self):
         multi_click_prevention = False
-        for item in item_class.weapons:
-            if item.shown == True:
-                selected_item_index = item_class.weapons.index(item) - 1
-                active_item = item
+        for item_type in item_class.all_items:
+            for item in item_type:
+                if item.shown == True:
+                    active_item = item
+                    active_item_type = Button.item_type_check(active_item)
             
         if active_item.bought:
             ### ZDE NĚJAK KÓD PRO VYKRESLENÍ NOVÉ IKONKY VEDLE JIŽ KOUPENÉHO ITEMU ###
@@ -228,42 +229,87 @@ class Button():
         if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
             active_item.bought = True
             player.gold = player.gold - active_item.price
-            print(player.gold)
-            print(active_item.price)
-            print("Item purchased")
+            print("Item purchased") ### TOTO VYPSAT ###
             multi_click_prevention = True
+            if active_item_type == "misc_item" and player.inventory[active_item.id] < 99:
+                player.inventory[active_item.id] += 1
+                active_item.bought = False
+            if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
+                print("Cannot purchase more of this item") ### TOTO VYPSAT ###
+                active_item.bought = False
             
         if active_item.bought == True and multi_click_prevention == False:
-            print("Item already purchased")
+            print("Item already purchased") ### TOTO VYPSAT ###
             multi_click_prevention = True
             
         if active_item.price > player.gold and multi_click_prevention == False:
-            print("Insufficient funds")
+            print("Insufficient funds") ### TOTO VYPSAT ###
             multi_click_prevention = True
             
         multi_click_prevention = False
         
+    def item_type_check(active_item):
+        if active_item.damage == None and active_item.armor == None:
+            active_item_type = "misc_item"
+            return active_item_type
+            
+        if active_item.armor == None and active_item.misc_stat == None:
+            active_item_type = "weapon"
+            return active_item_type
+            
+        if active_item.damage == None and active_item.misc_stat == None:
+            active_item_type = "armor"
+            return active_item_type
+        
+        else:
+            return None
+        
     def equip_item(self):
         multi_click_prevention = False
-        for item in item_class.weapons:
-            if item.shown == True:
-                active_item = item
+        for item_type in item_class.all_items:
+            for item in item_type:
+                if item.shown == True:
+                    active_item = item
                 
-        if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
-            player.weapon = active_item.id
-            print("Equipped")
-            multi_click_prevention = True
+        active_item_type = Button.item_type_check(active_item)
                 
-        if player.weapon == active_item.id and active_item.bought and multi_click_prevention == False:
-            player.weapon = None
-            print("Unequipped")
-            multi_click_prevention = True
+        if active_item_type == "weapon":
+            if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
+                player.weapon = active_item.id
+                print("Weapon Equipped") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                    
+            if player.weapon == active_item.id and active_item.bought and multi_click_prevention == False:
+                player.weapon = None
+                print("Weapon Unequipped") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                
+            if active_item.bought == False and multi_click_prevention == False:
+                print("Weapon unowned") ### TOTO VYPSAT ###
+                multi_click_prevention = True
             
-        if active_item.bought == False and multi_click_prevention == False:
-            print("Item unowned")
-            multi_click_prevention = True
+            multi_click_prevention = False
             
-        multi_click_prevention = False
+        if active_item_type == "armor":
+            if player.armor is not active_item.id and active_item.bought and multi_click_prevention == False:
+                player.armor = active_item.id
+                print("Armor Equipped") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                    
+            if player.armor == active_item.id and active_item.bought and multi_click_prevention == False:
+                player.armor = None
+                print("Armor Unequipped") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                
+            if active_item.bought == False and multi_click_prevention == False:
+                print("Armor unowned") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+            
+            multi_click_prevention = False
+            
+        if active_item_type == "misc_item":
+            print("This item cannot be equipped") ### TOTO VYPSAT ###
+
         
 class blit_object():
     def __init__(self, position, texture, scale, width, height):
@@ -304,12 +350,11 @@ def shop_b_init():
     w5t3 = Button(["Weapon board"], (995,720), None, 105,105, [["change_item", 15, item_class.weapons]], False, weapon_textures[15], True, None)
     
     ### Tlačítka brnění ###
-    sa = Button(["Armor board"], (840, 70), None, 105,105, [["change_item", 0, item_class.armors]], False, armor_textures[0], True, None)
-    a1 = Button(["Armor board"], (840, 200), None, 105,105, [["change_item", 1, item_class.armors]], False, armor_textures[1], True, None)
-    a2 = Button(["Armor board"], (840, 330), None, 105,105, [["change_item", 2, item_class.armors]], False, armor_textures[2], True, None)
-    a3 = Button(["Armor board"], (840, 460), None, 105,105, [["change_item", 3, item_class.armors]], False, armor_textures[3], True, None)
-    a4 = Button(["Armor board"], (840, 590), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
-    a5 = Button(["Armor board"], (840, 720), None, 105,105, [["change_item", 5, item_class.armors]], False, armor_textures[5], True, None)
+    a1 = Button(["Armor board"], (840, 135), None, 105,105, [["change_item", 0, item_class.armors]], False, armor_textures[0], True, None)
+    a2 = Button(["Armor board"], (840, 265), None, 105,105, [["change_item", 1, item_class.armors]], False, armor_textures[1], True, None)
+    a3 = Button(["Armor board"], (840, 395), None, 105,105, [["change_item", 2, item_class.armors]], False, armor_textures[2], True, None)
+    a4 = Button(["Armor board"], (840, 525), None, 105,105, [["change_item", 3, item_class.armors]], False, armor_textures[3], True, None)
+    a5 = Button(["Armor board"], (840, 655), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
     
 # Objekty na vykreslení
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
