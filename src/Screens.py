@@ -221,10 +221,7 @@ class Button():
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
-            
-        if active_item.bought:
-            ### ZDE NĚJAK KÓD PRO VYKRESLENÍ NOVÉ IKONKY VEDLE JIŽ KOUPENÉHO ITEMU ###
-            pass
+                    print(active_item, active_item.name, active_item.id, active_item_type)
         
         if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
             active_item.bought = True
