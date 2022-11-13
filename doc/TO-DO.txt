@@ -2,10 +2,10 @@ Nesplněno:
 * Vykreslení ikonky "completed" (buď v1 nebo v2) vedle koleček itemů, které jsou zakoupené - OBCHOD
 * Vypisování informativních zpráv nad itemem - OBCHOD
 * Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
-* Vypisování hráčových peněz a levlů vedle ikonek v rohu.
 * Načítání dat z datového souboru
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
 * Kulaté, průhledné, šedé pozadí pro ikony na game menu.
 * Dokončení třetího typu zbraní pro válečníka.
+* Vypisování hráčových peněz a levlů vedle ikonek v rohu.
