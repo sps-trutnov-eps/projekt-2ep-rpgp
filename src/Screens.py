@@ -153,7 +153,7 @@ class Button():
                 self.save()
             if task[0] == "buy_item":
                 self.buy_item()
-                
+                texts_g_l[0].update(str(player.gold), (1110 - (coin_level_font.size(str(player.gold))[0] / 2),30 + (coin_level_font.size(str(player.gold))[1] / 2)))
             if task[0] == "equip_item":
                 self.equip_item()
         
@@ -399,15 +399,15 @@ close_b = Button(["New game table", "Settings table", "Credits table", "Game tab
 
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [], None)
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), [], [coin, level])
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), [], [coin, level])
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), [], [coin, level])
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), [], [coin, level])
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), texts_g_l, [coin, level])
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), texts_g_l, [coin, level])
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), texts_g_l, [coin, level])
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), texts_g_l, [coin, level])
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [weapon_tree, coin, level])
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [armour_tree, coin, level])
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop, [item_tree, coin, level])
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [weapon_tree, coin, level])
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [armour_tree, coin, level])
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l, [item_tree, coin, level])
 
 # Tabulky
 new_game_table = table("New game table", texts_new_game)
