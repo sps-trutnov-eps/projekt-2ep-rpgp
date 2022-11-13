@@ -64,8 +64,8 @@ while True:
         for armor in item_class.armors:
             armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
     if not item_class.misc_items == []:
-        for mics_item in item_class.misc_items:
-            misc_items.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+        for misc_item in item_class.misc_items:
+            misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
             
     # Vykreslování věcí v kampani
     counter.blit_self(screen, on__screen)

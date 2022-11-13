@@ -231,10 +231,10 @@ class Button():
             player.gold = player.gold - active_item.price
             print("Item purchased") ### TOTO VYPSAT ###
             multi_click_prevention = True
-            if active_item_type == "misc_item" and player.inventory[active_item.id] < 99:
+            if active_item_type == "misc_item" and player.inventory[active_item.id] < 99 and active_item.id == "healing_potion" or active_item.id == "mana_potion":
                 player.inventory[active_item.id] += 1
                 active_item.bought = False
-            if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
+            if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99 and active_item.id == "healing_potion" or active_item.id == "mana_potion":
                 print("Cannot purchase more of this item") ### TOTO VYPSAT ###
                 active_item.bought = False
             
@@ -324,10 +324,13 @@ class blit_object():
 def shop_b_init():
     weapon_textures = []
     armor_textures = []
+    misc_item_textures = []
     for weapon in item_class.weapons:
         weapon_textures.append(weapon.texture)
     for armor in item_class.armors:
         armor_textures.append(armor.texture)
+    for misc_item in item_class.misc_items:
+        misc_item_textures.append(misc_item.texture)
        
     ### Tlačítka zbraní ###
     sw = Button(["Weapon board"], (840,70), None, 105,105, [["change_item", 0, item_class.weapons]], False, weapon_textures[0], True, None)
@@ -355,6 +358,13 @@ def shop_b_init():
     a3 = Button(["Armor board"], (840, 395), None, 105,105, [["change_item", 2, item_class.armors]], False, armor_textures[2], True, None)
     a4 = Button(["Armor board"], (840, 525), None, 105,105, [["change_item", 3, item_class.armors]], False, armor_textures[3], True, None)
     a5 = Button(["Armor board"], (840, 655), None, 105,105, [["change_item", 4, item_class.armors]], False, armor_textures[4], True, None)
+    
+    #### Tlačítka misc itemů ###
+    m1 = Button(["Item board"], (840, 135), None, 105,105, [["change_item", 0, item_class.misc_items]], False, misc_item_textures[0], True, None)
+    m2 = Button(["Item board"], (840, 265), None, 105,105, [["change_item", 1, item_class.misc_items]], False, misc_item_textures[1], True, None)
+    m3 = Button(["Item board"], (840, 395), None, 105,105, [["change_item", 2, item_class.misc_items]], False, misc_item_textures[2], True, None)
+    m4 = Button(["Item board"], (840, 525), None, 105,105, [["change_item", 3, item_class.misc_items]], False, misc_item_textures[3], True, None)
+    m5 = Button(["Item board"], (840, 655), None, 105,105, [["change_item", 4, item_class.misc_items]], False, misc_item_textures[4], True, None)
     
 # Objekty na vykreslení
 weapon_tree = blit_object((0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)

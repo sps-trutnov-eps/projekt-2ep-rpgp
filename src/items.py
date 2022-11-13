@@ -211,6 +211,21 @@ def init_items(role):
         armor_5
         ]
     
+    ### MISC ITEMY ###
+    potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"healing_potion")
+    potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"mana_potion")
+    skill_scroll_1 = item("Scroll 1", "Skill scroll 1", pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_scroll_1")
+    skill_scroll_2 = item("Scroll 2", "Skill scroll 2", pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_scroll_2")
+    skill_scroll_3 = item("Scroll 3", "Skill scroll 3", pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_scroll_3")
+    
+    item_class.misc_items = [
+        potion_healing,
+        potion_mana,
+        skill_scroll_1,
+        skill_scroll_2,
+        skill_scroll_3
+        ]
+    
     item_class.item_bundling()
     
 class item():
