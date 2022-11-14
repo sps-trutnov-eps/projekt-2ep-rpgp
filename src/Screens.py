@@ -226,31 +226,35 @@ class Button():
     def buy_item(self):
         active_item = None
         multi_click_prevention = False
-        print(item_class.all_items," :Všechny itemové seznamy")
-        print(len(item_class.all_items))
-        print("################################################")
         for item_type in item_class.all_items:
-            print(item_type," :Typ Itemu")
-            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
             for item in item_type:
-                print(item," :Konkrétní item")
-                print("----------------------------------------------------")
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
-                    print(active_item, active_item.name, active_item.id, active_item_type)
         
         if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
             active_item.bought = True
             player.gold = player.gold - active_item.price
-            print("Item purchased") ### TOTO VYPSAT ###
-            multi_click_prevention = True
-            if active_item_type == "misc_item" and player.inventory[active_item.id] < 99 and active_item.id == "healing_potion" or active_item.id == "mana_potion":
-                player.inventory[active_item.id] += 1
-                active_item.bought = False
-            if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99 and active_item.id == "healing_potion" or active_item.id == "mana_potion":
-                print("Cannot purchase more of this item") ### TOTO VYPSAT ###
-                active_item.bought = False
+            multi_click_prevention = True        
+            if not active_item.id == "healing_potion" or active_item.id == "mana_potion" and player.inventory[active_item.id] < 99:
+                print("Item purchased") ### TOTO VYPSAT ###
+            
+            ### MISC. ITEMY ####
+            # Potiony #
+            if active_item.id == "healing_potion" or active_item.id == "mana_potion":
+                if player.inventory[active_item.id] < 99:
+                    player.inventory[active_item.id] += 1
+                    active_item.bought = False
+                    print("Item purchased")
+                    print(player.inventory[active_item.id])
+                if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
+                    print("Cannot purchase more of this item") ### TOTO VYPSAT ###
+                    player.gold += active_item.price
+                    active_item.bought = False
+                        
+            # Skill scrolly #
+            if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
+                player.skills[active_item.id] = True
             
         if active_item.bought == True and multi_click_prevention == False:
             print("Item already purchased") ### TOTO VYPSAT ###
