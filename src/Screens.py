@@ -156,6 +156,9 @@ class Button():
                 texts_g_l[0].update(str(player.gold), (1110 - (coin_level_font.size(str(player.gold))[0] / 2),30 + (coin_level_font.size(str(player.gold))[1] / 2)))
             if task[0] == "equip_item":
                 self.equip_item()
+                
+            if task [0] == "reset_item_show":
+                self.reset_item_show()
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -214,10 +217,24 @@ class Button():
         elif item.bought == True:
             pass
            
-    def buy_item(self):
-        multi_click_prevention = False
+    def reset_item_show(self):
         for item_type in item_class.all_items:
             for item in item_type:
+                if item.shown == True:
+                    item.shown = False
+                    
+    def buy_item(self):
+        active_item = None
+        multi_click_prevention = False
+        print(item_class.all_items," :Všechny itemové seznamy")
+        print(len(item_class.all_items))
+        print("################################################")
+        for item_type in item_class.all_items:
+            print(item_type," :Typ Itemu")
+            print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+            for item in item_type:
+                print(item," :Konkrétní item")
+                print("----------------------------------------------------")
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
@@ -424,9 +441,9 @@ campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["chang
 game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"]], False, None, False, None)
-armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", "Armor board"]], False, None, False, None)
-item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", "Item board"]], False, None, False, None)
+weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)
+armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", "Armor board"],["reset_item_show"]], False, None, False, None)
+item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen", "Item board"],["reset_item_show"]], False, None, False, None)
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,100), 225, 100, [["buy_item"]], "r", None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [["equip_item"]], "r", None, False, None)
 
