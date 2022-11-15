@@ -17,6 +17,15 @@ class text_cl():
     def texts_bundling(self):
         self.all = self.texts + self.messages
         
+    def hide_messages(self):
+        for m in self.messages:
+            m.off()
+            
+    def show_message(self, wanted_name):
+        for m in self.messages:
+            if m.name == wanted_name:
+                m.on()
+        
 text_class = text_cl()
     
 class text():
@@ -48,12 +57,33 @@ class text():
             self.position = new_pos
             
 class message():
-    def __init__(self, belonging, text, pos):
+    def __init__(self, name, belonging, text, pos):
+        self.name = name
         self.belonging = belonging
         self.text = text
         self.position = pos
         self.font = font
         self.colour = colour
+        self.shown = False
+        
+    def blit_self(self, screen, on__screen):
+        if self.show:
+            if not on__screen.active_screen == "Exit":
+                if not on__screen.active_table == "Close":
+                    if on__screen.active_table.name in self.belonging:
+                        surf = self.font.render(self.text, True, self.colour)
+                        width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
+                        screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
+                elif on__screen.active_screen.name in self.belonging:
+                    surf = self.font.render(self.text, True, self.colour)
+                    width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
+                    screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
+                    
+    def on(self):
+        self.show = True
+        
+    def off(self):
+        self.show = False
         
 heading0_size  = 80
 heading1_size = 66
