@@ -26,6 +26,10 @@ class text():
         self.text = new_text
         if not new_pos == None:
             self.position = new_pos
+            
+class message():
+    def __init__(self):
+        self.nic = None
         
 heading0_size  = 80
 heading1_size = 66

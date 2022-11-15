@@ -200,12 +200,7 @@ class Button():
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
-        if player.role == "warrior":
-            file.write("warrior,")
-        elif player.role == "ranger":
-            file.write("ranger,")
-        elif player.role == "mage":
-            file.write("mage,")
+        file.write(player.role + ",")
         file.write(player.weapon + ",")
         file.write(str(player.gold) + ",")
         file.write(str(player.level))
