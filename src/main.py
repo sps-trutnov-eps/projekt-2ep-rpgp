@@ -105,12 +105,8 @@ while True:
     if not on__screen.button_activity:
         on__screen.button_activity = not on__screen.button_activity
         
-    if not on__screen.active_screen == "Exit":
-        for t in on__screen.active_screen.texts:
-            t.blit_self(screen)
-        if not on__screen.active_table == "Close":
-            for t in on__screen.active_table.texts:
-                t.blit_self(screen)
+    for t in text_class.all:
+        t.blit_self(screen, on__screen)
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:

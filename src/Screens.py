@@ -33,7 +33,7 @@ button_class = button_cl()
 
 
 class screen():
-    def __init__(self, name, background, texts):
+    def __init__(self, name, background):
         on__screen.screens.append(self)
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
@@ -43,10 +43,9 @@ class screen():
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
-        self.texts = texts
 
 class table():
-    def __init__(self, name, texts):
+    def __init__(self, name):
         on__screen.tables.append(self)
         self.name = name
         self.position = [100,100]
@@ -59,7 +58,6 @@ class table():
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
-        self.texts = texts
 
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
@@ -461,20 +459,20 @@ game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table"
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"), [])
-game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"), texts_g_l)
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"), texts_g_l)
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"), texts_g_l)
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"), texts_g_l)
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"))
+game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"))
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"))
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"))
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"))
 
 # Podobrazovky obchodu
-weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
-armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
-item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"), texts_shop + texts_g_l)
+weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))
+armor_board = screen("Armor board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))
+item_board = screen("Item board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))
 
 # Tabulky
-new_game_table = table("New game table", texts_new_game)
-settings_table = table("Settings table", texts_settings)
-credits_table = table("Credits table", texts_credits)
-game_table = table("Game table", texts_gsettings)
+new_game_table = table("New game table")
+settings_table = table("Settings table")
+credits_table = table("Credits table")
+game_table = table("Game table")
         
