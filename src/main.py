@@ -77,8 +77,20 @@ while True:
             m_pressed[0] = False
         elif not click_acc and not m_pressed[0]:
             click_acc = True
-     
-     
+    
+    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
+    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
+        for button in button_class.buttons:
+            button.blit_self(screen, on__screen)
+            if on__screen.button_activity:
+                button.check(m_pressed, on__screen)
+                
+    if not on__screen.button_activity:
+        on__screen.button_activity = not on__screen.button_activity
+        
+    for t in text_class.all:
+        t.blit_self(screen, on__screen)
+        
     # BITVA
     if on__screen.battle:
         while on__screen.battle:
@@ -94,19 +106,6 @@ while True:
         
             pg.display.update()
             clock.tick(144)
-    
-    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
-        for button in button_class.buttons:
-            button.blit_self(screen, on__screen)
-            if on__screen.button_activity:
-                button.check(m_pressed, on__screen)
-                
-    if not on__screen.button_activity:
-        on__screen.button_activity = not on__screen.button_activity
-        
-    for t in text_class.all:
-        t.blit_self(screen, on__screen)
     
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:

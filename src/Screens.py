@@ -136,10 +136,13 @@ class Button():
                 self.change_role(task[1])
             if task[0] == "change_screen":
                 self.change_screen(task[1], on__screen)
+                text_class.hide_messages()
             if task[0] == "change_table":
                 self.change_table(task[1], on__screen)
+                text_class.hide_messages()
             if task[0] == "change_item":
                 self.change_item(task[1], task[2])
+                text_class.hide_messages()
             if task[0] == "create_items":
                 init_items(player.role)
                 shop_b_init()
@@ -150,12 +153,15 @@ class Button():
             if task[0] == "save":
                 self.save()
             if task[0] == "buy_item":
+                text_class.hide_messages()
                 self.buy_item()
                 index = text_class.texts.index(golds)
                 text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
                 text_class.show_message("bought")
             if task[0] == "equip_item":
+                text_class.hide_messages()
                 self.equip_item()
+                text_class.show_message("equiped")
                 
             if task [0] == "reset_item_show":
                 self.reset_item_show()

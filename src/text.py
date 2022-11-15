@@ -22,12 +22,12 @@ class text_cl():
         
     def hide_messages(self):
         for m in self.messages:
-            m.off()
+            m.shown = False
             
     def show_message(self, wanted_name):
         for m in self.messages:
             if m.name == wanted_name:
-                m.on()
+                m.shown = True
         
 text_class = text_cl()
     
@@ -72,7 +72,7 @@ class message():
         self.shown = False
         
     def blit_self(self, screen, on__screen):
-        if self.showns:
+        if self.shown == True:
             if not on__screen.active_screen == "Exit":
                 if not on__screen.active_table == "Close":
                     if on__screen.active_table.name in self.belonging:
@@ -83,15 +83,10 @@ class message():
                     surf = self.font.render(self.text, True, self.colour)
                     width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
                     screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
-                    
-    def on(self):
-        self.show = True
-        
-    def off(self):
-        self.show = False
         
 heading0_size  = 80
 heading1_size = 66
+message_size = 50
 settings_size = 45
 regular_size = 30
 
@@ -123,6 +118,7 @@ golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor
 level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
 # Zprávy v ochodě
-bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,680), pg.font.Font(def_link, heading1_size), dark_colour)
+bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,680), pg.font.Font(def_link, message_size), dark_colour)
+equiped = message("equiped", ["Weapon board", "Armor board", "Item board"], "Item has been equiped", (300,680), pg.font.Font(def_link, message_size), dark_colour)
 
 text_class.texts_bundling()
