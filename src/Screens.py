@@ -151,7 +151,9 @@ class Button():
                 self.save()
             if task[0] == "buy_item":
                 self.buy_item()
-                texts_g_l[0].update(str(player.gold), (1110 - (coin_level_font.size(str(player.gold))[0] / 2),30 + (coin_level_font.size(str(player.gold))[1] / 2)))
+                index = text_class.texts.index(golds)
+                text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
+                text_class.show_message("bought")
             if task[0] == "equip_item":
                 self.equip_item()
                 

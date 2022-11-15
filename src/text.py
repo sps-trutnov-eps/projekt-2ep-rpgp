@@ -9,6 +9,9 @@ else:
     
 pg.font.init()
     
+def gold_level_position(x, y,text):
+    return (x - (coin_level_font.size(text)[0] / 2),y + (coin_level_font.size(text)[1] / 2))
+    
 class text_cl():
     def __init__(self):
         self.texts = []
@@ -57,17 +60,19 @@ class text():
             self.position = new_pos
             
 class message():
-    def __init__(self, name, belonging, text, pos):
+    def __init__(self, name, belonging, text, pos, font, colour):
+        text_class.messages.append(self)
         self.name = name
         self.belonging = belonging
         self.text = text
         self.position = pos
         self.font = font
         self.colour = colour
+        self.size = self.font.size(self.text)
         self.shown = False
         
     def blit_self(self, screen, on__screen):
-        if self.show:
+        if self.showns:
             if not on__screen.active_screen == "Exit":
                 if not on__screen.active_table == "Close":
                     if on__screen.active_table.name in self.belonging:
@@ -101,28 +106,23 @@ tn1 = text(["New game table"], "Choose your role:", (600,200), pg.font.Font(def_
 
 # Texty v tabulce nastavení
 ts1 = text(["Settings table"], "Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
-texts_settings = [ts1]
 
 # Texty v tabulce credits
 tc1 = text(["Credits table"], "Credits", (600, 200), pg.font.Font(def_link, heading1_size), def_colour)
-texts_credits = [tc1]
 
 # Texty v obchodě
 tsh_buy = text(["Weapon board", "Armor board", "Item board"], "Buy", (162, 810), pg.font.Font(def_link, heading1_size), dark_colour)
 tsh_equip = text(["Weapon board", "Armor board", "Item board"], "Equip", (437, 810), pg.font.Font(def_link, heading1_size), dark_colour)
-texts_shop = [tsh_buy, tsh_equip]
 
 # Texty v nastavení ve hře
 caption = text(["Game table"], "Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
 save = text(["Game table"], "Save", (600,500), pg.font.Font(def_link, settings_size), def_colour)
-texts_gsettings = [caption, save]
-
-# Texty v bitvě
-texts_battle = []
 
 # Peníze a level
-golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), (1110 - (coin_level_font.size(str(player.gold))[0] / 2),30 + (coin_level_font.size(str(player.gold))[1] / 2)), coin_level_font, dark_colour)
-level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), (1110 - (coin_level_font.size(str(player.level))[0] / 2),85 + (coin_level_font.size(str(player.gold))[1] / 2)), coin_level_font, dark_colour)
-texts_g_l = [golds, level]
+golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
+level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
+
+# Zprávy v ochodě
+bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,680), pg.font.Font(def_link, heading1_size), dark_colour)
 
 text_class.texts_bundling()
