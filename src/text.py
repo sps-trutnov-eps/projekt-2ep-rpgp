@@ -93,6 +93,7 @@ regular_size = 30
 def_link = DATA_ROOT + "/data/fonts/VeniceClassic.ttf"
 def_colour = (200,200,200)
 dark_colour = (30,30,30)
+dark_red = (190,20,20)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -118,7 +119,14 @@ golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor
 level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
 # Zprávy v ochodě
-bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,680), pg.font.Font(def_link, message_size), dark_colour)
-equiped = message("equiped", ["Weapon board", "Armor board", "Item board"], "Item has been equiped", (300,680), pg.font.Font(def_link, message_size), dark_colour)
+buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)
+bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item already purchased", (300,150), pg.font.Font(def_link, message_size), dark_red)
+equip = message("equip", ["Weapon board", "Armor board", "Item board"], "Item has been equiped", (300,150), pg.font.Font(def_link, message_size), dark_colour)
+unequip = message("unequip", ["Weapon board", "Armor board", "Item board"], "Item has been unequiped", (300,150), pg.font.Font(def_link, message_size), dark_colour)
+equiped = message("equiped", ["Weapon board", "Armor board", "Item board"], "Item already equiped", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_golds = message("no golds", ["Weapon board", "Armor board", "Item board"], "Insufficient funds", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_more = message("no more", ["Weapon board", "Armor board", "Item board"], "Can't buy more of this", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_equip = message("no equip", ["Weapon board", "Armor board", "Item board"], "Can't equip this item", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_owner = message("no owner", ["Weapon board", "Armor board", "Item board"], "You don't own this yet", (300,150), pg.font.Font(def_link, message_size), dark_red)
 
 text_class.texts_bundling()

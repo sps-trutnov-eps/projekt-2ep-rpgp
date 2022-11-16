@@ -157,11 +157,9 @@ class Button():
                 self.buy_item()
                 index = text_class.texts.index(golds)
                 text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
-                text_class.show_message("bought")
             if task[0] == "equip_item":
                 text_class.hide_messages()
                 self.equip_item()
-                text_class.show_message("equiped")
                 
             if task [0] == "reset_item_show":
                 self.reset_item_show()
@@ -238,7 +236,7 @@ class Button():
             player.gold = player.gold - active_item.price
             multi_click_prevention = True        
             if not active_item.id == "healing_potion" or active_item.id == "mana_potion" and player.inventory[active_item.id] < 99:
-                print("Item purchased") ### TOTO VYPSAT ###
+                text_class.show_message("buy") ### TOTO VYPSAT ###
             
             ### MISC. ITEMY ####
             # Potiony #
@@ -246,10 +244,10 @@ class Button():
                 if player.inventory[active_item.id] < 99:
                     player.inventory[active_item.id] += 1
                     active_item.bought = False
-                    print("Item purchased")
+                    text_class.show_message("buy")
                     print(player.inventory[active_item.id])
                 if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
-                    print("Cannot purchase more of this item") ### TOTO VYPSAT ###
+                    text_class.show_message("no more") ### TOTO VYPSAT ###
                     player.gold += active_item.price
                     active_item.bought = False
                         
@@ -258,11 +256,11 @@ class Button():
                 player.skills[active_item.id] = True
             
         if active_item.bought == True and multi_click_prevention == False:
-            print("Item already purchased") ### TOTO VYPSAT ###
+            text_class.show_message("bought") ### TOTO VYPSAT ###
             multi_click_prevention = True
             
         if active_item.price > player.gold and multi_click_prevention == False:
-            print("Insufficient funds") ### TOTO VYPSAT ###
+            text_class.show_message("no golds") ### TOTO VYPSAT ###
             multi_click_prevention = True
             
         multi_click_prevention = False
@@ -295,16 +293,16 @@ class Button():
         if active_item_type == "weapon":
             if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
                 player.weapon = active_item.id
-                print("Weapon Equipped") ### TOTO VYPSAT ###
+                text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                     
             if player.weapon == active_item.id and active_item.bought and multi_click_prevention == False:
                 player.weapon = None
-                print("Weapon Unequipped") ### TOTO VYPSAT ###
+                text_class.show_message("unequip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                print("Weapon unowned") ### TOTO VYPSAT ###
+                text_class.show_message("no owner") ### TOTO VYPSAT ###
                 multi_click_prevention = True
             
             multi_click_prevention = False
@@ -312,22 +310,22 @@ class Button():
         if active_item_type == "armor":
             if player.armor is not active_item.id and active_item.bought and multi_click_prevention == False:
                 player.armor = active_item.id
-                print("Armor Equipped") ### TOTO VYPSAT ###
+                text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                     
             if player.armor == active_item.id and active_item.bought and multi_click_prevention == False:
                 player.armor = None
-                print("Armor Unequipped") ### TOTO VYPSAT ###
+                text_class.show_message("unequip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                print("Armor unowned") ### TOTO VYPSAT ###
+                text_class.show_message("no owner") ### TOTO VYPSAT ###
                 multi_click_prevention = True
             
             multi_click_prevention = False
             
         if active_item_type == "misc_item":
-            print("This item cannot be equipped") ### TOTO VYPSAT ###
+            text_class.show_message("no equip") ### TOTO VYPSAT ###
 
         
 class blit_object():
