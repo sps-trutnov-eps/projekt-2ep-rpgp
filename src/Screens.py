@@ -197,10 +197,13 @@ class Button():
     
     def start_battle(self, on_screen):
         on_screen.battle = True
+        index = on_screen.screens.index(battle)
+        on_screen.active_screen = on_screen.screens[index]
         for l in levels:
             if counter.number == l.number:
-                on_screen.active_level = l
-                texts_battle.append(text("Level " + str(l.number), (600,150), pg.font.Font(def_link, heading0_size), dark_colour))
+                level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
+                text_class.texts.append(level_text)
+                text_class.texts_bundling()
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -470,6 +473,7 @@ game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screen
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"))
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"))
 campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"))
+battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign_battle.png"))
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))

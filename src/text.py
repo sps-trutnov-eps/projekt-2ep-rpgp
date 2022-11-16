@@ -18,6 +18,7 @@ class text_cl():
         self.messages = []
         
     def texts_bundling(self):
+        self.all = []
         self.all = self.texts + self.messages
         
     def hide_messages(self):

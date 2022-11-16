@@ -30,6 +30,28 @@ bt_acc = True
 tt_acc = True
 pt_acc = True
 
+def blit_screen():
+    screen.blit(on__screen.active_screen.background,(0,0))
+    for o in on__screen.blit_objects:
+        o.blit_self(screen, on__screen)
+    if not on__screen.active_table == "Close":
+        table = pg.Surface(on__screen.active_table.size)
+        table.set_alpha(on__screen.active_table.alpha)
+        screen.blit(table, (on__screen.active_table.position))
+        
+def work_buttons_and_texts():
+    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
+        for button in button_class.buttons:
+            button.blit_self(screen, on__screen)
+            if on__screen.button_activity:
+                button.check(m_pressed, on__screen)
+                
+    if not on__screen.button_activity:
+        on__screen.button_activity = not on__screen.button_activity
+        
+    for t in text_class.all:
+        t.blit_self(screen, on__screen)
+
 while True:
     # Získání infa o akcích
     events = pg.event.get()
@@ -47,13 +69,7 @@ while True:
         sys.exit()
     
     # Vykreslení obrazovky/tabulky
-    screen.blit(on__screen.active_screen.background,(0,0))
-    for o in on__screen.blit_objects:
-        o.blit_self(screen, on__screen)
-    if not on__screen.active_table == "Close":
-        table = pg.Surface(on__screen.active_table.size)
-        table.set_alpha(on__screen.active_table.alpha)
-        screen.blit(table, (on__screen.active_table.position))
+    blit_screen()
     
     # Vykreslování itemů v obchodě
     if not item_class.weapons == []:
@@ -79,20 +95,11 @@ while True:
             click_acc = True
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
-        for button in button_class.buttons:
-            button.blit_self(screen, on__screen)
-            if on__screen.button_activity:
-                button.check(m_pressed, on__screen)
-                
-    if not on__screen.button_activity:
-        on__screen.button_activity = not on__screen.button_activity
-        
-    for t in text_class.all:
-        t.blit_self(screen, on__screen)
+    work_buttons_and_texts()
         
     # BITVA
     if on__screen.battle:
+        screen.fill((0,0,0))
         while on__screen.battle:
             events = pg.event.get()
             m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
@@ -102,7 +109,9 @@ while True:
                     pg.quit()
                     sys.exit()
         
-            screen.fill((255,255,255))
+            blit_screen()
+            
+            work_buttons_and_texts()
         
             pg.display.update()
             clock.tick(144)
