@@ -208,7 +208,10 @@ class Button():
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
         file.write(player.role + ",")
-        file.write(player.weapon + ",")
+        if not player.weapon == None:
+            file.write(str(player.weapon.id) + ",")
+        else:
+            file.write("None,")
         file.write(str(player.gold) + ",")
         file.write(str(player.level))
         file.close()
