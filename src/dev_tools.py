@@ -102,7 +102,6 @@ class button_tool():
 class text_tool():
     def __init__(self, font):
         self.activity = False
-        self.colour = (30,30,30)
         self.corner = [0,0]
         self.width = 0
         self.height = 0
@@ -128,11 +127,11 @@ class text_tool():
         else:
             pass
     
-    def show(self, text, pressed, screen):
+    def show(self, text, pressed, screen, colour):
         if self.activity:
             if self.size > 0:
                 font = pg.font.Font(self.font, self.size)
-                writing = font.render(text, False, self.colour)
+                writing = font.render(text, False, colour)
                 text_rect = (self.corner, font.size(text))
                 if self.center_acc:
                     text_rect = ((self.corner[0] - (font.size(text)[0]/2), self.corner[1] - (font.size(text)[1])/2), font.size(text))

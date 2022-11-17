@@ -119,6 +119,11 @@ save = text(["Game table"], "Save", (600,500), pg.font.Font(def_link, settings_s
 golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
 level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
+# Texty v bitvě
+pause_question = text(["Pause table"], "Do you wish to leave the battle?", (600,330), pg.font.Font(def_link, settings_size), def_colour)
+pause_yes = text(["Pause table"], "Yes", (450,542), pg.font.Font(def_link, 38), def_colour)
+pause_no = text(["Pause table"], "No", (750,542), pg.font.Font(def_link, 38), def_colour)
+
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)
 bought = message("bought", ["Weapon board", "Armor board", "Item board"], "Item already purchased", (300,150), pg.font.Font(def_link, message_size), dark_red)

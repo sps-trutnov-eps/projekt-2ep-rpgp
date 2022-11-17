@@ -58,6 +58,10 @@ class table():
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
+                    
+    def change_format(self, new_position, new_size):
+        self.position = new_position
+        self.size = new_size
 
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
@@ -150,6 +154,8 @@ class Button():
                 self.change_level(task[1])
             if task[0] == "start_battle":
                 self.start_battle(on__screen)
+            if task[0] == "end_battle":
+                self.end_battle(on__screen)
             if task[0] == "save":
                 self.save()
             if task[0] == "buy_item":
@@ -160,7 +166,6 @@ class Button():
             if task[0] == "equip_item":
                 text_class.hide_messages()
                 self.equip_item()
-                
             if task [0] == "reset_item_show":
                 self.reset_item_show()
         
@@ -195,15 +200,19 @@ class Button():
         elif direction == "down":
             counter.down()
     
-    def start_battle(self, on_screen):
-        on_screen.battle = True
-        index = on_screen.screens.index(battle)
-        on_screen.active_screen = on_screen.screens[index]
+    def start_battle(self, on__screen):
+        on__screen.battle = True
+        self.change_screen("Battle", on__screen)
         for l in levels:
             if counter.number == l.number:
                 level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
                 text_class.texts.append(level_text)
                 text_class.texts_bundling()
+                
+    def end_battle(self, on__screen):
+        on_screen.battle = False
+        self.change_screen("Game menu", on__screen)
+        text_class.texts.pop()
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -449,6 +458,10 @@ profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_
 campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", "Campaign"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
 game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 
+battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+leave_battle_b = Button(["Pause table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
+stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"]], "r", None, False, None)
+
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)
 armor_board_b = Button(["Shop"], (239,240), (255,0,0), 232, 126, [["change_screen", "Armor board"],["reset_item_show"]], False, None, False, None)
@@ -488,4 +501,6 @@ new_game_table = table("New game table")
 settings_table = table("Settings table")
 credits_table = table("Credits table")
 game_table = table("Game table")
+pause_table = table("Pause table")
+pause_table.change_format([275,275],[650,350])
         

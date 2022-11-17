@@ -39,6 +39,31 @@ def blit_screen():
         table.set_alpha(on__screen.active_table.alpha)
         screen.blit(table, (on__screen.active_table.position))
         
+def blit_shop_items():
+    if not item_class.weapons == []:
+        for weapon in item_class.weapons:
+            weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    if not item_class.armors == []:
+        for armor in item_class.armors:
+            armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    if not item_class.misc_items == []:
+        for misc_item in item_class.misc_items:
+            misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    
+def stop_multi_click(devmode, m_pressed, click_acc):
+    if not devmode:
+        if click_acc and m_pressed[0]:
+            click_acc = False
+            return click_acc
+        elif not click_acc and m_pressed[0]:
+            m_pressed[0] = False
+            return click_acc
+        elif not click_acc and not m_pressed[0]:
+            click_acc = True
+            return click_acc
+        else:
+            return click_acc
+        
 def work_buttons_and_texts():
     if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
         for button in button_class.buttons:
@@ -51,71 +76,8 @@ def work_buttons_and_texts():
         
     for t in text_class.all:
         t.blit_self(screen, on__screen)
-
-while True:
-    # Získání infa o akcích
-    events = pg.event.get()
-    pressed = pg.key.get_pressed()
-    m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
-    
-    # Možnosti vypnutí
-    for event in events:
-        if event.type == pg.QUIT:
-            pg.quit()
-            sys.exit()
-    
-    if on__screen.active_screen == "Exit":
-        pg.quit()
-        sys.exit()
-    
-    # Vykreslení obrazovky/tabulky
-    blit_screen()
-    
-    # Vykreslování itemů v obchodě
-    if not item_class.weapons == []:
-        for weapon in item_class.weapons:
-            weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
-    if not item_class.armors == []:
-        for armor in item_class.armors:
-            armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
-    if not item_class.misc_items == []:
-        for misc_item in item_class.misc_items:
-            misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
-            
-    # Vykreslování věcí v kampani
-    counter.blit_self(screen, on__screen)
-    
-    # Zrušení multi-klikání
-    if not devmode:
-        if click_acc and m_pressed[0]:
-            click_acc = False
-        elif not click_acc and m_pressed[0]:
-            m_pressed[0] = False
-        elif not click_acc and not m_pressed[0]:
-            click_acc = True
-    
-    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
-    work_buttons_and_texts()
         
-    # BITVA
-    if on__screen.battle:
-        screen.fill((0,0,0))
-        while on__screen.battle:
-            events = pg.event.get()
-            m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
-            
-            for event in events:
-                if event.type == pg.QUIT:
-                    pg.quit()
-                    sys.exit()
-        
-            blit_screen()
-            
-            work_buttons_and_texts()
-        
-            pg.display.update()
-            clock.tick(144)
-    
+def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
         dev_shortcut = 1
@@ -172,7 +134,7 @@ while True:
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("You own: 200 G.olds", pressed, screen)
+        tt.show("Yes", pressed, screen, (200,200,200))
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
@@ -182,6 +144,73 @@ while True:
             pass
         else:
             tt_acc = True
+            
+        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc
+    
+    else:
+        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc
+
+while True:
+    # Získání infa o akcích
+    events = pg.event.get()
+    pressed = pg.key.get_pressed()
+    m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
+    
+    # Možnosti vypnutí
+    for event in events:
+        if event.type == pg.QUIT:
+            pg.quit()
+            sys.exit()
+    
+    if on__screen.active_screen == "Exit":
+        pg.quit()
+        sys.exit()
+    
+    # Vykreslení obrazovky/tabulky
+    blit_screen()
+    
+    # Vykreslování itemů v obchodě
+    blit_shop_items()
+            
+    # Vykreslování věcí v kampani
+    counter.blit_self(screen, on__screen)
+    
+    # Zrušení multi-klikání
+    click_acc = stop_multi_click(devmode, m_pressed, click_acc)
+    
+    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
+    work_buttons_and_texts()
+        
+    # BITVA
+    if on__screen.battle:
+        pause = False
+        while on__screen.battle:
+            events = pg.event.get()
+            pressed = pg.key.get_pressed()
+            m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
+            
+            for event in events:
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
+                    
+            screen.fill((88,88,88))
+        
+            blit_screen()
+            
+            click_acc = stop_multi_click(devmode, m_pressed, click_acc)
+            
+            work_buttons_and_texts()
+            
+            if not pause:
+                pass
+            
+            devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
+            
+            pg.display.update()
+            clock.tick(144)
+    
+    devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     
     pg.display.update()
     clock.tick(144)
