@@ -221,8 +221,26 @@ class Button():
             file.write(str(player.weapon.id) + ",")
         else:
             file.write("None,")
+        if not player.armor == None:
+            file.write(str(player.armor.id) + ",")
+        else:
+            file.write("None,")
         file.write(str(player.gold) + ",")
-        file.write(str(player.level))
+        file.write(str(player.level) + ",")
+        file.write(str(player.inventory["healing_potion"]) + "," + str(player.inventory["mana_potion"]) + ",")
+        for l in list(reversed(levels)):
+            if l.completed == False:
+                pass
+            elif l.completed == True:
+                file.write(str(l.number))
+                break
+        for i_l in item_class.all_items:
+            for i in i_l: 
+                file.write(i.id + ":")
+                if i.bought == True:
+                    file.write("True,")
+                elif i.bought == False:
+                    file.write("False,")
         file.close()
         
     def item_test(self):
@@ -479,7 +497,7 @@ fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_b
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
 settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", "Settings table"]], False, None, False, None)
 credits_b = Button(["Main menu"], (680,625), None, 445,85, [["change_table", "Credits table"]], False, None, False, None)
-game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table", "Game table"]], "c", None, False, None)
+game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table", "Game table"]], False, pg.image.load(DATA_ROOT+ "/data/textures/icons/menu_icon.png"), True, None)
 
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 

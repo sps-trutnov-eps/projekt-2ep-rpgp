@@ -10,6 +10,7 @@ class Level():
     def __init__(self, number):
         self.number = number
         self.completed = False
+        self.unlocked = False
         
     def get_enemies(enemies):
         self.enemies = enemies
@@ -47,3 +48,4 @@ levels = []
 for i in range(1,20):
     levels.append(Level(i))
 
+levels[0].unlocked = True
