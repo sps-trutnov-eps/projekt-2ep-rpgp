@@ -21,16 +21,13 @@ class on_screen():
         self.battle = False
         self.active_level = None
         
-
 on__screen = on_screen()
-
 
 class button_cl():
     def __init__(self):
         self.buttons = []
         
 button_class = button_cl()
-
 
 class screen():
     def __init__(self, name, background):
@@ -43,6 +40,12 @@ class screen():
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
+                    
+class tooltip():
+    def __init_(self, area, mouse_pos, table_name, table_description, table_width, table_height):
+        # area = (x,y,width,height)
+        if mouse_pos[0] >= area[0] and mouse_pos[0] <= (area[0] + area[2]):
+            if mouse_pos[1] >= area[1] and mouse_pos[1] <= (area[1] + area[3]):
 
 class table():
     def __init__(self, name):
