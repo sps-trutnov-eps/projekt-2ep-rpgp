@@ -1,6 +1,6 @@
 Nesplněno:
 * Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
-* Načítání dat z datového souboru
+* Načítání dat z datového souboru - (DODĚLAT UPDATE LEVELU)
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
