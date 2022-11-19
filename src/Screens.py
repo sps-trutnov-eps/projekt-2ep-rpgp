@@ -462,9 +462,10 @@ weapon_tree = blit_object(["Weapon board"], (0,0), pg.image.load(DATA_ROOT + "/d
 armour_tree = blit_object(["Armor board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 item_tree = blit_object(["Item board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 shopkeeper = blit_object(["Shop"], (505, 300), pg.image.load(DATA_ROOT + "/data/textures/characters/shopkeep.png"), True, 180, 504)
-shop_foreground = blit_object(["Shop"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop_foreground.png"), True, 1200, 900)
+shop_foreground = blit_object(["Shop"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_foreground.png"), True, 1200, 900)
 coin = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
 level = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
+player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), True, 180, 504)
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
@@ -473,11 +474,11 @@ warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["chan
 ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
 mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
-#main_menu_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Main menu"]], True, pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
 profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
 campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", "Campaign"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
 game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+skill_board_back = Button(["Skill board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 
 battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 leave_battle_b = Button(["Pause table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
@@ -496,6 +497,8 @@ higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["chan
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
+skill_board_b = Button(["Profile"], (760, 345), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
+
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
 settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", "Settings table"]], False, None, False, None)
@@ -510,7 +513,10 @@ game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screen
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"))
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"))
 campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"))
-battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign_battle.png"))
+battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign_battle.png"))
+
+# Podobrazovky profilu
+skill_board = screen("Skill board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))
