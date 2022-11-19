@@ -1,7 +1,7 @@
 Nesplněno:
 * Vypisování informativních zpráv nad itemem - OBCHOD
 * Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
-* Načítání dat z datového souboru + ukládání inventory, amroru a skillu
+* Načítání dat z datového souboru
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
@@ -9,3 +9,4 @@ Splněno:
 * Dokončení třetího typu zbraní pro válečníka.
 * Vypisování hráčových peněz a levlů vedle ikonek v rohu.
 * Vykreslení ikonky "completed" (buď v1 nebo v2) vedle koleček itemů, které jsou zakoupené - OBCHOD
+* Ukládání inventory, amroru a skillu

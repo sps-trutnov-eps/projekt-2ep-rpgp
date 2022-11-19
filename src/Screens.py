@@ -242,6 +242,7 @@ class Button():
                 elif i.bought == False:
                     file.write("False,")
         file.close()
+        text_class.show_message("save")
         
     def item_test(self):
         if item.bought == False:
