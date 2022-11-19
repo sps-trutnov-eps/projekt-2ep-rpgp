@@ -365,7 +365,7 @@ class bought_icon():
             on__screen.blit_objects.append(self)
             self.item = item
             self.button = button
-            self.texture = pg.image.load(DATA_ROOT + "/data/textures/icons/completed_v2.png")
+            self.texture = pg.image.load(DATA_ROOT + "/data/textures/icons/completed_icon.png")
             
         def blit_self(self, screen, on_screen):
             if self.item.belonging == on_screen.active_screen.name and self.item.bought:
