@@ -461,6 +461,8 @@ def shop_b_init():
 weapon_tree = blit_object(["Weapon board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
 armour_tree = blit_object(["Armor board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
 item_tree = blit_object(["Item board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
+shopkeeper = blit_object(["Shop"], (505, 300), pg.image.load(DATA_ROOT + "/data/textures/characters/shopkeep.png"), True, 180, 504)
+shop_foreground = blit_object(["Shop"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop_foreground.png"), True, 1200, 900)
 coin = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
 level = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 
