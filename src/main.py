@@ -155,6 +155,7 @@ while True:
     events = pg.event.get()
     pressed = pg.key.get_pressed()
     m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
+    m_pos = pg.mouse.get_pos()
     
     # Možnosti vypnutí
     for event in events:

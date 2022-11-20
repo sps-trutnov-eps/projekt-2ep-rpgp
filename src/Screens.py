@@ -41,11 +41,41 @@ class screen():
                 if place == self.name:
                     self.buttons.append(button)
                     
+### ZAHOZENO ###
 class tooltip():
-    def __init_(self, area, mouse_pos, table_name, table_description, table_width, table_height):
+    def __init_(self, area, mouse_pos, table_name, table_description, table_width, table_height, screen):
         # area = (x,y,width,height)
+        
+        pg.font.init()
+        
+        name_size = 20
+        desc_size = 10
+        t_width = 0
+        t_height = 0
+                
+        for char in table_name:
+            t_width += name_size
+            
+        for char in table_description:
+            pass
+            
+        name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
+        desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
+        name = name_font.render(table_name, False, (255,255,255))
+        desc = desc_font.render(table_description, False (200,200,200))
+        name_rect = name.get_rect()
+        desc_rect = desc.get_rect()
+        
+        screen.blit(name,(0,0))
+        screen.blit(desc,(0,30))
+        
+        print(name_rect.get_height())
+        print(desc_rect.get_height())
+        
+        tooltip_table = pg.Surface()
         if mouse_pos[0] >= area[0] and mouse_pos[0] <= (area[0] + area[2]):
             if mouse_pos[1] >= area[1] and mouse_pos[1] <= (area[1] + area[3]):
+                pass
 
 class table():
     def __init__(self, name):
