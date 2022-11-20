@@ -117,7 +117,7 @@ save = text(["Game table"], "Save", (600,500), pg.font.Font(def_link, settings_s
 
 # Peníze a level
 golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
-level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
+p_level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
 # Texty v bitvě
 pause_question = text(["Pause table"], "Do you wish to leave the battle?", (600,330), pg.font.Font(def_link, settings_size), def_colour)
