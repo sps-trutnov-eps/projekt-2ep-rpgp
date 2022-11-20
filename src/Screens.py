@@ -279,11 +279,9 @@ class Button():
         text_class.show_message("save")
         
     def load(self):
-        print(player.gold)
         file = open("saved_data.csv", "r", encoding = "UTF-8")
         data = file.readline()
         d_l = data.split(",")
-        print(d_l)
         player.role = d_l[0]
         init_items(player.role)
         shop_b_init()
@@ -308,8 +306,8 @@ class Button():
                 
         index_golds = text_class.texts.index(golds)
         text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
-        #index_level = text_class.texts.index(level)
-        #text_class.texts[index_level].update(str(player.level), None)
+        index_level = text_class.texts.index(p_level)
+        text_class.texts[index_level].update(str(player.level), None)
         
     def item_test(self):
         if item.bought == False:

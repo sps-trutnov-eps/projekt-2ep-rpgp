@@ -1,6 +1,5 @@
 Nesplněno:
 * Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
-* Načítání dat z datového souboru - (DODĚLAT UPDATE LEVELU)
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
@@ -10,3 +9,4 @@ Splněno:
 * Vykreslení ikonky "completed" (buď v1 nebo v2) vedle koleček itemů, které jsou zakoupené - OBCHOD
 * Ukládání inventory, amroru a skillu
 * Vypisování informativních zpráv nad itemem - OBCHOD
+* Načítání dat z datového souboru - (DODĚLAT UPDATE LEVELU)
