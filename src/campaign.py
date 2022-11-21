@@ -34,7 +34,7 @@ class Counter():
                 width = self.font.size(text)[0]
                 screen.blit(surf, ((600 - (width / 2)+2),754))
             elif self.number == end_index:
-                screen.blit(self.lock, (560, 760))
+                screen.blit(self.lock, (562, 760))
         
     def up(self):
         for l in levels:

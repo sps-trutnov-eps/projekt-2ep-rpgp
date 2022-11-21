@@ -238,7 +238,9 @@ class Button():
     def start_battle(self, on__screen):
         if levels[counter.number - 1].unlocked == True:
             on__screen.battle = True
-            self.change_screen("Battle", on__screen)
+            for screen in on__screen.screens:
+                if screen.name == "Battle":
+                    on__screen.active_screen = screen
             for l in levels:
                 if counter.number == l.number:
                     level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
