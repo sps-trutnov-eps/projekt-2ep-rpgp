@@ -6,13 +6,15 @@ if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
 else:
     DATA_ROOT = '..'
     
+t_size = (135,378)
+    
 class Level():
     def __init__(self, number):
         self.number = number
         self.completed = False
         self.unlocked = False
         
-    def get_enemies(enemies):
+    def get_enemies(self, enemies):
         self.enemies = enemies
         
 class Counter():
@@ -49,11 +51,29 @@ class Counter():
             self.number -= 1
             
 class Enemy():
-    def __init__(self, name, hp):
+    def __init__(self, name, texture, hp, damage, armor):
         self.name = name
         self.position = (800,450)
+        self.texture = texture
         self.hp = hp
-        #self.texture = texture
+        self.damage = damage
+        self.armor = armor
+        
+    def blit_self(self, screen):
+        screen.blit(self.texture, (885, 285))
+        
+class Battle_info():
+    def get_info(self, level):
+        self.level = level
+        self.active_enemy = level.enemies[0]
+    
+    def make_player(self, player):
+        self.player_texture = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), t_size)
+        
+    def blit_player(self, screen):
+        screen.blit(self.player_texture, (180, 285))
+        
+battle_info = Battle_info()
         
 counter = Counter()
 levels = []
@@ -62,3 +82,8 @@ for i in range(1,20):
     levels.append(Level(i))
 
 levels[0].unlocked = True
+
+zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), t_size), 50, 4, 0)
+slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), t_size), 20, 2, 2)
+
+levels[0].get_enemies([zombie,slime])

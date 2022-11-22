@@ -246,6 +246,9 @@ class Button():
                     level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
                     text_class.texts.append(level_text)
                     text_class.texts_bundling()
+                    
+                    battle_info.get_info(l)
+                    battle_info.make_player(player)
                 
     def end_battle(self, on__screen):
         on_screen.battle = False

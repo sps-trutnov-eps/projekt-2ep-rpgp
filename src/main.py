@@ -197,6 +197,8 @@ while True:
                     
             screen.fill((88,88,88))
         
+            battle_info.active_enemy.blit_self(screen)
+            battle_info.blit_player(screen)
             blit_screen()
             
             counter.blit_self(screen, on__screen)
