@@ -236,13 +236,16 @@ class Button():
             counter.down()
     
     def start_battle(self, on__screen):
-        on__screen.battle = True
-        self.change_screen("Battle", on__screen)
-        for l in levels:
-            if counter.number == l.number:
-                level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
-                text_class.texts.append(level_text)
-                text_class.texts_bundling()
+        if levels[counter.number - 1].unlocked == True:
+            on__screen.battle = True
+            for screen in on__screen.screens:
+                if screen.name == "Battle":
+                    on__screen.active_screen = screen
+            for l in levels:
+                if counter.number == l.number:
+                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
+                    text_class.texts.append(level_text)
+                    text_class.texts_bundling()
                 
     def end_battle(self, on__screen):
         on_screen.battle = False
@@ -435,6 +438,7 @@ class blit_object():
         self.position = position
         if scale:
             self.texture = pg.transform.scale(texture, (width, height))
+        self.condition = True
         
     def blit_self(self, screen, on__screen):
         if not on__screen.active_screen == "Exit":
@@ -443,6 +447,13 @@ class blit_object():
                     screen.blit(self.texture, self.position)
             elif on__screen.active_screen.name in self.belonging:
                 screen.blit(self.texture, self.position)
+                
+    def check(self, screen, on__screen):
+        if self.condition:
+            self.blit_self(screen, on__screen)
+    
+    def get_condition(self, condition):
+        self.condition = condition
                 
 class bought_icon():
         def __init__(self, item, button):
@@ -534,7 +545,6 @@ player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
-
 continue_b = Button(["Main menu"], (680, 485), None, 445, 85, [["load"], ["change_screen", "Game menu"]], False, None, False, None)
 warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
 ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
