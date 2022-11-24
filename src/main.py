@@ -184,7 +184,7 @@ while True:
         
     # BITVA
     if on__screen.battle:
-        pause = False
+        pause_time = 0
         while on__screen.battle:
             events = pg.event.get()
             pressed = pg.key.get_pressed()
@@ -207,13 +207,17 @@ while True:
             
             work_buttons_and_texts()
             
-            if not pause:
-                pass
+            if not battle_info.pause:
+                if pause_time >= 1500:
+                    pause_time = 0
+                    battle_info.fight()
+            else:
+                pause_time = 0
             
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
             
             pg.display.update()
-            clock.tick(144)
+            pause_time += clock.tick(144)
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     

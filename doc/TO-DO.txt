@@ -1,5 +1,6 @@
 Nesplněno:
 * Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
+* Vykreslování informací v bitvě
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.

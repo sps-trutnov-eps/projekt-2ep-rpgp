@@ -189,6 +189,10 @@ class Button():
                 self.start_battle(on__screen)
             if task[0] == "end_battle":
                 self.end_battle(on__screen)
+            if task[0] == "pause_battle":
+                battle_info.pause_battle()
+            if task[0] == "unpause_battle":
+                battle_info.unpause_battle()
             if task[0] == "save":
                 self.save()
             if task[0] == "load":
@@ -559,9 +563,9 @@ campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["chang
 game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 skill_board_back = Button(["Skill board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 
-battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
+battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"],["pause_battle"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 leave_battle_b = Button(["Pause table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
-stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"]], "r", None, False, None)
+stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"],["unpause_battle"]], "r", None, False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)

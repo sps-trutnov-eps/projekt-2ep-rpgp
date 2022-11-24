@@ -63,15 +63,48 @@ class Enemy():
         screen.blit(self.texture, (885, 285))
         
 class Battle_info():
+    def __init__(self):
+        self.player_turn = True
+        self.pause = False
+        
     def get_info(self, level):
         self.level = level
         self.active_enemy = level.enemies[0]
+        self.enemy_hp_copy = level.enemies[0].hp
     
     def make_player(self, player):
-        self.player_texture = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), t_size)
+        self.player_copy = player
+        self.player_hp_copy = player.hp
+        self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), t_size)
         
     def blit_player(self, screen):
-        screen.blit(self.player_texture, (180, 285))
+        screen.blit(self.player_texture_copy, (180, 285))
+        
+    def fight(self):
+        if self.player_turn:
+            self.enemy_hp_copy -= self.player_copy.weapon.damage - self.active_enemy.armor
+            self.player_turn = False
+            print(self.player_hp_copy, self.enemy_hp_copy)
+        else:
+            if self.player_copy.armor == None:
+                self.player_hp_copy -= self.active_enemy.damage
+                self.player_turn = True
+            else:
+                self.player_hp_copy -= self.active_enemy.damage - self.player_copy.armor.armor
+                self.player_turn = True
+            print(self.player_hp_copy, self.enemy_hp_copy)
+            
+    def pause_battle(self):
+        self.pause = True
+        
+    def unpause_battle(self):
+        self.pause = False
+            
+    def check_death(self):
+        pass
+    
+    def activate_skill(self):
+        pass
         
 battle_info = Battle_info()
         
