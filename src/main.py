@@ -183,12 +183,13 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(item_class.weapons[0].belonging)
+        print(item_class.weapons)
         
     # BITVA
-    if on__screen.battle:
+    if on__screen.battle == True:
         pause_time = 0
-        while on__screen.battle:
+        battle_info.start()
+        while on__screen.battle == True:
             events = pg.event.get()
             pressed = pg.key.get_pressed()
             m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
@@ -200,8 +201,9 @@ while True:
                     
             screen.fill((88,88,88))
         
-            battle_info.active_enemy.blit_self(screen)
             battle_info.blit_player(screen)
+            battle_info.blit_enemy(screen)
+            
             blit_screen()
             
             counter.blit_self(screen, on__screen)
@@ -213,7 +215,7 @@ while True:
             if not battle_info.pause:
                 if pause_time >= 1500:
                     pause_time = 0
-                    battle_info.fight()
+                    battle_info.check_fight(on__screen)
             else:
                 pause_time = 0
             
@@ -223,7 +225,6 @@ while True:
             pause_time += clock.tick(144)
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
-    
     pg.display.update()
     clock.tick(144)
     

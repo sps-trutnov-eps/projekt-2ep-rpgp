@@ -188,7 +188,7 @@ class Button():
             if task[0] == "start_battle":
                 self.start_battle(on__screen)
             if task[0] == "end_battle":
-                self.end_battle(on__screen)
+                self.end_battle()
             if task[0] == "pause_battle":
                 battle_info.pause_battle()
             if task[0] == "unpause_battle":
@@ -254,10 +254,12 @@ class Button():
                     battle_info.get_info(l)
                     battle_info.make_player(player)
                 
-    def end_battle(self, on__screen):
+    def end_battle(self):
         on_screen.battle = False
         self.change_screen("Game menu", on__screen)
         text_class.texts.pop()
+        print(item_class.weapons)
+        print(on_screen.battle)
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -612,5 +614,7 @@ settings_table = table("Settings table")
 credits_table = table("Credits table")
 game_table = table("Game table")
 pause_table = table("Pause table")
+death_table = table("Death table")
+win_table = table("Win table")
 pause_table.change_format([275,275],[650,350])
         
