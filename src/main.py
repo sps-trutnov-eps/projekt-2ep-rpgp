@@ -181,6 +181,9 @@ while True:
     
     ### Vykreslení tlačítek + kontrola stisku tlačítek ###
     work_buttons_and_texts()
+    
+    if pressed[pg.K_a]:
+        print(item_class.weapons[0].belonging)
         
     # BITVA
     if on__screen.battle:

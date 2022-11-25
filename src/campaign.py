@@ -100,7 +100,7 @@ class Battle_info():
     def unpause_battle(self):
         self.pause = False
             
-    def check_death(self):
+    def check_fight(self):
         pass
     
     def activate_skill(self):

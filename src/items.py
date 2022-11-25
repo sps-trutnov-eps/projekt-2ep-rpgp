@@ -247,7 +247,7 @@ class item():
         self.item_type = None
         
     def draw(self, font, screen, on_screen):
-        if self.belonging == on_screen.active_screen.name and self.shown:
+        if on_screen.active_screen.name in self.belonging and self.shown:
             texture_scaled = pg.transform.scale(self.texture, (192, 192))
             
             self.name_font = pg.font.Font(font, self.name_size)
