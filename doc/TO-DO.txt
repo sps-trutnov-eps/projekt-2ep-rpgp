@@ -1,5 +1,5 @@
 Nesplněno:
-* Vypsání ceny itemu a levlu potřebného na koupi itemu - OBCHOD
+* Vypsání levlu potřebného na koupi itemu - OBCHOD
 * Vykreslování informací v bitvě
 
 Splněno:

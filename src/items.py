@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+from text import *
 from data import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
@@ -150,7 +151,7 @@ def init_items(role):
     weapon_2_type_1 = item(weapon_name_2_type_1, weapon_desc_2_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_2_1")
     weapon_3_type_1 = item(weapon_name_3_type_1, weapon_desc_3_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_3_1")
     weapon_4_type_1 = item(weapon_name_4_type_1, weapon_desc_4_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_4_1")
-    weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_5_1")
+    weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [100,1,None,None,None],"weapon_5_1")
 
     weapon_1_type_2 = item(weapon_name_1_type_2, weapon_desc_1_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_1_2")
     weapon_2_type_2 = item(weapon_name_2_type_2, weapon_desc_2_type_2, pg.image.load(DATA_ROOT + "/data/textures/weapons/"+ player.role +"/type_2/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1,1,None,None,None],"weapon_2_2")
@@ -248,6 +249,7 @@ class item():
         
     def draw(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging and self.shown:
+            
             texture_scaled = pg.transform.scale(self.texture, (192, 192))
             
             self.name_font = pg.font.Font(font, self.name_size)
@@ -273,4 +275,14 @@ class item():
             
             screen.blit(texture_scaled, self.position)
             screen.blit(name_text, name_text_rect)
-    
+            
+            # Cena a potřebný level
+            price_surf = self.desc_font.render("Price: " + str(self.price), True, (0,0,0))
+            screen.blit(price_surf, (60,645))
+            
+            damage_surf = self.desc_font.render("Damage: " + str(self.damage), True, (0,0,0))
+            screen.blit(damage_surf, (335,645))
+            
+            armor_surf = self.desc_font.render("Armor: " + str(self.armor), True, (0,0,0))
+            screen.blit(armor_surf, (335,690))
+            
