@@ -187,6 +187,8 @@ class Button():
                 self.change_level(task[1])
             if task[0] == "start_battle":
                 self.start_battle(on__screen)
+            if task[0] == "restart_battle":
+                self.restart_battle(on__screen)
             if task[0] == "end_battle":
                 self.end_battle()
             if task[0] == "pause_battle":
@@ -253,6 +255,24 @@ class Button():
                     
                     battle_info.get_info(l)
                     battle_info.make_player(player)
+                    battle_info.start()
+                    
+    def restart_battle(self, on__screen):
+        if levels[counter.number - 1].unlocked == True:
+            on__screen.battle = True
+            for screen in on__screen.screens:
+                if screen.name == "Battle":
+                    on__screen.active_screen = screen
+            for l in levels:
+                if counter.number == l.number:
+                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
+                    text_class.texts.append(level_text)
+                    text_class.texts_bundling()
+                    
+                    battle_info.get_info(l)
+                    battle_info.make_player(player)
+                    battle_info.start()
+                    on__screen.active_table = "Close"
                 
     def end_battle(self):
         on_screen.battle = False
@@ -377,23 +397,27 @@ class Button():
         multi_click_prevention = False
         
     def item_type_check(active_item):
-        if active_item.damage == None and active_item.armor == None:
-            active_item_type = "misc_item"
-            return active_item_type
+        if not active_item == None:
+            if active_item.damage == None and active_item.armor == None:
+                active_item_type = "misc_item"
+                return active_item_type
+                
+            if active_item.armor == None and active_item.misc_stat == None:
+                active_item_type = "weapon"
+                return active_item_type
+                
+            if active_item.damage == None and active_item.misc_stat == None:
+                active_item_type = "armor"
+                return active_item_type
             
-        if active_item.armor == None and active_item.misc_stat == None:
-            active_item_type = "weapon"
-            return active_item_type
-            
-        if active_item.damage == None and active_item.misc_stat == None:
-            active_item_type = "armor"
-            return active_item_type
-        
+            else:
+                return None
         else:
             return None
         
     def equip_item(self):
         multi_click_prevention = False
+        active_item = None
         for item_type in item_class.all_items:
             for item in item_type:
                 if item.shown == True:
@@ -403,11 +427,14 @@ class Button():
                 
         if active_item_type == "weapon":
             if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
-                player.weapon = active_item.id
+                player.weapon = active_item
                 text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                     
-            if player.weapon == active_item.id and active_item.bought and multi_click_prevention == False:
+            print(active_item)
+            print(player.weapon)
+            print(multi_click_prevention)
+            if player.weapon == active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = None
                 text_class.show_message("unequip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
@@ -420,11 +447,11 @@ class Button():
             
         if active_item_type == "armor":
             if player.armor is not active_item.id and active_item.bought and multi_click_prevention == False:
-                player.armor = active_item.id
+                player.armor = active_item
                 text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                     
-            if player.armor == active_item.id and active_item.bought and multi_click_prevention == False:
+            if player.armor == active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = None
                 text_class.show_message("unequip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
@@ -566,8 +593,9 @@ game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 6
 skill_board_back = Button(["Skill board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 
 battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"],["pause_battle"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-leave_battle_b = Button(["Pause table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
+leave_battle_b = Button(["Pause table", "Death table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
 stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"],["unpause_battle"]], "r", None, False, None)
+retry_battle_b = Button(["Death table"], (620, 500), (30,30,30,180), 260, 85, [["restart_battle"]], "r", None, False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)

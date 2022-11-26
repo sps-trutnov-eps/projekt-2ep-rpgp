@@ -145,7 +145,8 @@ for i in range(1,20):
 
 levels[0].unlocked = True
 
-zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 2, 2, 0)
+# Nepřátelé
+zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 20, 5, 0)
 slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
-
+# Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])

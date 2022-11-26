@@ -183,12 +183,11 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(item_class.weapons)
+        print(player.weapon.name)
         
     # BITVA
     if on__screen.battle == True:
         pause_time = 0
-        battle_info.start()
         while on__screen.battle == True:
             events = pg.event.get()
             pressed = pg.key.get_pressed()
