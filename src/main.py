@@ -183,12 +183,14 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(player.weapon.name)
+        print(on__screen.battle)
         
     # BITVA
     if on__screen.battle == True:
         pause_time = 0
         while on__screen.battle == True:
+            if pressed[pg.K_a]:
+                print(on__screen.battle)
             events = pg.event.get()
             pressed = pg.key.get_pressed()
             m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]

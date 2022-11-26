@@ -275,11 +275,9 @@ class Button():
                     on__screen.active_table = "Close"
                 
     def end_battle(self):
-        on_screen.battle = False
+        on__screen.battle = False
         self.change_screen("Game menu", on__screen)
         text_class.texts.pop()
-        print(item_class.weapons)
-        print(on_screen.battle)
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -361,40 +359,40 @@ class Button():
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
-        
-        if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
-            active_item.bought = True
-            player.gold = player.gold - active_item.price
-            multi_click_prevention = True        
-            if not active_item.id == "healing_potion" or active_item.id == "mana_potion" and player.inventory[active_item.id] < 99:
-                text_class.show_message("buy") ### TOTO VYPSAT ###
-            
-            ### MISC. ITEMY ####
-            # Potiony #
-            if active_item.id == "healing_potion" or active_item.id == "mana_potion":
-                if player.inventory[active_item.id] < 99:
-                    player.inventory[active_item.id] += 1
-                    active_item.bought = False
-                    text_class.show_message("buy")
-                    print(player.inventory[active_item.id])
-                if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
-                    text_class.show_message("no more") ### TOTO VYPSAT ###
-                    player.gold += active_item.price
-                    active_item.bought = False
-                        
-            # Skill scrolly #
-            if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
-                player.skills[active_item.id] = True
-            
-        if active_item.bought == True and multi_click_prevention == False:
-            text_class.show_message("bought") ### TOTO VYPSAT ###
-            multi_click_prevention = True
-            
-        if active_item.price > player.gold and multi_click_prevention == False:
-            text_class.show_message("no golds") ### TOTO VYPSAT ###
-            multi_click_prevention = True
-            
-        multi_click_prevention = False
+        if not active_item == None:
+            if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
+                active_item.bought = True
+                player.gold = player.gold - active_item.price
+                multi_click_prevention = True        
+                if not active_item.id == "healing_potion" or active_item.id == "mana_potion" and player.inventory[active_item.id] < 99:
+                    text_class.show_message("buy") ### TOTO VYPSAT ###
+                
+                ### MISC. ITEMY ####
+                # Potiony #
+                if active_item.id == "healing_potion" or active_item.id == "mana_potion":
+                    if player.inventory[active_item.id] < 99:
+                        player.inventory[active_item.id] += 1
+                        active_item.bought = False
+                        text_class.show_message("buy")
+                        print(player.inventory[active_item.id])
+                    if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
+                        text_class.show_message("no more") ### TOTO VYPSAT ###
+                        player.gold += active_item.price
+                        active_item.bought = False
+                            
+                # Skill scrolly #
+                if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
+                    player.skills[active_item.id] = True
+                
+            if active_item.bought == True and multi_click_prevention == False:
+                text_class.show_message("bought") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                
+            if active_item.price > player.gold and multi_click_prevention == False:
+                text_class.show_message("no golds") ### TOTO VYPSAT ###
+                multi_click_prevention = True
+                
+            multi_click_prevention = False
         
     def item_type_check(active_item):
         if not active_item == None:
@@ -426,14 +424,11 @@ class Button():
         active_item_type = Button.item_type_check(active_item)
                 
         if active_item_type == "weapon":
-            if player.weapon is not active_item.id and active_item.bought and multi_click_prevention == False:
+            if player.weapon is not active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = active_item
                 text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
                     
-            print(active_item)
-            print(player.weapon)
-            print(multi_click_prevention)
             if player.weapon == active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = None
                 text_class.show_message("unequip") ### TOTO VYPSAT ###
@@ -446,7 +441,7 @@ class Button():
             multi_click_prevention = False
             
         if active_item_type == "armor":
-            if player.armor is not active_item.id and active_item.bought and multi_click_prevention == False:
+            if player.armor is not active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = active_item
                 text_class.show_message("equip") ### TOTO VYPSAT ###
                 multi_click_prevention = True
