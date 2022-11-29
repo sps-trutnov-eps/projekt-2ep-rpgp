@@ -112,10 +112,10 @@ class skill():
             target.hp -= 15
             ### Zde kód na zastavení akcí hráče (stun) ###
             
-fireball = skill(None, "Fireball", "Cast a fireball and shoot it at your enemy!", 3)
-ice_storm = skill(None, "Ice Storm", "Send a shower of sharp icicles down on your enemy!", 3)
-poison_dart = skill(None, "Poison Dart", "Blow a poison dart at your enemy!", 3)
-life_steal = skill(None, "Life Steal", "Steal health for yourself from your enemy!", 3)
-water_blast = skill(None, "Water Blast", "Cast a big wave of water against your enemy!", 3)
-lightning_bolt = skill(None, "Lightning Bolt", "Shoot a lightning bolt at your enemy!", 3)
-rock_throw = skill(None, "Rock Throw", "Throw a large boulder at your enemy!", 3)
+fireball = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), "Fireball", "Cast a fireball and shoot it at your enemy!", 3)
+ice_storm = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), "Ice Storm", "Send a shower of sharp icicles down on your enemy!", 3)
+poison_dart = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), "Poison Dart", "Blow a poison dart at your enemy!", 3)
+life_steal = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), "Life Steal", "Steal health for yourself from your enemy!", 3)
+water_blast = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), "Water Blast", "Cast a big wave of water against your enemy!", 3)
+lightning_bolt = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), "Lightning Bolt", "Shoot a lightning bolt at your enemy!", 3)
+rock_throw = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), "Rock Throw", "Throw a large boulder at your enemy!", 3)

@@ -98,7 +98,7 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     if devmode:
         ### TEXTURE PREVIEW TOOL ###
         # Zde se do podprogramu zadá cesta textury, kterou chceme vidět ve hře
-        pt.get_texture(DATA_ROOT + "/data/textures/weapons/warrior/type_2/5.png")
+        pt.get_texture(DATA_ROOT + "/data/textures/icons/skills/water_blast.png")
         # Zde se textury zobrazují
         pt.render_preview(screen, resolution)
         
