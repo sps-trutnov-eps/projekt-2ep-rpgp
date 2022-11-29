@@ -207,8 +207,12 @@ class Button():
             if task[0] == "equip_item":
                 text_class.hide_messages()
                 self.equip_item()
-            if task [0] == "reset_item_show":
+            if task[0] == "reset_item_show":
                 self.reset_item_show()
+            if task[0] == "win_battle":
+                self.win_battle()
+            if task[0] == "continue_battle":
+                self.continue_battle()
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -258,6 +262,7 @@ class Button():
                     battle_info.start()
                     
     def restart_battle(self, on__screen):
+        text_class.texts.pop()
         if levels[counter.number - 1].unlocked == True:
             on__screen.battle = True
             for screen in on__screen.screens:
@@ -276,8 +281,17 @@ class Button():
                 
     def end_battle(self):
         on__screen.battle = False
-        self.change_screen("Game menu", on__screen)
+        self.change_screen("Campaign", on__screen)
         text_class.texts.pop()
+        
+    def win_battle(self):
+        levels[counter.number].unlocked = True
+        counter.number += 1
+        self.end_battle()
+    
+    def continue_battle(self):
+        self.win_battle()
+        self.restart_battle(on__screen)
                 
     def save(self):
         file = open("saved_data.csv", "w", encoding = "UTF-8")
@@ -315,8 +329,12 @@ class Button():
         player.role = d_l[0]
         init_items(player.role)
         shop_b_init()
-        player.weapon = d_l[1]
-        player.armor = d_l[2]
+        for w in item_class.weapons:
+            if w.id == d_l[1]:
+                player.weapon = w
+        for a in item_class.armors:
+            if a.id == d_l[2]:
+                player.weapon = a
         player.gold = int(d_l[3])
         player.level = int(d_l[4])
         player.inventory = {"healing_potion":int(d_l[5]), "mana_potion":int(d_l[6])}
@@ -591,6 +609,8 @@ battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_
 leave_battle_b = Button(["Pause table", "Death table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
 stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"],["unpause_battle"]], "r", None, False, None)
 retry_battle_b = Button(["Death table"], (620, 500), (30,30,30,180), 260, 85, [["restart_battle"]], "r", None, False, None)
+completed_battle_b = Button(["Win table"], (320,500), (30,30,30,180), 260, 85, [["win_battle"]], "r", None, False, None)
+continue_battle_b = Button(["Win table"], (620,500), (30,30,30,180), 260, 85, [["continue_battle"]], "r", None, False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)

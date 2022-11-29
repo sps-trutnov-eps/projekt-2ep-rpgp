@@ -183,7 +183,7 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(on__screen.battle)
+        print(levels[1].unlocked)
         
     # BITVA
     if on__screen.battle == True:

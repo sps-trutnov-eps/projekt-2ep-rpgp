@@ -140,7 +140,7 @@ battle_info = Battle_info()
 counter = Counter()
 levels = []
 
-for i in range(1,20):
+for i in range(1,21):
     levels.append(Level(i))
 
 levels[0].unlocked = True
@@ -150,3 +150,22 @@ zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/tex
 slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])
+levels[1].get_enemies([zombie])
+levels[2].get_enemies([zombie])
+levels[3].get_enemies([zombie])
+levels[4].get_enemies([zombie])
+levels[5].get_enemies([zombie])
+levels[6].get_enemies([zombie])
+levels[7].get_enemies([zombie])
+levels[8].get_enemies([zombie])
+levels[9].get_enemies([zombie])
+levels[10].get_enemies([zombie])
+levels[11].get_enemies([zombie])
+levels[12].get_enemies([zombie])
+levels[13].get_enemies([zombie])
+levels[14].get_enemies([zombie])
+levels[15].get_enemies([zombie])
+levels[16].get_enemies([zombie])
+levels[17].get_enemies([zombie])
+levels[18].get_enemies([zombie])
+levels[19].get_enemies([zombie])

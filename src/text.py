@@ -126,6 +126,8 @@ pause_no = text(["Pause table"], "No", (750,542), pg.font.Font(def_link, 38), de
 death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, settings_size), def_colour)
 death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 38), def_colour)
 death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
+win_leave = text(["Win table"], "Back", (450,542), pg.font.Font(def_link, 38), def_colour)
+win_continue = text(["Win table"], "Next level", (750, 542), pg.font.Font(def_link, 38), def_colour)
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)
