@@ -199,6 +199,8 @@ class Button():
                 self.save()
             if task[0] == "load":
                 self.load()
+            if task[0] == "delete_save":
+                self.delete_save()
             if task[0] == "buy_item":
                 text_class.hide_messages()
                 self.buy_item()
@@ -325,37 +327,48 @@ class Button():
     def load(self):
         file = open("saved_data.csv", "r", encoding = "UTF-8")
         data = file.readline()
-        d_l = data.split(",")
-        player.role = d_l[0]
-        init_items(player.role)
-        shop_b_init()
-        for w in item_class.weapons:
-            if w.id == d_l[1]:
-                player.weapon = w
-        for a in item_class.armors:
-            if a.id == d_l[2]:
-                player.weapon = a
-        player.gold = int(d_l[3])
-        player.level = int(d_l[4])
-        player.inventory = {"healing_potion":int(d_l[5]), "mana_potion":int(d_l[6])}
-        for l in levels:
-            if l.number <= int(d_l[7]):
-                l.unlocked = True
-                levels[l.number - 1].completed = True
+        if data == "":
+            pass
+        else:
+            d_l = data.split(",")
+            player.role = d_l[0]
+            init_items(player.role)
+            item_class.item_bundling()
+            shop_b_init()
+            for w in item_class.weapons:
+                if w.id == d_l[1]:
+                    player.weapon = w
+            for a in item_class.armors:
+                if a.id == d_l[2]:
+                    player.weapon = a
+            player.gold = int(d_l[3])
+            player.level = int(d_l[4])
+            player.inventory = {"healing_potion":int(d_l[5]), "mana_potion":int(d_l[6])}
+            for l in levels:
+                if l.number <= int(d_l[7]):
+                    l.unlocked = True
+                    levels[l.number - 1].completed = True
+                    
+            x = 8
+            for il in item_class.all_items:
+                for i in il:
+                    if d_l[x] == "False":
+                        i.bought = False
+                    elif d_l[x] == "True":
+                        i.bought = True
+                    x += 1
                 
-        x = 8
-        for il in item_class.all_items:
-            for i in il:
-                if d_l[x] == "False":
-                    i.bought = False
-                elif d_l[x] == "True":
-                    i.bought = True
-                x += 1
-                
-        index_golds = text_class.texts.index(golds)
-        text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
-        index_level = text_class.texts.index(p_level)
-        text_class.texts[index_level].update(str(player.level), None)
+            index_golds = text_class.texts.index(golds)
+            text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
+            index_level = text_class.texts.index(p_level)
+            text_class.texts[index_level].update(str(player.level), None)
+            
+            self.change_screen("Game menu", on__screen)
+        
+    def delete_save(self):
+        file = open("saved_data.csv", "w", encoding = "UTF-8")
+        file.truncate()
+        file.close()
         
     def item_test(self):
         if item.bought == False:
@@ -594,10 +607,10 @@ player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
-continue_b = Button(["Main menu"], (680, 485), None, 445, 85, [["load"], ["change_screen", "Game menu"]], False, None, False, None)
-warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
-ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
-mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
+continue_b = Button(["Main menu"], (680, 485), None, 445, 85, [["load"]], False, None, False, None)
+warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
+ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
+mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
 shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
 profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
