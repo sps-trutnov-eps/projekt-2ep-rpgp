@@ -5,6 +5,7 @@ from Screens import *
 from dev_tools import *
 from items import *
 from campaign import *
+from skills import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -183,14 +184,14 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(levels[1].unlocked)
+        for t in text_class.texts:
+            print(t.text)
         
     # BITVA
     if on__screen.battle == True:
-        pause_time = 0
+        round_time = 0
+        affects_time = 0
         while on__screen.battle == True:
-            if pressed[pg.K_a]:
-                print(on__screen.battle)
             events = pg.event.get()
             pressed = pg.key.get_pressed()
             m_pressed = [pg.mouse.get_pressed()[0], pg.mouse.get_pressed()[1], pg.mouse.get_pressed()[2]]
@@ -214,18 +215,26 @@ while True:
             work_buttons_and_texts()
             
             if not battle_info.pause:
-                if pause_time >= 1500:
-                    pause_time = 0
+                if round_time >= 1500:
+                    round_time = 0
                     battle_info.check_fight(on__screen)
+                if affects_time >= 1000:
+                    affects_time = 0
+                    # Sem dodat účinky debuffů
             else:
-                pause_time = 0
+                round_time = 0
+                affects_time = 0
+            
+            if pressed[pg.K_a]:
+                for t in text_class.texts:
+                    print(t.text)
             
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
             
             pg.display.update()
-            pause_time += clock.tick(144)
+            round_time += clock.tick(100)
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     pg.display.update()
-    clock.tick(144)
+    clock.tick(100)
     

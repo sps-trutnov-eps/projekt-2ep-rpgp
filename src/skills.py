@@ -64,11 +64,11 @@ class debuff():
         else:
             pass
 
-on_fire_debuff = debuff(None, "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.")
-frozen_debuff = debuff(None, "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.")
-poisoned_debuff = debuff(None, "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X % for the duration of this debuff.")
-wet_debuff = debuff(None, "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.")
-shocked_debuff = debuff(None, "Shocked!", "You have been struck with lightning making it difficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of this debuff.")
+on_fire_debuff = debuff(None, "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.",3)
+frozen_debuff = debuff(None, "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.",3)
+poisoned_debuff = debuff(None, "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X % for the duration of this debuff.",3)
+wet_debuff = debuff(None, "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.",3)
+shocked_debuff = debuff(None, "Shocked!", "You have been struck with lightning making it difficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of this debuff.",3)
 
 # target -> člověk na koho byl skill použit
 # caster -> člověk co skill použil

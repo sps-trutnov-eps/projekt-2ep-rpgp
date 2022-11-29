@@ -256,13 +256,12 @@ class Button():
             for l in levels:
                 if counter.number == l.number:
                     level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
-                    text_class.texts.append(level_text)
                     text_class.texts_bundling()
                     
                     battle_info.get_info(l)
                     battle_info.make_player(player)
                     battle_info.start()
-                    
+                                    
     def restart_battle(self, on__screen):
         text_class.texts.pop()
         if levels[counter.number - 1].unlocked == True:
@@ -273,7 +272,6 @@ class Button():
             for l in levels:
                 if counter.number == l.number:
                     level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
-                    text_class.texts.append(level_text)
                     text_class.texts_bundling()
                     
                     battle_info.get_info(l)
@@ -292,7 +290,8 @@ class Button():
         self.end_battle()
     
     def continue_battle(self):
-        self.win_battle()
+        levels[counter.number].unlocked = True
+        counter.number += 1
         self.restart_battle(on__screen)
                 
     def save(self):

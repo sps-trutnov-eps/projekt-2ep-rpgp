@@ -86,7 +86,8 @@ class Battle_info():
         
     def fight(self):
         if self.player_turn:
-            damage = self.player_copy.weapon.damage - self.active_enemy.armor
+            damage = self.player_copy.weapon.damage * ((100 - self.active_enemy.armor) / 100)
+            damage = round(damage)
             if damage >= 0:
                 self.enemy_hp_copy -= damage
             else:
@@ -96,7 +97,8 @@ class Battle_info():
             if self.player_copy.armor == None:
                 self.player_hp_copy -= self.active_enemy.damage
             else:
-                damage = self.active_enemy.damage - self.player_copy.armor.armor
+                damage = self.active_enemy.damage * ((100 - self.player_copy.armor.armor) / 100)
+                damage = round(damage)
                 if damage >= 0:
                     self.player_hp_copy -= damage
                 else:
@@ -146,7 +148,7 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 20, 5, 0)
+zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 20, 5, 50)
 slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])
