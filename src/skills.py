@@ -82,15 +82,14 @@ class skill():
         # cooldown in rounds
     
     ## Toto spustit po aktivaci skillu
-    def logic(self):
-        caster = player
+    def skill_used(self, caster, target):
         # target = enemy ### Nevím kde jsou data nepřítele
         if self.name == "Fireball" and self.cooldown == 0:
-            #target.hp -= 15
+            target.hp -= 15
             on_fire_debuff.active = True
             
         if self.name == "Ice Storm" and self.cooldown == 0:
-            #target.hp -= 15
+            target.hp -= 15
             frozen_debuff.active = True
             
         if self.name == "Poison Dart" and self.cooldown == 0:
@@ -99,18 +98,18 @@ class skill():
         if self.name == "Life Steal" and self.cooldown == 0:
             hp_amount = 15
             caster.hp += hp_amount
-            #target.hp -= hp_amount
+            target.hp -= hp_amount
             
         if self.name == "Water Blast" and self.cooldown == 0:
-            #target.hp -= 15
+            target.hp -= 15
             wet_debuff.active = True
             
         if self.name == "Lightning Bolt" and self.cooldown == 0:
-            #target.hp -= 15
+            target.hp -= 15
             shocked_debuff.active = True
             
         if self.name == "Rock Throw" and self.cooldown == 0:
-            #target.hp -= 15
+            target.hp -= 15
             ### Zde kód na zastavení akcí hráče (stun) ###
             
 fireball = skill(None, "Fireball", "Cast a fireball and shoot it at your enemy!", 3)
