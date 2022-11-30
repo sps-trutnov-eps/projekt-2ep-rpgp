@@ -278,19 +278,19 @@ class item():
             screen.blit(name_text, name_text_rect)
             
             # Cena a potřebný level
-            price_surf = self.desc_font.render(": " + str(self.price), True, (0,0,0))
+            price_surf = self.desc_font.render("Price: " + str(self.price), True, (0,0,0))
             screen.blit(price_surf, (120,645))
             
-            level_surf = self.desc_font.render(": ", True, (0,0,0))
-            screen.blit(level_surf, (120, 700))
+            level_surf = self.desc_font.render("Level: ", True, (0,0,0))
+            screen.blit(level_surf, (120, 710))
             
             if not self.damage == None:
-                damage_surf = self.desc_font.render(": " + str(self.damage), True, (0,0,0))
-                screen.blit(damage_surf, (395,670))
+                damage_surf = self.desc_font.render("Damage: " + str(self.damage), True, (0,0,0))
+                screen.blit(damage_surf, (395,675))
             
             if not self.armor == None:
-                armor_surf = self.desc_font.render(": " + str(self.armor), True, (0,0,0))
-                screen.blit(armor_surf, (395,670))
+                armor_surf = self.desc_font.render("Armor: " + str(self.armor) + "%", True, (0,0,0))
+                screen.blit(armor_surf, (395,675))
             
             if self.armor == None and self.damage == None:
                 pass

@@ -143,7 +143,8 @@ class Battle_info():
         pass
     
     def show_bars(self, screen):
-        max_enemy_hp = self.active_enemy.hp
+        if not self.active_enemy == None:
+            max_enemy_hp = self.active_enemy.hp
         # HP bar nepřítele
         pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
         # HP bar hráče

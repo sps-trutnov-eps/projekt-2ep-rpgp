@@ -207,12 +207,12 @@ class Button():
             if task[0] == "buy_item":
                 text_class.hide_messages()
                 self.buy_item()
-                self.equip_item()
+                self.equip_item(False)
                 index = text_class.texts.index(golds)
                 text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
             if task[0] == "equip_item":
                 text_class.hide_messages()
-                self.equip_item()
+                self.equip_item(True)
             if task[0] == "reset_item_show":
                 self.reset_item_show()
             if task[0] == "win_battle":
@@ -454,7 +454,7 @@ class Button():
         else:
             return None
         
-    def equip_item(self):
+    def equip_item(self, show_message):
         multi_click_prevention = False
         active_item = None
         for item_type in item_class.all_items:
@@ -463,20 +463,23 @@ class Button():
                     active_item = item
                 
         active_item_type = Button.item_type_check(active_item)
-                
+        
         if active_item_type == "weapon":
             if player.weapon is not active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = active_item
-                text_class.show_message("equip")
+                if show_message:
+                    text_class.show_message("equip")
                 multi_click_prevention = True
                     
             if player.weapon == active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = None
-                text_class.show_message("unequip")
+                if show_message:
+                    text_class.show_message("unequip")
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                text_class.show_message("no owner")
+                if show_message:
+                    text_class.show_message("no owner")
                 multi_click_prevention = True
             
             multi_click_prevention = False
@@ -484,22 +487,26 @@ class Button():
         if active_item_type == "armor":
             if player.armor is not active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = active_item
-                text_class.show_message("equip")
+                if show_message:
+                    text_class.show_message("equip")
                 multi_click_prevention = True
                     
             if player.armor == active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = None
-                text_class.show_message("unequip")
+                if show_message:
+                    text_class.show_message("unequip")
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                text_class.show_message("no owner")
+                if show_message:
+                    text_class.show_message("no owner")
                 multi_click_prevention = True
             
             multi_click_prevention = False
             
         if active_item_type == "misc_item":
-            text_class.show_message("no equip")
+            if show_message:
+                text_class.show_message("no equip")
 
     def select_skill_slot(self, slot_index):
         active_skill_slot = slot_index
