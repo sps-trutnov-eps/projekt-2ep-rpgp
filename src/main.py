@@ -205,6 +205,8 @@ while True:
                     sys.exit()
                     
             screen.fill((88,88,88))
+            
+            battle_info.show_bars(screen)
         
             battle_info.blit_player(screen)
             battle_info.blit_enemy(screen)
