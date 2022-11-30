@@ -13,6 +13,7 @@ class player():
         self.gold = 1000
         self.level = 1
         self.hp = 100
+        self.equipped_skills = ["Fireball", None, None]
         
 class settings():
     def __init__(self):

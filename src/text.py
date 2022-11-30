@@ -141,4 +141,16 @@ no_equip = message("no equip", ["Weapon board", "Armor board", "Item board"], "C
 no_owner = message("no owner", ["Weapon board", "Armor board", "Item board"], "You don't own this yet", (300,150), pg.font.Font(def_link, message_size), dark_red)
 save = message("save", ["Game table"], "Game saved", (600, 650), pg.font.Font(def_link, message_size), def_colour)
 
+# Texty v profilu
+skill_title = text(["Skill board"], "Skills", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
+debuff_title = text(["Debuff board"], "Debuffs", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_1 = text(["Skill board"], "1", (532,710), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_2 = text(["Skill board"], "2", (632,710), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_3 = text(["Skill board"], "3", (732,710), pg.font.Font(def_link,heading1_size),dark_colour)
+
+# Texty v game menu
+profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)
+campaign = text(["Game menu"], "CAMPAIGN", (600,530), pg.font.Font(def_link, settings_size),def_colour)
+shop = text(["Game menu"], "SHOP", (990, 520), pg.font.Font(def_link, settings_size),def_colour)
+
 text_class.texts_bundling()

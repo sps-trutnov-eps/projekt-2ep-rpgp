@@ -4,6 +4,7 @@ from text import *
 from data import *
 from items import *
 from campaign import *
+from skills import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -107,6 +108,7 @@ class Button():
         self.colour = colour
         self.alpha = 180
         self.draw = draw
+        self.active_skill_slot = None
         if not texture == None:
             if scale:
                 self.texture = pg.transform.scale(texture, (width, height))
@@ -215,6 +217,13 @@ class Button():
                 self.win_battle()
             if task[0] == "continue_battle":
                 self.continue_battle()
+            if task[0] == "select_skill_slot":
+                self.select_skill_slot(task[1])
+                print(self.active_skill_slot)
+                print("slot selected")
+            if task[0] == "equip_skill":
+                self.equip_skill()
+                print("equipped")
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -395,7 +404,7 @@ class Button():
                 player.gold = player.gold - active_item.price
                 multi_click_prevention = True        
                 if not active_item.id == "healing_potion" or active_item.id == "mana_potion" and player.inventory[active_item.id] < 99:
-                    text_class.show_message("buy") ### TOTO VYPSAT ###
+                    text_class.show_message("buy")
                 
                 ### MISC. ITEMY ####
                 # Potiony #
@@ -406,7 +415,7 @@ class Button():
                         text_class.show_message("buy")
                         print(player.inventory[active_item.id])
                     if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
-                        text_class.show_message("no more") ### TOTO VYPSAT ###
+                        text_class.show_message("no more")
                         player.gold += active_item.price
                         active_item.bought = False
                             
@@ -415,11 +424,11 @@ class Button():
                     player.skills[active_item.id] = True
                 
             if active_item.bought == True and multi_click_prevention == False:
-                text_class.show_message("bought") ### TOTO VYPSAT ###
+                text_class.show_message("bought")
                 multi_click_prevention = True
                 
             if active_item.price > player.gold and multi_click_prevention == False:
-                text_class.show_message("no golds") ### TOTO VYPSAT ###
+                text_class.show_message("no golds")
                 multi_click_prevention = True
                 
             multi_click_prevention = False
@@ -456,16 +465,16 @@ class Button():
         if active_item_type == "weapon":
             if player.weapon is not active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = active_item
-                text_class.show_message("equip") ### TOTO VYPSAT ###
+                text_class.show_message("equip")
                 multi_click_prevention = True
                     
             if player.weapon == active_item and active_item.bought and multi_click_prevention == False:
                 player.weapon = None
-                text_class.show_message("unequip") ### TOTO VYPSAT ###
+                text_class.show_message("unequip")
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                text_class.show_message("no owner") ### TOTO VYPSAT ###
+                text_class.show_message("no owner")
                 multi_click_prevention = True
             
             multi_click_prevention = False
@@ -473,23 +482,43 @@ class Button():
         if active_item_type == "armor":
             if player.armor is not active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = active_item
-                text_class.show_message("equip") ### TOTO VYPSAT ###
+                text_class.show_message("equip")
                 multi_click_prevention = True
                     
             if player.armor == active_item and active_item.bought and multi_click_prevention == False:
                 player.armor = None
-                text_class.show_message("unequip") ### TOTO VYPSAT ###
+                text_class.show_message("unequip")
                 multi_click_prevention = True
                 
             if active_item.bought == False and multi_click_prevention == False:
-                text_class.show_message("no owner") ### TOTO VYPSAT ###
+                text_class.show_message("no owner")
                 multi_click_prevention = True
             
             multi_click_prevention = False
             
         if active_item_type == "misc_item":
-            text_class.show_message("no equip") ### TOTO VYPSAT ###
+            text_class.show_message("no equip")
 
+    def select_skill_slot(self, slot_index):
+        active_skill_slot = slot_index
+        for button in button_class.buttons:
+            if button.tasks[0][0] == "equip_skill":
+                button.active_skill_slot = active_skill_slot
+
+    def equip_skill(self):
+        multi_click_prevention = False
+        active_skill = None
+        for skill in skill_class.skills:
+            if skill.shown == True:
+                active_skill = skill
+            
+        if multi_click_prevention == False:
+            player.equipped_skills[self.active_skill_slot - 1] = active_skill.name
+            text_class.show_message("equip")
+            multi_click_prevention = True
+        
+        multi_click_prevention = False
+        print(player.equipped_skills)
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
@@ -615,7 +644,6 @@ shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_s
 profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
 campaign_b = Button(["Game menu"], (550,400), (30,30,30,180), 100, 100, [["change_screen", "Campaign"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/campaign_icon.png"), True, None)
 game_menu_b = Button(["Shop", "Profile", "Campaign"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Game menu"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
-skill_board_back = Button(["Skill board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 
 battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_table", "Pause table"],["pause_battle"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 leave_battle_b = Button(["Pause table", "Death table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
@@ -638,6 +666,23 @@ lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["chang
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
 skill_board_b = Button(["Profile"], (760, 345), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
+skill_debuff_board_back = Button(["Skill board","Debuff board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
+debuff_board_b = Button(["Skill board"], (1050,750),(30,30,30,180),64,64, [["change_screen", "Debuff board"]], "c", None, True, None)
+debuff_to_skill = Button(["Debuff board"], (1050, 750), (30,30,30,180), 64,64, [["change_screen", "Skill board"]], "c", None, True, None)
+
+skill_slot_1 = Button(["Skill board"], (500, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", None, True, None)
+skill_slot_2 = Button(["Skill board"], (600, 750), (30,30,30,180), 64,64, [["select_skill_slot", 2]], "c", None, True, None)
+skill_slot_3 = Button(["Skill board"], (700, 750), (30,30,30,180), 64,64, [["select_skill_slot", 3]], "c", None, True, None)
+
+equip_skill = Button(["Skill board"], (86, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
+
+skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
+skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
+skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
+skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
+skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), True, None)
+skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
+skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
@@ -657,6 +702,7 @@ battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/camp
 
 # Podobrazovky profilu
 skill_board = screen("Skill board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
+debuff_board = screen("Debuff board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))

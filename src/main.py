@@ -51,6 +51,11 @@ def blit_shop_items():
         for misc_item in item_class.misc_items:
             misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
     
+def blit_skills():
+    if not skill_class.skills == []:
+        for skill in skill_class.skills:
+            skill.draw_skill(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    
 def stop_multi_click(devmode, m_pressed, click_acc):
     if not devmode:
         if click_acc and m_pressed[0]:
@@ -173,6 +178,9 @@ while True:
     
     # Vykreslování itemů v obchodě
     blit_shop_items()
+    
+    # Vykreslování skillů v profilu
+    blit_skills()
             
     # Vykreslování věcí v kampani
     counter.blit_self(screen, on__screen)
