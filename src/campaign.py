@@ -64,6 +64,9 @@ class Battle_info():
     def start(self):
         self.player_turn = True
         self.pause = False
+        self.hp_color = (190,50,50)
+        self.mana_color = (80,110,200)
+        self.bar_width = 300
         
     def get_info(self, level):
         self.level = level
@@ -71,9 +74,11 @@ class Battle_info():
         self.stage = 0
         self.active_enemy = level.enemies[self.stage]
         self.enemy_hp_copy = level.enemies[self.stage].hp
+        self.enemy_max_hp = self.enemy_hp_copy = level.enemies[self.stage].hp
     
     def make_player(self, player):
         self.player_copy = player
+        self.player_max_hp = player.hp
         self.player_hp_copy = player.hp
         self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
         
@@ -136,6 +141,13 @@ class Battle_info():
     
     def activate_skill(self):
         pass
+    
+    def show_bars(self, screen):
+        max_enemy_hp = self.active_enemy.hp
+        # HP bar nepřítele
+        pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
+        # HP bar hráče
+        pg.draw.rect(screen, self.hp_color, (135,775,(self.bar_width * (self.player_hp_copy / self.player_max_hp)),44))
         
 battle_info = Battle_info()
         

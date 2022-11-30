@@ -16,6 +16,7 @@ class on_screen():
         self.screens = []
         self.tables = []
         self.blit_objects = []
+        self.bought_icons = []
         self.active_screen = None
         self.active_table = "Close"
         self.button_activity = True
@@ -206,6 +207,7 @@ class Button():
             if task[0] == "buy_item":
                 text_class.hide_messages()
                 self.buy_item()
+                self.equip_item()
                 index = text_class.texts.index(golds)
                 text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
             if task[0] == "equip_item":
@@ -528,34 +530,49 @@ class blit_object():
         self.position = position
         if scale:
             self.texture = pg.transform.scale(texture, (width, height))
-        self.condition = True
+        self.show = True
         
     def blit_self(self, screen, on__screen):
-        if not on__screen.active_screen == "Exit":
-            if not on__screen.active_table == "Close":
-                if on__screen.active_table.name in self.belonging:
+        if self.show:
+            if not on__screen.active_screen == "Exit":
+                if not on__screen.active_table == "Close":
+                    if on__screen.active_table.name in self.belonging:
+                        screen.blit(self.texture, self.position)
+                elif on__screen.active_screen.name in self.belonging:
                     screen.blit(self.texture, self.position)
-            elif on__screen.active_screen.name in self.belonging:
-                screen.blit(self.texture, self.position)
-                
-    def check(self, screen, on__screen):
-        if self.condition:
-            self.blit_self(screen, on__screen)
+        else:
+            if on__screen.active_screen.name in self.belonging:
+                self.check_active_item(screen)
+            
+    def check_active_item(self, screen):
+        for it in item_class.all_items:
+            for i in it:
+                if i.shown:
+                    screen.blit(self.texture, self.position)
     
     def get_condition(self, condition):
         self.condition = condition
                 
 class bought_icon():
         def __init__(self, item, button):
-            on__screen.blit_objects.append(self)
+            on__screen.bought_icons.append(self)
             self.item = item
             self.button = button
-            self.texture = pg.image.load(DATA_ROOT + "/data/textures/icons/completed_icon.png")
+            self.scale = 18
+            self.offset = 90
+            self.texture = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/icons/completed_icon.png"), (self.scale,self.scale))
+            self.texture_e = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/icons/euqipped_icon.png"), (self.scale,self.scale))
             
         def blit_self(self, screen, on_screen):
-            if self.item.belonging == on_screen.active_screen.name and self.item.bought:
-                screen.blit(self.texture, (self.button.position[0] + 90, self.button.position[1] + 90))
-        
+            if self.item == None:
+                self.find_equiped(screen)
+            elif self.item.belonging == on_screen.active_screen.name and self.item.bought:
+                screen.blit(self.texture, (self.button.position[0] + self.offset, self.button.position[1] + self.offset))
+                if self.item == player.weapon or self.item == player.armor:
+                    screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1]))
+                elif self.item.id == player.weapon or self.item.id == player.armor:
+                    screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1] - 10))
+                    
 def shop_b_init():
     weapon_textures = []
     armor_textures = []
@@ -632,6 +649,16 @@ shop_foreground = blit_object(["Shop"], (0,0), pg.image.load(DATA_ROOT + "/data/
 coin = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
 level = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), True, 180, 504)
+shop_price = blit_object(["Weapon board", "Armor board", "Item board"], (60, 640), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
+shop_level = blit_object(["Weapon board", "Armor board", "Item board"], (60, 700), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
+shop_damage = blit_object(["Weapon board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/damage_icon_2.png"), True, 54, 54)
+shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/defense_icon.png"), True, 54, 54)
+shop_potion = blit_object(["Item board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
+shop_price.show = False
+shop_level.show = False
+shop_damage.show = False
+shop_armor.show = False
+shop_potion.show = False
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)

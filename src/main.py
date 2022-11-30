@@ -83,6 +83,9 @@ def work_buttons_and_texts():
     for t in text_class.all:
         t.blit_self(screen, on__screen)
         
+    for b in on__screen.bought_icons:
+        b.blit_self(screen, on__screen)
+        
 def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
@@ -210,6 +213,8 @@ while True:
                     sys.exit()
                     
             screen.fill((88,88,88))
+            
+            battle_info.show_bars(screen)
         
             battle_info.blit_player(screen)
             battle_info.blit_enemy(screen)
