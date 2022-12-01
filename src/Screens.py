@@ -536,7 +536,7 @@ class Button():
                     if p_skill == active_skill.name:
                         player.equipped_skills[x] = player.equipped_skills[self.active_skill_slot - 1]
                         
-                player.equipped_skills[self.active_skill_slot - 1] = active_skill.name
+                player.equipped_skills[self.active_skill_slot - 1] = active_skill
                         
                 for x, p_skill in enumerate(player.equipped_skills):
                     if p_skill == None:
@@ -544,11 +544,9 @@ class Button():
                             if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
                                 button.get_texture(None)
                     else:
-                        for skill in skill_class.skills:
-                            if p_skill == skill.name:
-                                for button in button_class.buttons:
-                                    if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
-                                        button.get_texture(skill.icon)
+                        for button in button_class.buttons:
+                            if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
+                                button.get_texture(p_skill.icon)
                         
                 multi_click_prevention = True
             

@@ -1,5 +1,6 @@
 Nesplněno:
 * Vykreslování informací v bitvě
+* Uložení skillů
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
