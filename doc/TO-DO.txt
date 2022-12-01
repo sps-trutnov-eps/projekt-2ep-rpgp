@@ -1,5 +1,4 @@
 Nesplněno:
-* Vypsání levlu potřebného na koupi itemu - OBCHOD
 * Vykreslování informací v bitvě
 
 Splněno:
@@ -10,4 +9,5 @@ Splněno:
 * Vykreslení ikonky "completed" (buď v1 nebo v2) vedle koleček itemů, které jsou zakoupené - OBCHOD
 * Ukládání inventory, amroru a skillu
 * Vypisování informativních zpráv nad itemem - OBCHOD
+* Vypsání levlu potřebného na koupi itemu - OBCHOD
 * Načítání dat z datového souboru - (DODĚLAT UPDATE LEVELU)

@@ -64,7 +64,7 @@ class tooltip():
         name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
         desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
         name = name_font.render(table_name, False, (255,255,255))
-        desc = desc_font.render(table_description, False (200,200,200))
+        desc = desc_font.render(table_description, False, (200,200,200))
         name_rect = name.get_rect()
         desc_rect = desc.get_rect()
         
@@ -121,6 +121,12 @@ class Button():
             self.condition = condition
         else:
             self.condition = True
+            
+    def get_texture(self, texture):
+        if texture == None:
+            self.texture = None
+        else:
+            self.texture = pg.transform.scale(texture, (self.width, self.height))
             
     def check(self, m_pressed, on__screen):
         if not on__screen.active_screen == "Exit":
@@ -225,7 +231,6 @@ class Button():
                 print("slot selected")
             if task[0] == "equip_skill":
                 self.equip_skill()
-                print("equipped")
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -509,25 +514,46 @@ class Button():
                 text_class.show_message("no equip")
 
     def select_skill_slot(self, slot_index):
+        for button in button_class.buttons:
+            if button.tasks[0][0] == "select_skill_slot":
+                button.colour = (30,30,30,180)
+        self.colour = (40,140,40,180)
         active_skill_slot = slot_index
         for button in button_class.buttons:
             if button.tasks[0][0] == "equip_skill":
                 button.active_skill_slot = active_skill_slot
 
     def equip_skill(self):
-        multi_click_prevention = False
-        active_skill = None
-        for skill in skill_class.skills:
-            if skill.shown == True:
-                active_skill = skill
+        if not self.active_skill_slot == None:
+            multi_click_prevention = False
+            active_skill = None
+            for skill in skill_class.skills:
+                if skill.shown == True:
+                    active_skill = skill
+                
+            if multi_click_prevention == False:
+                for x, p_skill in enumerate(player.equipped_skills):
+                    if p_skill == active_skill.name:
+                        player.equipped_skills[x] = player.equipped_skills[self.active_skill_slot - 1]
+                        
+                player.equipped_skills[self.active_skill_slot - 1] = active_skill.name
+                        
+                for x, p_skill in enumerate(player.equipped_skills):
+                    if p_skill == None:
+                        for button in button_class.buttons:
+                            if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
+                                button.get_texture(None)
+                    else:
+                        for skill in skill_class.skills:
+                            if p_skill == skill.name:
+                                for button in button_class.buttons:
+                                    if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
+                                        button.get_texture(skill.icon)
+                        
+                multi_click_prevention = True
             
-        if multi_click_prevention == False:
-            player.equipped_skills[self.active_skill_slot - 1] = active_skill.name
-            text_class.show_message("equip")
-            multi_click_prevention = True
-        
-        multi_click_prevention = False
-        print(player.equipped_skills)
+            multi_click_prevention = False
+            print(player.equipped_skills)
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
