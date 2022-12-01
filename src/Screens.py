@@ -533,7 +533,7 @@ class Button():
                 
             if multi_click_prevention == False:
                 for x, p_skill in enumerate(player.equipped_skills):
-                    if p_skill == active_skill.name:
+                    if p_skill == active_skill:
                         player.equipped_skills[x] = player.equipped_skills[self.active_skill_slot - 1]
                         
                 player.equipped_skills[self.active_skill_slot - 1] = active_skill
@@ -551,7 +551,13 @@ class Button():
                 multi_click_prevention = True
             
             multi_click_prevention = False
-            print(player.equipped_skills)
+            print_list = []
+            for p_skill in player.equipped_skills:
+                if p_skill == None:
+                    print_list.append("None")
+                else:
+                    print_list.append(p_skill.name)
+            print(print_list)
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
