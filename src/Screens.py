@@ -121,21 +121,53 @@ class Button():
             self.condition = condition
         else:
             self.condition = True
-            
+        
     def get_texture(self, texture):
         if texture == None:
             self.texture = None
         else:
             self.texture = pg.transform.scale(texture, (self.width, self.height))
             
+    def change(self, m_pressed):
+        if self.tasks[0][0] == "equip_item":
+            for it in item_class.all_items:
+                for i in it:
+                    if i.shown and (player.weapon == i or player.armor == i):
+                        for t in text_class.texts:
+                            if t.text == "Equip":
+                                t.text = "Unequip"
+                                t.font = pg.font.Font(def_link, 55)
+        if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
+            if self.tasks[0][0] == "change_item" or self.tasks[0][0] == "change_screen":
+                for button in button_class.buttons:
+                    if button.tasks[0][0] == "buy_item":
+                        button.colour = (30,30,30,100)
+                    elif button.tasks[0][0] == "equip_item":
+                        for t in text_class.texts:
+                            if t.text == "Unequip":
+                                t.text = "Equip"
+                                t.font = pg.font.Font(def_link, 66)
+            elif self.tasks[0][0] == "equip_item" or self.tasks[0][0] == "change_screen":
+                for t in text_class.texts:
+                    if t.text == "Unequip":
+                        t.text = "Equip"
+                        t.font = pg.font.Font(def_link, 66)
+        if self.tasks[0][0] == "buy_item":
+            for it in item_class.all_items:
+                for i in it:
+                    if i.shown and i.bought:
+                        self.colour = (80,30,30,180)
+            
     def check(self, m_pressed, on__screen):
         if not on__screen.active_screen == "Exit":
             if not on__screen.active_table == "Close":
                 if on__screen.active_table.name in self.belonging:
+                    self.change(m_pressed)
                     if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
                         on__screen.button_activity = False
                         self.work()
             elif on__screen.active_screen.name in self.belonging:
+                self.change(m_pressed)
                 if self.position[0] < pg.mouse.get_pos()[0] < (self.position[0] + self.width) and self.position[1] < pg.mouse.get_pos()[1] < (self.position[1] + self.height) and m_pressed[0] and self.condition:
                    on__screen.button_activity = False
                    self.work()
@@ -213,7 +245,6 @@ class Button():
             if task[0] == "buy_item":
                 text_class.hide_messages()
                 self.buy_item()
-                self.equip_item(False)
                 index = text_class.texts.index(golds)
                 text_class.texts[index].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
             if task[0] == "equip_item":
@@ -429,6 +460,8 @@ class Button():
                 # Skill scrolly #
                 if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
                     player.skills[active_item.id] = True
+                    
+                self.equip_item(False)
                 
             if active_item.bought == True and multi_click_prevention == False:
                 text_class.show_message("bought")
