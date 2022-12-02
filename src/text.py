@@ -108,8 +108,8 @@ ts1 = text(["Settings table"], "Settings", (600,200), pg.font.Font(def_link, hea
 tc1 = text(["Credits table"], "Credits", (600, 200), pg.font.Font(def_link, heading1_size), def_colour)
 
 # Texty v obchodě
-tsh_buy = text(["Weapon board", "Armor board", "Item board"], "Buy", (162, 810), pg.font.Font(def_link, heading1_size), dark_colour)
-tsh_equip = text(["Weapon board", "Armor board", "Item board"], "Equip", (437, 810), pg.font.Font(def_link, heading1_size), dark_colour)
+tsh_buy = text(["Weapon board", "Armor board", "Item board"], "Buy", (162, 810), pg.font.Font(def_link, heading1_size), def_colour)
+tsh_equip = text(["Weapon board", "Armor board", "Item board"], "Equip", (437, 810), pg.font.Font(def_link, heading1_size), def_colour)
 
 # Texty v nastavení ve hře
 caption = text(["Game table"], "Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
@@ -144,9 +144,12 @@ save = message("save", ["Game table"], "Game saved", (600, 650), pg.font.Font(de
 # Texty v profilu
 skill_title = text(["Skill board"], "Skills", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
 debuff_title = text(["Debuff board"], "Debuffs", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
-slot_1 = text(["Skill board"], "1", (532,710), pg.font.Font(def_link,heading1_size),dark_colour)
-slot_2 = text(["Skill board"], "2", (632,710), pg.font.Font(def_link,heading1_size),dark_colour)
-slot_3 = text(["Skill board"], "3", (732,710), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_1 = text(["Skill board"], "1", (500,710), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_2 = text(["Skill board"], "2", (600,710), pg.font.Font(def_link,heading1_size),dark_colour)
+slot_3 = text(["Skill board"], "3", (700,710), pg.font.Font(def_link,heading1_size),dark_colour)
+to_debuffs = text(["Skill board"], "Debuffs", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
+to_skills = text(["Debuff board"], "Skills", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
+equip_skill = text(["Skill board"], "Equip", (192.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
 
 # Texty v game menu
 profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)

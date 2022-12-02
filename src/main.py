@@ -55,6 +55,12 @@ def blit_skills():
     if not skill_class.skills == []:
         for skill in skill_class.skills:
             skill.draw_skill(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+            
+def blit_debuffs():
+    if not debuff_class.debuffs == []:
+        for debuff in debuff_class.debuffs:
+            debuff.draw_debuff(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+    
     
 def stop_multi_click(devmode, m_pressed, click_acc):
     if not devmode:
@@ -184,7 +190,10 @@ while True:
     
     # Vykreslování skillů v profilu
     blit_skills()
-            
+    
+    # Vykreslování debuffů v profilu
+    blit_debuffs()
+    
     # Vykreslování věcí v kampani
     counter.blit_self(screen, on__screen)
     

@@ -258,8 +258,6 @@ class Button():
                 self.continue_battle()
             if task[0] == "select_skill_slot":
                 self.select_skill_slot(task[1])
-                print(self.active_skill_slot)
-                print("slot selected")
             if task[0] == "equip_skill":
                 self.equip_skill()
         
@@ -764,14 +762,14 @@ fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_b
 
 skill_board_b = Button(["Profile"], (760, 345), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 skill_debuff_board_back = Button(["Skill board","Debuff board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
-debuff_board_b = Button(["Skill board"], (1050,750),(30,30,30,180),64,64, [["change_screen", "Debuff board"]], "c", None, True, None)
-debuff_to_skill = Button(["Debuff board"], (1050, 750), (30,30,30,180), 64,64, [["change_screen", "Skill board"]], "c", None, True, None)
+skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None) #Button(["Skill board"], (1050,750),(30,30,30,180),64,64, [["change_screen", "Debuff board"]], "c", None, True, None)
+debuff_to_skill = Button(["Debuff board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Skill board"]], "r", None, True, None) #Button(["Debuff board"], (1050, 750), (30,30,30,180), 64,64, [["change_screen", "Skill board"]], "c", None, True, None)
 
-skill_slot_1 = Button(["Skill board"], (500, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", None, True, None)
-skill_slot_2 = Button(["Skill board"], (600, 750), (30,30,30,180), 64,64, [["select_skill_slot", 2]], "c", None, True, None)
-skill_slot_3 = Button(["Skill board"], (700, 750), (30,30,30,180), 64,64, [["select_skill_slot", 3]], "c", None, True, None)
+skill_slot_1 = Button(["Skill board"], (468, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", None, True, None)
+skill_slot_2 = Button(["Skill board"], (568, 750), (30,30,30,180), 64,64, [["select_skill_slot", 2]], "c", None, True, None)
+skill_slot_3 = Button(["Skill board"], (668, 750), (30,30,30,180), 64,64, [["select_skill_slot", 3]], "c", None, True, None)
 
-equip_skill = Button(["Skill board"], (86, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
+equip_skill = Button(["Skill board"], (80, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
 
 skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
 skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
