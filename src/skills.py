@@ -250,3 +250,6 @@ skill_class.skills = [
     lightning_bolt,
     life_steal
     ]
+
+# Defaultní skill
+player.skills["skill_1"] = fireball

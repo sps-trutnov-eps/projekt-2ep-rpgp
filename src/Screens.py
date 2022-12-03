@@ -765,7 +765,7 @@ skill_debuff_board_back = Button(["Skill board","Debuff board"], (30,30), (30,30
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None) #Button(["Skill board"], (1050,750),(30,30,30,180),64,64, [["change_screen", "Debuff board"]], "c", None, True, None)
 debuff_to_skill = Button(["Debuff board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Skill board"]], "r", None, True, None) #Button(["Debuff board"], (1050, 750), (30,30,30,180), 64,64, [["change_screen", "Skill board"]], "c", None, True, None)
 
-skill_slot_1 = Button(["Skill board"], (468, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", None, True, None)
+skill_slot_1 = Button(["Skill board"], (468, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
 skill_slot_2 = Button(["Skill board"], (568, 750), (30,30,30,180), 64,64, [["select_skill_slot", 2]], "c", None, True, None)
 skill_slot_3 = Button(["Skill board"], (668, 750), (30,30,30,180), 64,64, [["select_skill_slot", 3]], "c", None, True, None)
 
@@ -812,5 +812,4 @@ game_table = table("Game table")
 pause_table = table("Pause table")
 death_table = table("Death table")
 win_table = table("Win table")
-pause_table.change_format([275,275],[650,350])
-        
+pause_table.change_format([275,275],[650,350])        
