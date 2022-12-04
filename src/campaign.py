@@ -109,6 +109,7 @@ class Battle_info():
             self.player_turn = False
         elif self.player_turn and not self.awaiting_skill == None:
             self.awaiting_skill.skill_used("player")
+            self.awaiting_skill = None
         else:
             if self.player_copy.armor == None:
                 self.player_hp_copy -= self.active_enemy.damage
@@ -120,7 +121,6 @@ class Battle_info():
                 else:
                     pass
             self.player_turn = True
-        print("Player HP: " + str(self.player_hp_copy) + " Enemy HP: " + str(self.enemy_hp_copy))
             
     def pause_battle(self):
         self.pause = True
@@ -149,6 +149,10 @@ class Battle_info():
                 for table in on__screen.tables:
                     if table.name == "Win table":
                         on__screen.active_table = table
+        
+        for s in player.equipped_skills:
+            if s.momental_cooldown > 0:
+                s.momental_cooldown -= 1
     
     def show_bars(self, screen):
         if not self.active_enemy == None:

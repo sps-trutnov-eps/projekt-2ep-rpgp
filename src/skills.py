@@ -31,6 +31,8 @@ class debuff():
         self.active = False
         # duration in seconds
         self.duration = duration
+        self.duration_e = 0
+        self.duration_p = 0
         self.belonging = belonging
         self.name_size = 75
         self.desc_size = 35
@@ -40,6 +42,16 @@ class debuff():
         
     ## Toto spustit každé kolo, i když není žádný debuff aktivní
     def debuff_tick(self, target, target_hp):
+        if target.id == "player":
+            self.duration_p -= 1
+        elif target.id == "enemy":
+            self.duration_e -= 1
+            
+        if self.duration_p = 0:
+            debuff_class.player_debuffs.remove(self)
+        elif self.duration_e = 0:
+            debuff_class.enemy_debuffs.remove(self)
+        
         if self.name == "On Fire!":
             if target.id == "player":
                 if not target.armor.armor == None:
@@ -150,6 +162,7 @@ class skill():
         self.stat_desc = stat_desc
         self.cooldown = cooldown
         # cooldown in rounds
+        self.momental_cooldown = 0
         self.name_size = 100
         self.desc_size = 50
         self.stat_desc_size = 40
@@ -168,36 +181,56 @@ class skill():
             caster_hp = battle_info.enemy_hp_copy
             debuff_list = debuff_class.player_debuffs
         
-        if self.name == "Fireball" and self.cooldown == 0:
+        if self.name == "Fireball":
             target_hp -= 15
             #on_fire_debuff.active = True
             debuff_list.append(on_fire_debuff)
+            if caster == "player":
+                on_fire_debuff.duration_p = on_fire_debuff.duration
+            elif caster == "enemy":
+                on_fire_debuff.duration_e = on_fire_debuff.duration
             
-        if self.name == "Ice Storm" and self.cooldown == 0:
+        if self.name == "Ice Storm":
             target_hp -= 15
             #frozen_debuff.active = True
             debuff_list.append(frozen_debuff)
+            if caster == "player":
+                frozen_debuff.duration_p = frozen_debuff.duration
+            elif caster == "enemy":
+                frozen_debuff.duration_e = frozen_debuff.duration
             
-        if self.name == "Poison Dart" and self.cooldown == 0:
+        if self.name == "Poison Dart":
             #poisoned_debuff.active = True
             debuff_list.append(poisoned_debuff)
+            if caster == "player":
+                poisoned_debuff.duration_p = poisoned_debuff.duration
+            elif caster == "enemy":
+                poisoned_debuff.duration_e = poisoned_debuff.duration
             
-        if self.name == "Life Steal" and self.cooldown == 0:
+        if self.name == "Life Steal":
             hp_amount = 15
             caster_hp += hp_amount
             target_hp -= hp_amount
             
-        if self.name == "Water Blast" and self.cooldown == 0:
+        if self.name == "Water Blast":
             target_hp -= 15
             #wet_debuff.active = True
             debuff_list.append(wet_debuff)
+            if caster == "player":
+                wet_debuff.duration_p = wet_debuff.duration
+            elif caster == "enemy":
+                wet_debuff.duration_e = wet_debuff.duration
             
-        if self.name == "Lightning Bolt" and self.cooldown == 0:
+        if self.name == "Lightning Bolt":
             target_hp -= 15
             #shocked_debuff.active = True
             debuff_list.append(shocked_debuff)
+            if caster == "player":
+                shocked_debuff.duration_p = shocked_debuff.duration
+            elif caster == "enemy":
+                shocked_debuff.duration_e = shocked_debuff.duration
             
-        if self.name == "Rock Throw" and self.cooldown == 0:
+        if self.name == "Rock Throw":
             target_hp -= 15
             battle_info.player_turn = True
             
