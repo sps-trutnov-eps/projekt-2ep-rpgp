@@ -17,6 +17,8 @@ skill_class = skill_cl()
 class debuff_cl():
     def __init__(self):
         self.debuffs = []
+        self.player_debuffs = []
+        self.enemy_debuffs = []
         
 debuff_class = debuff_cl()
     
@@ -27,8 +29,8 @@ class debuff():
         self.desc = desc
         self.stat_desc = stat_desc
         self.active = False
+        # duration in seconds
         self.duration = duration
-        self.active_for = 0
         self.belonging = belonging
         self.name_size = 75
         self.desc_size = 35
@@ -37,50 +39,46 @@ class debuff():
         self.space = 135
         
     ## Toto spustit každé kolo, i když není žádný debuff aktivní
-    def debuff_tick(self):
+    def debuff_tick(self, target, target_hp):
         if self.name == "On Fire!":
-            while self.active == True and active_for <= duration:
-                active_for += 1
-                player.hp -= 1 # Toto číslo se dá pozměnit
-                
-            else:
-                self.active == False
+            if target.id == "player":
+                if not target.armor.armor == None:
+                    damage = 1 * ((100 - target.armor.armor) / 100)
+                    damage = round(damage)
+                else:
+                    damage = 1
+            elif target.id == "enemy":
+                if not target.armor == None:
+                    damage = 1 * ((100 - target.armor.armor) / 100)
+                    damage = round(damage)
+                else:
+                    damage = 1
+            target_hp -= damage # Toto číslo se dá pozměnit
             
         if self.name == "Frozen!":
-            while self.active == True and active_for <= duration:
-                active_for += 1
-                stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
-                if stun_chance == 4:
-                    ### Zde kód na zastavení akcí hráče (stun) ###
-                    pass
-                
-            else:
-                self.active == False
+            stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
+            if stun_chance == 4:
+                if target.id == "player":
+                    battle_info.player_turn = False
+                elif target.id == "enemy":
+                    battle_info.player_turn = True
             
         if self.name == "Poisoned!":
-            while self.active == True and active_for <= duration:
-                active_for += 1
-                player.hp -= 1 # Toto číslo se dá pozměnit
-                ### Nevím jak se kalkuluje damage a defense, takže to je potřeba dodělat
+            player.hp -= 1 # Toto číslo se dá pozměnit
             
         if self.name == "Wet!":
-            while self.active == True and active_for <= duration:
-                active_for += 1
-                ### Opět nevím jak se kalkuluje defense
-            
-            else:
-                self.active == False
+            # Zranitelnost se udává v %
+            if target.id == "player":
+                battle_info.player_effects["defense_ef"] = 10
+            elif target.id == "enemy":
+                battle_info.enemy_effects["defense_ef"] = 10
             
         if self.name == "Shocked!":
-            while self.active == True and active_for <= duration:
-                active_for += 1
-                ### Zas a znovu nevím jak se kalkuluje damage
-            
-            else:
-                self.active == False
-            
-        else:
-            pass
+            # Oslabení se udává v %
+            if target.id == "player":
+                battle_info.player_effects["damage_ef"] = 10
+            elif target.id == "enemy":
+                battle_info.enemy_effects["damage_ef"] = 10
         
     def draw_debuff(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging:
@@ -144,7 +142,7 @@ debuff_class.debuffs = [
 # caster -> člověk co skill použil
 
 class skill():
-    def __init__(self, icon, name, desc, stat_desc,cooldown, belonging, shown):
+    def __init__(self, icon, name, desc, stat_desc, cooldown, belonging, shown):
         skill_class.skills.append(self)
         self.icon = icon
         self.name = name
@@ -159,35 +157,59 @@ class skill():
         self.shown = shown
     
     ## Toto spustit po aktivaci skillu
-    def skill_used(self, caster, target):
-        # target = enemy ### Nevím kde jsou data nepřítele
+    def skill_used(self, caster):
+        # Načtení dat z battle_info pro práci
+        if caster == "player":
+            target_hp = battle_info.enemy_hp_copy
+            caster_hp = battle_info.player_hp_copy
+            debuff_list = debuff_class.enemy_debuffs
+        elif caster == "enemy":
+            target_hp = battle_info.player_hp_copy
+            caster_hp = battle_info.enemy_hp_copy
+            debuff_list = debuff_class.player_debuffs
+        
         if self.name == "Fireball" and self.cooldown == 0:
-            target.hp -= 15
-            on_fire_debuff.active = True
+            target_hp -= 15
+            #on_fire_debuff.active = True
+            debuff_list.append(on_fire_debuff)
             
         if self.name == "Ice Storm" and self.cooldown == 0:
-            target.hp -= 15
-            frozen_debuff.active = True
+            target_hp -= 15
+            #frozen_debuff.active = True
+            debuff_list.append(frozen_debuff)
             
         if self.name == "Poison Dart" and self.cooldown == 0:
-            poisoned_debuff.active = True
+            #poisoned_debuff.active = True
+            debuff_list.append(poisoned_debuff)
             
         if self.name == "Life Steal" and self.cooldown == 0:
             hp_amount = 15
-            caster.hp += hp_amount
-            target.hp -= hp_amount
+            caster_hp += hp_amount
+            target_hp -= hp_amount
             
         if self.name == "Water Blast" and self.cooldown == 0:
-            target.hp -= 15
-            wet_debuff.active = True
+            target_hp -= 15
+            #wet_debuff.active = True
+            debuff_list.append(wet_debuff)
             
         if self.name == "Lightning Bolt" and self.cooldown == 0:
-            target.hp -= 15
-            shocked_debuff.active = True
+            target_hp -= 15
+            #shocked_debuff.active = True
+            debuff_list.append(shocked_debuff)
             
         if self.name == "Rock Throw" and self.cooldown == 0:
-            target.hp -= 15
-            ### Zde kód na zastavení akcí hráče (stun) ###
+            target_hp -= 15
+            battle_info.player_turn = True
+            
+        # Uložení zpracovaných dat zpět do battle_info
+        if caster == "player":
+            battle_info.enemy_hp_copy = target_hp
+            battle_info.player_hp_copy = caster_hp
+            debuff_class.enemy_debuffs = debuff_list
+        elif caster == "enemy":
+            battle_info.player_hp_copy = target_hp
+            battle_info.enemy_hp_copy = caster_hp
+            debuff_class.player_debuffs = debuff_list
             
     def draw_skill(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging and self.shown:

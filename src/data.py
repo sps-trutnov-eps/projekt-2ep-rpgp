@@ -13,8 +13,10 @@ class player():
         self.gold = 1000
         self.level = 1
         self.hp = 100
+        self.mana = 100
         self.equipped_skills = [None, None, None]
-        
+        self.id = "player"
+
 class settings():
     def __init__(self):
         self.volume = 100

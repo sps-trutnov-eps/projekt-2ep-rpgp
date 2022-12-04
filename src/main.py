@@ -236,12 +236,12 @@ while True:
             work_buttons_and_texts()
             
             if not battle_info.pause:
-                if round_time >= 1500:
+                if round_time >= 1520:
                     round_time = 0
                     battle_info.check_fight(on__screen)
                 if affects_time >= 1000:
                     affects_time = 0
-                    # Sem dodat účinky debuffů
+                    battle_info.check_debuffs()
             else:
                 round_time = 0
                 affects_time = 0

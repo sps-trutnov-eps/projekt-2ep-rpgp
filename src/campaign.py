@@ -1,5 +1,6 @@
 import sys
 import pygame as pg
+from skills import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -59,6 +60,7 @@ class Enemy():
         self.hp = hp
         self.damage = damage
         self.armor = armor
+        self.id = "enemy"
         
 class Battle_info():
     def start(self):
@@ -75,12 +77,19 @@ class Battle_info():
         self.active_enemy = level.enemies[self.stage]
         self.enemy_hp_copy = level.enemies[self.stage].hp
         self.enemy_max_hp = self.enemy_hp_copy = level.enemies[self.stage].hp
+        self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
+        debuff_class.enemy_debuffs = []
     
     def make_player(self, player):
         self.player_copy = player
         self.player_max_hp = player.hp
         self.player_hp_copy = player.hp
+        self.player_max_mana = player.mana
+        self.player_mana_copy = player.mana
         self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
+        self.awaiting_skill = None
+        self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
+        debuff_class.player_debuffs = []
         
     def blit_player(self, screen):
         screen.blit(self.player_texture_copy, (180, 285))
@@ -90,19 +99,21 @@ class Battle_info():
             screen.blit(self.active_enemy.texture, (790, 285))
         
     def fight(self):
-        if self.player_turn:
-            damage = self.player_copy.weapon.damage * ((100 - self.active_enemy.armor) / 100)
+        if self.player_turn and self.awaiting_skill == None:
+            damage = (self.player_copy.weapon.damage * ((100 - self.player_effects["damage_ef"]) / 100)) * ((100 - self.active_enemy.armor + self.enemy_effects["defense_ef"]) / 100)
             damage = round(damage)
             if damage >= 0:
                 self.enemy_hp_copy -= damage
             else:
                 pass
             self.player_turn = False
+        elif self.player_turn and not self.awaiting_skill == None:
+            self.awaiting_skill.skill_used("player")
         else:
             if self.player_copy.armor == None:
                 self.player_hp_copy -= self.active_enemy.damage
             else:
-                damage = self.active_enemy.damage * ((100 - self.player_copy.armor.armor) / 100)
+                damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
                 damage = round(damage)
                 if damage >= 0:
                     self.player_hp_copy -= damage
@@ -139,16 +150,20 @@ class Battle_info():
                     if table.name == "Win table":
                         on__screen.active_table = table
     
-    def activate_skill(self):
-        pass
-    
     def show_bars(self, screen):
         if not self.active_enemy == None:
             max_enemy_hp = self.active_enemy.hp
         # HP bar nepřítele
         pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
-        # HP bar hráče
+        # HP a mana bar hráče
         pg.draw.rect(screen, self.hp_color, (135,775,(self.bar_width * (self.player_hp_copy / self.player_max_hp)),44))
+        pg.draw.rect(screen, self.mana_color, (135, 820,(self.bar_width * (self.player_mana_copy / self.player_max_mana)),44))
+        
+    def check_debuffs(self):
+        for d in debuff_class.player_debuffs:
+            d.debuff_tick(self.player_copy, self.player_hp_copy)
+        for d in debuff_class.enemy_debuffs:
+            d.debuff_tick(self.enemy_copy, self.enemy_hp_copy)
         
 battle_info = Battle_info()
         
