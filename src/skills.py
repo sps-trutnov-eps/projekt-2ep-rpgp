@@ -252,4 +252,4 @@ skill_class.skills = [
     ]
 
 # Defaultní skill
-player.skills["skill_1"] = fireball
+player.equipped_skills[0] = fireball

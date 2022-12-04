@@ -204,7 +204,7 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(player.skills)
+        print(player.equipped_skills)
         
     # BITVA
     if on__screen.battle == True:
