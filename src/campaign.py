@@ -108,7 +108,7 @@ class Battle_info():
                 pass
             self.player_turn = False
         elif self.player_turn and not self.awaiting_skill == None:
-            self.awaiting_skill.skill_used("player")
+            self.awaiting_skill.skill_used("player", battle_info)
             self.awaiting_skill = None
         else:
             if self.player_copy.armor == None:
@@ -151,8 +151,9 @@ class Battle_info():
                         on__screen.active_table = table
         
         for s in player.equipped_skills:
-            if s.momental_cooldown > 0:
-                s.momental_cooldown -= 1
+            if not s == None:
+                if s.momental_cooldown > 0:
+                    s.momental_cooldown -= 1
     
     def show_bars(self, screen):
         if not self.active_enemy == None:
@@ -164,10 +165,10 @@ class Battle_info():
         pg.draw.rect(screen, self.mana_color, (135, 820,(self.bar_width * (self.player_mana_copy / self.player_max_mana)),44))
         
     def check_debuffs(self):
-        for d in debuff_class.player_debuffs:
+        for d in debuff_class.debuffs:
             d.debuff_tick(self.player_copy, self.player_hp_copy)
-        for d in debuff_class.enemy_debuffs:
-            d.debuff_tick(self.enemy_copy, self.enemy_hp_copy)
+            d.debuff_tick(self.active_enemy, self.enemy_hp_copy)
+        print(debuff_class.debuffs[0].duration_e)
         
 battle_info = Battle_info()
         
@@ -180,7 +181,7 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 20, 5, 30)
+zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 50, 5, 30)
 slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])

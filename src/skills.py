@@ -2,6 +2,7 @@ import pygame as pg
 import sys
 import random
 from data import *
+from campaign import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -17,8 +18,6 @@ skill_class = skill_cl()
 class debuff_cl():
     def __init__(self):
         self.debuffs = []
-        self.player_debuffs = []
-        self.enemy_debuffs = []
         
 debuff_class = debuff_cl()
     
@@ -42,55 +41,51 @@ class debuff():
         
     ## Toto spustit každé kolo, i když není žádný debuff aktivní
     def debuff_tick(self, target, target_hp):
-        if target.id == "player":
+        if target.id == "player" and self.duration_p > 0:
             self.duration_p -= 1
-        elif target.id == "enemy":
+        elif target.id == "enemy" and self.duration_e > 0:
             self.duration_e -= 1
-            
-        if self.duration_p = 0:
-            debuff_class.player_debuffs.remove(self)
-        elif self.duration_e = 0:
-            debuff_class.enemy_debuffs.remove(self)
         
-        if self.name == "On Fire!":
-            if target.id == "player":
-                if not target.armor.armor == None:
-                    damage = 1 * ((100 - target.armor.armor) / 100)
-                    damage = round(damage)
-                else:
-                    damage = 1
-            elif target.id == "enemy":
-                if not target.armor == None:
-                    damage = 1 * ((100 - target.armor.armor) / 100)
-                    damage = round(damage)
-                else:
-                    damage = 1
-            target_hp -= damage # Toto číslo se dá pozměnit
-            
-        if self.name == "Frozen!":
-            stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
-            if stun_chance == 4:
+        if (target.id == "player" and self.duration_p > 0) or (target.id == "enemy" and self.duration_e > 0):
+            if self.name == "On Fire!":
                 if target.id == "player":
-                    battle_info.player_turn = False
+                    if not target.armor.armor == None:
+                        damage = 1 * ((100 - target.armor.armor) / 100)
+                        damage = round(damage)
+                    else:
+                        damage = 1
                 elif target.id == "enemy":
-                    battle_info.player_turn = True
-            
-        if self.name == "Poisoned!":
-            player.hp -= 1 # Toto číslo se dá pozměnit
-            
-        if self.name == "Wet!":
-            # Zranitelnost se udává v %
-            if target.id == "player":
-                battle_info.player_effects["defense_ef"] = 10
-            elif target.id == "enemy":
-                battle_info.enemy_effects["defense_ef"] = 10
-            
-        if self.name == "Shocked!":
-            # Oslabení se udává v %
-            if target.id == "player":
-                battle_info.player_effects["damage_ef"] = 10
-            elif target.id == "enemy":
-                battle_info.enemy_effects["damage_ef"] = 10
+                    if not target.armor == None:
+                        damage = 1 * ((100 - target.armor) / 100)
+                        damage = round(damage)
+                    else:
+                        damage = 1
+                target_hp -= damage # Toto číslo se dá pozměnit
+                
+            if self.name == "Frozen!":
+                stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
+                if stun_chance == 4:
+                    if target.id == "player":
+                        battle_info.player_turn = False
+                    elif target.id == "enemy":
+                        battle_info.player_turn = True
+                
+            if self.name == "Poisoned!":
+                player.hp -= 1 # Toto číslo se dá pozměnit
+                
+            if self.name == "Wet!":
+                # Zranitelnost se udává v %
+                if target.id == "player":
+                    battle_info.player_effects["defense_ef"] = 10
+                elif target.id == "enemy":
+                    battle_info.enemy_effects["defense_ef"] = 10
+                
+            if self.name == "Shocked!":
+                # Oslabení se udává v %
+                if target.id == "player":
+                    battle_info.player_effects["damage_ef"] = 10
+                elif target.id == "enemy":
+                    battle_info.enemy_effects["damage_ef"] = 10
         
     def draw_debuff(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging:
@@ -170,30 +165,26 @@ class skill():
         self.shown = shown
     
     ## Toto spustit po aktivaci skillu
-    def skill_used(self, caster):
+    def skill_used(self, caster, battle_info):
         # Načtení dat z battle_info pro práci
         if caster == "player":
             target_hp = battle_info.enemy_hp_copy
             caster_hp = battle_info.player_hp_copy
-            debuff_list = debuff_class.enemy_debuffs
         elif caster == "enemy":
             target_hp = battle_info.player_hp_copy
             caster_hp = battle_info.enemy_hp_copy
-            debuff_list = debuff_class.player_debuffs
         
         if self.name == "Fireball":
             target_hp -= 15
             #on_fire_debuff.active = True
-            debuff_list.append(on_fire_debuff)
             if caster == "player":
-                on_fire_debuff.duration_p = on_fire_debuff.duration
-            elif caster == "enemy":
                 on_fire_debuff.duration_e = on_fire_debuff.duration
+            elif caster == "enemy":
+                on_fire_debuff.duration_p = on_fire_debuff.duration
             
         if self.name == "Ice Storm":
             target_hp -= 15
             #frozen_debuff.active = True
-            debuff_list.append(frozen_debuff)
             if caster == "player":
                 frozen_debuff.duration_p = frozen_debuff.duration
             elif caster == "enemy":
@@ -201,7 +192,6 @@ class skill():
             
         if self.name == "Poison Dart":
             #poisoned_debuff.active = True
-            debuff_list.append(poisoned_debuff)
             if caster == "player":
                 poisoned_debuff.duration_p = poisoned_debuff.duration
             elif caster == "enemy":
@@ -215,7 +205,6 @@ class skill():
         if self.name == "Water Blast":
             target_hp -= 15
             #wet_debuff.active = True
-            debuff_list.append(wet_debuff)
             if caster == "player":
                 wet_debuff.duration_p = wet_debuff.duration
             elif caster == "enemy":
@@ -224,7 +213,6 @@ class skill():
         if self.name == "Lightning Bolt":
             target_hp -= 15
             #shocked_debuff.active = True
-            debuff_list.append(shocked_debuff)
             if caster == "player":
                 shocked_debuff.duration_p = shocked_debuff.duration
             elif caster == "enemy":
@@ -238,11 +226,9 @@ class skill():
         if caster == "player":
             battle_info.enemy_hp_copy = target_hp
             battle_info.player_hp_copy = caster_hp
-            debuff_class.enemy_debuffs = debuff_list
         elif caster == "enemy":
             battle_info.player_hp_copy = target_hp
             battle_info.enemy_hp_copy = caster_hp
-            debuff_class.player_debuffs = debuff_list
             
     def draw_skill(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging and self.shown:

@@ -253,7 +253,10 @@ while True:
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
             
             pg.display.update()
-            round_time += clock.tick(100)
+            time = 0
+            time += clock.tick(100)
+            round_time += time
+            affects_time += time
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     pg.display.update()

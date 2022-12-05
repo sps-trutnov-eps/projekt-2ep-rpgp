@@ -260,6 +260,8 @@ class Button():
                 self.select_skill_slot(task[1])
             if task[0] == "equip_skill":
                 self.equip_skill()
+            if task[0] == "activate_skill":
+                self.activate_skill(task[1])
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -769,9 +771,9 @@ higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["chan
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
-battle_skill_1_b = Button(["Battle"], (710, 786), (30,30,30,180, 50, 50), 80, 80, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
-battle_skill_2_b = Button(["Battle"], (795, 786), (30,30,30,180, 50, 50), 80, 80, [["activate_skill", 1]], False, None, True, None)
-battle_skill_3_b = Button(["Battle"], (890, 786), (30,30,30,180, 50, 50), 80, 80, [["activate_skill", 2]], False, None, True, None)
+battle_skill_1_b = Button(["Battle"], (710, 786), (30,30,30,180), 80, 80, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
+battle_skill_2_b = Button(["Battle"], (795, 786), (30,30,30,180), 80, 80, [["activate_skill", 1]], False, None, True, None)
+battle_skill_3_b = Button(["Battle"], (890, 786), (30,30,30,180), 80, 80, [["activate_skill", 2]], False, None, True, None)
 
 skill_board_b = Button(["Profile"], (760, 345), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 skill_debuff_board_back = Button(["Skill board","Debuff board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
