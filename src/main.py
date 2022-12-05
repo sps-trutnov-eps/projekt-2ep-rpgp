@@ -204,7 +204,13 @@ while True:
     work_buttons_and_texts()
     
     if pressed[pg.K_a]:
-        print(player.equipped_skills)
+        text = ""
+        for s in player.equipped_skills:
+            if s == None:
+                text = text + "None, "
+            else:
+                text = text + s.name + ","
+        print(text)
         
     # BITVA
     if on__screen.battle == True:

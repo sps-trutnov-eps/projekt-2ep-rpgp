@@ -71,7 +71,8 @@ class debuff():
                         battle_info.player_turn = True
                 
             if self.name == "Poisoned!":
-                player.hp -= 1 # Toto číslo se dá pozměnit
+                print("JEDU SI SVOJI PRÁCI TY HAJZLE")
+                target_hp -= 1 # Toto číslo se dá pozměnit
                 
             if self.name == "Wet!":
                 # Zranitelnost se udává v %
@@ -86,6 +87,9 @@ class debuff():
                     battle_info.player_effects["damage_ef"] = 10
                 elif target.id == "enemy":
                     battle_info.enemy_effects["damage_ef"] = 10
+            
+        return target_hp
+            
         
     def draw_debuff(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging:
@@ -131,9 +135,9 @@ class debuff():
             screen.blit(icon_scaled, (100,80 + (self.debuff_order * self.space)))
             screen.blit(name_text, name_text_rect)
 
-on_fire_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/onfire2.png"), "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.",3, "Debuff board",0)
+on_fire_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/onfire2.png"), "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.",8, "Debuff board",0)
 frozen_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/frozen.png"), "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.",3, "Debuff board",1)
-poisoned_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/poisoned.png"), "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X %\nfor the duration of this debuff.",3, "Debuff board",2)
+poisoned_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/poisoned.png"), "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X %\nfor the duration of this debuff.",30, "Debuff board",2)
 wet_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/wet.png"), "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.",3, "Debuff board",3)
 shocked_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/shocked.png"), "Shocked!", "You have been struck with lightning making it\ndifficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of\nthis debuff.",3, "Debuff board",4)
 
@@ -186,16 +190,16 @@ class skill():
             target_hp -= 15
             #frozen_debuff.active = True
             if caster == "player":
-                frozen_debuff.duration_p = frozen_debuff.duration
-            elif caster == "enemy":
                 frozen_debuff.duration_e = frozen_debuff.duration
+            elif caster == "enemy":
+                frozen_debuff.duration_p = frozen_debuff.duration
             
         if self.name == "Poison Dart":
             #poisoned_debuff.active = True
             if caster == "player":
-                poisoned_debuff.duration_p = poisoned_debuff.duration
-            elif caster == "enemy":
                 poisoned_debuff.duration_e = poisoned_debuff.duration
+            elif caster == "enemy":
+                poisoned_debuff.duration_p = poisoned_debuff.duration
             
         if self.name == "Life Steal":
             hp_amount = 15
@@ -206,17 +210,17 @@ class skill():
             target_hp -= 15
             #wet_debuff.active = True
             if caster == "player":
-                wet_debuff.duration_p = wet_debuff.duration
-            elif caster == "enemy":
                 wet_debuff.duration_e = wet_debuff.duration
+            elif caster == "enemy":
+                wet_debuff.duration_p = wet_debuff.duration
             
         if self.name == "Lightning Bolt":
             target_hp -= 15
             #shocked_debuff.active = True
             if caster == "player":
-                shocked_debuff.duration_p = shocked_debuff.duration
-            elif caster == "enemy":
                 shocked_debuff.duration_e = shocked_debuff.duration
+            elif caster == "enemy":
+                shocked_debuff.duration_p = shocked_debuff.duration
             
         if self.name == "Rock Throw":
             target_hp -= 15

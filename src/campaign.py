@@ -166,9 +166,9 @@ class Battle_info():
         
     def check_debuffs(self):
         for d in debuff_class.debuffs:
-            d.debuff_tick(self.player_copy, self.player_hp_copy)
-            d.debuff_tick(self.active_enemy, self.enemy_hp_copy)
-        print(debuff_class.debuffs[0].duration_e)
+            self.player_hp_copy = d.debuff_tick(self.player_copy, self.player_hp_copy)
+            self.enemy_hp_copy = d.debuff_tick(self.active_enemy, self.enemy_hp_copy)
+        print(debuff_class.debuffs[2].duration_e)
         
 battle_info = Battle_info()
         
