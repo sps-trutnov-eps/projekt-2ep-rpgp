@@ -260,6 +260,8 @@ class Button():
                 self.select_skill_slot(task[1])
             if task[0] == "equip_skill":
                 self.equip_skill()
+            if task[0] == "change_stat":
+                self.change_stat(task[1])
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -589,6 +591,38 @@ class Button():
                 else:
                     print_list.append(p_skill.name)
             print(print_list)
+            
+    def change_stat(self, stat):
+        multi_click_prevention = False
+        if stat == "hp" and multi_click_prevention == False and player.stat_point > 0 and player.hp_stat < 5:
+            player.max_hp += 20
+            player.stat_point = player.stat_point - 1
+            player.hp_stat += 1
+            hp_stat_value.update(str(player.hp_stat),None)
+            multi_click_prevention = True
+            
+        if stat == "mana" and multi_click_prevention == False and player.stat_point > 0 and player.mana_stat < 5:
+            player.max_mana += 20
+            player.stat_point = player.stat_point - 1
+            player.mana_stat += 1
+            mana_stat_value.update(str(player.mana_stat),None)
+            multi_click_prevention = True
+            
+        if stat == "int" and multi_click_prevention == False and player.stat_point > 0 and player.int_stat < 5:
+            player.int += 1
+            player.stat_point = player.stat_point - 1
+            player.int_stat += 1
+            int_stat_value.update(str(player.int_stat),None)
+            multi_click_prevention = True
+            
+        if stat == "luck" and multi_click_prevention == False and player.stat_point > 0 and player.luck_stat < 5:
+            player.luck += 1
+            player.stat_point = player.stat_point - 1
+            player.luck_stat += 1
+            luck_stat_value.update(str(player.luck_stat),None)
+            multi_click_prevention = True
+            
+        multi_click_prevention = False
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
@@ -764,11 +798,10 @@ higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["chan
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
-skill_board_b = Button(["Profile"], (820, 620), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
+skill_board_b = Button(["Profile"], (820, 640), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 to_profile = Button(["Skill board","Debuff board","Stat board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None)
 debuff_to_skill = Button(["Debuff board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Skill board"]], "r", None, True, None)
-#stat_board_b = Button(["Profile"], (760, 555), (30,30,30,180), 160,160, [["change_screen", "Stat board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 
 skill_slot_1 = Button(["Skill board"], (468, 750), (30,30,30,180), 64,64, [["select_skill_slot", 1]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
 skill_slot_2 = Button(["Skill board"], (568, 750), (30,30,30,180), 64,64, [["select_skill_slot", 2]], "c", None, True, None)
@@ -784,10 +817,10 @@ skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["chan
 skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
 skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
 
-hp_stat_b = Button(["Profile"], (970,120), (30,30,30,180), 64, 64, [["change_stat"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-mana_stat_b = Button(["Profile"], (970,120), (30,30,30,180), 64, 64, [["change_stat"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-int_stat_b = Button(["Profile"], (970,120), (30,30,30,180), 64, 64, [["change_stat"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-luck_stat_b = Button(["Profile"], (970,120), (30,30,30,180), 64, 64, [["change_stat"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+hp_stat_b = Button(["Profile"], (1036,250), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+mana_stat_b = Button(["Profile"], (1036,334), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+int_stat_b = Button(["Profile"], (1036,418), (30,30,30,180), 64, 64, [["change_stat", "int"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+luck_stat_b = Button(["Profile"], (1036,502), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
@@ -808,7 +841,6 @@ battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/camp
 # Podobrazovky profilu
 skill_board = screen("Skill board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
 debuff_board = screen("Debuff board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
-stat_board = screen("Stat board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
 
 # Podobrazovky obchodu
 weapon_board = screen("Weapon board",pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_board.png"))

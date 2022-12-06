@@ -150,7 +150,6 @@ slot_3 = text(["Skill board"], "3", (700,710), pg.font.Font(def_link,heading1_si
 to_debuffs = text(["Skill board"], "Debuffs", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
 to_skills = text(["Debuff board"], "Skills", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
 equip_skill = text(["Skill board"], "Equip", (192.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
-stat_title = text(["Stat board"], "Your stats", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
 hp_stat_value = text(["Profile"], str(player.hp_stat), (900,282), pg.font.Font(def_link,heading1_size),def_colour)
 mana_stat_value = text(["Profile"], str(player.mana_stat), (900,366), pg.font.Font(def_link,heading1_size),def_colour)
 int_stat_value = text(["Profile"], str(player.int_stat), (900,450), pg.font.Font(def_link,heading1_size),def_colour)
