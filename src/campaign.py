@@ -1,6 +1,7 @@
 import sys
 import pygame as pg
 from skills import *
+from text import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -67,7 +68,9 @@ class Battle_info():
         self.player_turn = True
         self.pause = False
         self.hp_color = (190,50,50)
+        self.hp_background_color = (130,10,10)
         self.mana_color = (80,110,200)
+        self.mana_background_color = (20,50,130)
         self.bar_width = 300
         
     def get_info(self, level):
@@ -168,9 +171,21 @@ class Battle_info():
         if not self.active_enemy == None:
             max_enemy_hp = self.active_enemy.hp
         # HP bar nepřítele
+        for t in text_class.texts:
+            if t.id == "e_hp":
+                t.update(str(self.enemy_hp_copy) + "/" + str(self.enemy_max_hp), None)
+        pg.draw.rect(screen, self.hp_background_color, (765, 35, self.bar_width, 44))
         pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
         # HP a mana bar hráče
+        for t in text_class.texts:
+            if t.id == "p_hp":
+                t.update(str(self.player_hp_copy) + "/" + str(self.player_max_hp), None)
+        pg.draw.rect(screen, self.hp_background_color, (135, 775, self.bar_width, 44))
         pg.draw.rect(screen, self.hp_color, (135,775,(self.bar_width * (self.player_hp_copy / self.player_max_hp)),44))
+        for t in text_class.texts:
+            if t.id == "p_mana":
+                t.update(str(self.player_mana_copy) + "/" + str(self.player_max_mana), None)
+        pg.draw.rect(screen, self.mana_background_color, (135, 820, self.bar_width, 44))
         pg.draw.rect(screen, self.mana_color, (135, 820,(self.bar_width * (self.player_mana_copy / self.player_max_mana)),44))
         
     def check_debuffs(self):
