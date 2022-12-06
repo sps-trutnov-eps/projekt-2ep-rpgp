@@ -78,7 +78,8 @@ class Battle_info():
         self.enemy_hp_copy = level.enemies[self.stage].hp
         self.enemy_max_hp = self.enemy_hp_copy = level.enemies[self.stage].hp
         self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
-        debuff_class.enemy_debuffs = []
+        for d in debuff_class.debuffs:
+            d.duration_e = 0
     
     def make_player(self, player):
         self.player_copy = player
@@ -89,7 +90,8 @@ class Battle_info():
         self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
         self.awaiting_skill = None
         self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
-        debuff_class.player_debuffs = []
+        for d in debuff_class.debuffs:
+            d.duration_p = 0
         
     def blit_player(self, screen):
         screen.blit(self.player_texture_copy, (180, 285))
@@ -99,6 +101,7 @@ class Battle_info():
             screen.blit(self.active_enemy.texture, (790, 285))
         
     def fight(self):
+        # Útok hráče
         if self.player_turn and self.awaiting_skill == None:
             damage = (self.player_copy.weapon.damage * ((100 - self.player_effects["damage_ef"]) / 100)) * ((100 - self.active_enemy.armor + self.enemy_effects["defense_ef"]) / 100)
             damage = round(damage)
@@ -107,9 +110,11 @@ class Battle_info():
             else:
                 pass
             self.player_turn = False
+        # Použití skillu
         elif self.player_turn and not self.awaiting_skill == None:
             self.awaiting_skill.skill_used("player", battle_info)
             self.awaiting_skill = None
+        # Útok nepřítele
         else:
             if self.player_copy.armor == None:
                 self.player_hp_copy -= self.active_enemy.damage
@@ -166,9 +171,8 @@ class Battle_info():
         
     def check_debuffs(self):
         for d in debuff_class.debuffs:
-            self.player_hp_copy = d.debuff_tick(self.player_copy, self.player_hp_copy)
-            self.enemy_hp_copy = d.debuff_tick(self.active_enemy, self.enemy_hp_copy)
-        print(debuff_class.debuffs[2].duration_e)
+            self.player_hp_copy, self.player_effects, self.enemy_effects, self.player_turn = d.debuff_tick(self.player_copy, self.player_hp_copy, self.player_effects, self.enemy_effects, self.player_turn)
+            self.enemy_hp_copy, self.player_effects, self.enemy_effects, self.player_turn = d.debuff_tick(self.active_enemy, self.enemy_hp_copy, self.player_effects, self.enemy_effects, self.player_turn)
         
 battle_info = Battle_info()
         

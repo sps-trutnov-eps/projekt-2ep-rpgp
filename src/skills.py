@@ -40,55 +40,55 @@ class debuff():
         self.space = 135
         
     ## Toto spustit každé kolo, i když není žádný debuff aktivní
-    def debuff_tick(self, target, target_hp):
-        if target.id == "player" and self.duration_p > 0:
-            self.duration_p -= 1
-        elif target.id == "enemy" and self.duration_e > 0:
-            self.duration_e -= 1
-        
-        if (target.id == "player" and self.duration_p > 0) or (target.id == "enemy" and self.duration_e > 0):
-            if self.name == "On Fire!":
-                if target.id == "player":
-                    if not target.armor.armor == None:
-                        damage = 1 * ((100 - target.armor.armor) / 100)
-                        damage = round(damage)
-                    else:
-                        damage = 1
-                elif target.id == "enemy":
-                    if not target.armor == None:
-                        damage = 1 * ((100 - target.armor) / 100)
-                        damage = round(damage)
-                    else:
-                        damage = 1
-                target_hp -= damage # Toto číslo se dá pozměnit
-                
-            if self.name == "Frozen!":
-                stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
-                if stun_chance == 4:
-                    if target.id == "player":
-                        battle_info.player_turn = False
-                    elif target.id == "enemy":
-                        battle_info.player_turn = True
-                
-            if self.name == "Poisoned!":
-                print("JEDU SI SVOJI PRÁCI TY HAJZLE")
-                target_hp -= 1 # Toto číslo se dá pozměnit
-                
-            if self.name == "Wet!":
-                # Zranitelnost se udává v %
-                if target.id == "player":
-                    battle_info.player_effects["defense_ef"] = 10
-                elif target.id == "enemy":
-                    battle_info.enemy_effects["defense_ef"] = 10
-                
-            if self.name == "Shocked!":
-                # Oslabení se udává v %
-                if target.id == "player":
-                    battle_info.player_effects["damage_ef"] = 10
-                elif target.id == "enemy":
-                    battle_info.enemy_effects["damage_ef"] = 10
+    def debuff_tick(self, target, target_hp, player_effects, enemy_effects, player_turn):
+        if not target == None:
+            if target.id == "player" and self.duration_p > 0:
+                self.duration_p -= 1
+            elif target.id == "enemy" and self.duration_e > 0:
+                self.duration_e -= 1
             
-        return target_hp
+            if (target.id == "player" and self.duration_p > 0) or (target.id == "enemy" and self.duration_e > 0):
+                if self.name == "On Fire!":
+                    if target.id == "player":
+                        if not target.armor.armor == None:
+                            damage = 1 * ((100 - target.armor.armor) / 100)
+                            damage = round(damage)
+                        else:
+                            damage = 1
+                    elif target.id == "enemy":
+                        if not target.armor == None:
+                            damage = 1 * ((100 - target.armor) / 100)
+                            damage = round(damage)
+                        else:
+                            damage = 1
+                    target_hp -= damage # Toto číslo se dá pozměnit
+                    
+                if self.name == "Frozen!":
+                    stun_chance = random.randint(0, 4) # tyto čísla jdou poupravit pro zvednutí šance na stun
+                    if stun_chance == 4:
+                        if target.id == "player":
+                            player_turn = False
+                        elif target.id == "enemy":
+                            player_turn = True
+                    
+                if self.name == "Poisoned!":
+                    target_hp -= 1 # Toto číslo se dá pozměnit
+                    
+                if self.name == "Wet!":
+                    # Zranitelnost se udává v %
+                    if target.id == "player":
+                        player_effects["defense_ef"] = 10
+                    elif target.id == "enemy":
+                        enemy_effects["defense_ef"] = 10
+                    
+                if self.name == "Shocked!":
+                    # Oslabení se udává v %
+                    if target.id == "player":
+                        player_effects["damage_ef"] = 10
+                    elif target.id == "enemy":
+                        enemy_effects["damage_ef"] = 10
+            
+        return target_hp, player_effects, enemy_effects, player_turn
             
         
     def draw_debuff(self, font, screen, on_screen):
@@ -136,7 +136,7 @@ class debuff():
             screen.blit(name_text, name_text_rect)
 
 on_fire_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/onfire2.png"), "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.",8, "Debuff board",0)
-frozen_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/frozen.png"), "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.",3, "Debuff board",1)
+frozen_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/frozen.png"), "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.",30, "Debuff board",1)
 poisoned_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/poisoned.png"), "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X %\nfor the duration of this debuff.",30, "Debuff board",2)
 wet_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/wet.png"), "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.",3, "Debuff board",3)
 shocked_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/shocked.png"), "Shocked!", "You have been struck with lightning making it\ndifficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of\nthis debuff.",3, "Debuff board",4)
