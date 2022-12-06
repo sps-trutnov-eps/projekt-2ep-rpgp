@@ -76,7 +76,7 @@ class Battle_info():
         self.stage = 0
         self.active_enemy = level.enemies[self.stage]
         self.enemy_hp_copy = level.enemies[self.stage].hp
-        self.enemy_max_hp = self.enemy_hp_copy = level.enemies[self.stage].hp
+        self.enemy_max_hp = self.enemy_hp_copy
         self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
         for d in debuff_class.debuffs:
             d.duration_e = 0
@@ -149,6 +149,10 @@ class Battle_info():
             if self.stage <= self.stages:
                 self.active_enemy = self.level.enemies[self.stage]
                 self.enemy_hp_copy = self.level.enemies[self.stage].hp
+                self.enemy_max_hp = self.enemy_hp_copy
+                self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
+                for d in debuff_class.debuffs:
+                    d.duration_e = 0
             else:
                 self.pause_battle()
                 for table in on__screen.tables:
