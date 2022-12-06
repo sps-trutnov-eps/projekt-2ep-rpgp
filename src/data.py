@@ -13,7 +13,14 @@ class player():
         self.gold = 1000
         self.level = 1
         self.hp = 100
+        self.mana = 100
         self.equipped_skills = [None, None, None]
+        self.max_hp = self.hp
+        self.max_mana = self.mana
+        self.hp_stat = 1
+        self.mana_stat = 1
+        self.int_stat = 1
+        self.luck_stat = 1
         
 class settings():
     def __init__(self):

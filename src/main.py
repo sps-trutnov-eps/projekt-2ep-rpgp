@@ -19,6 +19,7 @@ pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode(resolution)
 pg.display.set_caption("Generic Game")
+pg.display.set_icon(pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"))
 
 on__screen.active_screen = main_menu
 on__screen.active_table = "Close"
