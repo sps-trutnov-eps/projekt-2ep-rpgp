@@ -222,8 +222,7 @@ class Button():
                 self.change_item(task[1], task[2])
                 text_class.hide_messages()
             if task[0] == "create_items":
-                init_items(player.role)
-                shop_b_init()
+                pass
             if task[0] == "change_level":
                 self.change_level(task[1])
             if task[0] == "start_battle":
@@ -262,6 +261,8 @@ class Button():
                 self.equip_skill()
             if task[0] == "change_stat":
                 self.change_stat(task[1])
+            if task[0] == "clear_data":
+                self.clear_data()
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -415,6 +416,50 @@ class Button():
         file = open("saved_data.csv", "w", encoding = "UTF-8")
         file.truncate()
         file.close()
+        
+    def clear_data(self):           
+        player.armor = None
+        player.inventory = {"healing_potion":0, "mana_potion":0}
+        player.gold = 1000
+        player.level = 1
+        player.max_hp = 100
+        player.max_mana = 100
+        player.hp = player.max_hp
+        player.mana = player.max_mana
+        player.equipped_skills = [None, None, None]
+        player.int = 0
+        player.luck = 0
+        player.hp_stat = 0
+        player.mana_stat = 0
+        player.int_stat = 0
+        player.luck_stat = 0
+        player.stat_point = 20
+        player.equipped_skills[0] = fireball
+        
+        item_class.weapons = []
+        item_class.armors = []
+        item_class.misc_items = []
+        item_class.all_items = []
+        
+        
+        
+        del_list = []
+        for i in range(len(button_class.buttons) - 1):
+            if not isinstance(button_class.buttons[i].tasks[0], str):
+                if button_class.buttons[i].tasks[0][0] == "change_item":
+                    del_list.append(i)
+                    
+        clear_buttons(del_list)
+        
+        for i in range(len(button_class.buttons) - 1):
+            if not isinstance(button_class.buttons[i].tasks[0], str):
+                print(button_class.buttons[i].tasks[0][0])
+                    
+            
+        init_items(player.role)
+        shop_b_init()
+        
+        levels = init_levels()
         
     def item_test(self):
         if item.bought == False:
@@ -742,6 +787,24 @@ def shop_b_init():
     m4 = Button(["Item board"], (840, 525), None, 105,105, [["change_item", 3, item_class.misc_items]], False, misc_item_textures[3], True, None)
     m5 = Button(["Item board"], (840, 655), None, 105,105, [["change_item", 4, item_class.misc_items]], False, misc_item_textures[4], True, None)
     
+    skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
+    skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
+    skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
+    skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
+    skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), True, None)
+    skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
+    skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
+  
+def clear_buttons(del_list):
+    if len(del_list) > 0:
+        button_class.buttons[del_list[-1]]
+        del del_list[-1]
+        for i in del_list:
+            i -= 1
+        clear_buttons(del_list)
+    else:
+        pass
+
 # Objekty na vykreslení
 weapon_tree = blit_object(["Weapon board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/weapon_tree.png"), True, 1200, 900)
 armour_tree = blit_object(["Armor board"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/general_item_tree.png"), True, 1200, 900)
@@ -769,9 +832,9 @@ shop_potion.show = False
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
 continue_b = Button(["Main menu"], (680, 485), None, 445, 85, [["load"]], False, None, False, None)
-warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
-ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
-mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
+warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"], ["clear_data"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
+ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"], ["clear_data"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
+mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"], ["clear_data"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
 
 shop_b = Button(["Game menu"], (940, 550), (30,30,30,180), 100, 100, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/shop_icon.png"), True, None)
 profile_b = Button(["Game menu"], (95,550), (30,30,30,180), 100, 100, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/profile_icon.png"), True, None)
@@ -792,7 +855,9 @@ item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,100), 225, 100, [["buy_item"]], "r", None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [["equip_item"]], "r", None, False, None)
 
-save_b = Button(["Game table"], (520, 460), (30,30,30,180), 165, 80, [["save"]], "r", None, False, None)
+save_b = Button(["Game table"], (460, 360), (30,30,30,180), 280, 80, [["save"]], "r", None, False, None)
+exit_b = Button(["Game table"], (460, 460), (30,30,30,180), 280, 80, [["change_screen", "Main menu"]], "r", None, False, None)
+save_and_exit_b = Button(["Game table"], (460, 560), (30,30,30,180), 280, 80, [["save"], ["change_screen", "Main menu"]], "r", None, False, None)
 
 higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
@@ -808,14 +873,6 @@ skill_slot_2 = Button(["Skill board"], (568, 750), (30,30,30,180), 64,64, [["sel
 skill_slot_3 = Button(["Skill board"], (668, 750), (30,30,30,180), 64,64, [["select_skill_slot", 3]], "c", None, True, None)
 
 equip_skill = Button(["Skill board"], (80, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
-
-skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
-skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
-skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
-skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
-skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), True, None)
-skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
-skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
 
 hp_stat_b = Button(["Profile"], (1036,250), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 mana_stat_b = Button(["Profile"], (1036,334), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)

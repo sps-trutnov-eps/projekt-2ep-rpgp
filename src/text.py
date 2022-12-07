@@ -113,7 +113,9 @@ tsh_equip = text(["Weapon board", "Armor board", "Item board"], "Equip", (437, 8
 
 # Texty v nastavení ve hře
 caption = text(["Game table"], "Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
-save = text(["Game table"], "Save", (600,500), pg.font.Font(def_link, settings_size), def_colour)
+save = text(["Game table"], "Save", (600,400), pg.font.Font(def_link, settings_size), def_colour)
+exit_t = text(["Game table"], "Exit", (600,500), pg.font.Font(def_link, settings_size), def_colour)
+save_and_exit = text(["Game table"], "Save & exit", (600,600), pg.font.Font(def_link, settings_size), def_colour)
 
 # Peníze a level
 golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
@@ -139,7 +141,7 @@ no_golds = message("no golds", ["Weapon board", "Armor board", "Item board"], "I
 no_more = message("no more", ["Weapon board", "Armor board", "Item board"], "Can't buy more of this", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_equip = message("no equip", ["Weapon board", "Armor board", "Item board"], "Can't equip this item", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_owner = message("no owner", ["Weapon board", "Armor board", "Item board"], "You don't own this yet", (300,150), pg.font.Font(def_link, message_size), dark_red)
-save = message("save", ["Game table"], "Game saved", (600, 650), pg.font.Font(def_link, message_size), def_colour)
+save = message("save", ["Game table"], "Game saved", (600, 700), pg.font.Font(def_link, message_size), def_colour)
 
 # Texty v profilu
 skill_title = text(["Skill board"], "Skills", (600,75), pg.font.Font(def_link,heading1_size),dark_colour)
