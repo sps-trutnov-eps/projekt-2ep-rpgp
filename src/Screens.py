@@ -42,42 +42,71 @@ class screen():
             for place in button.belonging:
                 if place == self.name:
                     self.buttons.append(button)
-                    
-### ZAHOZENO ###
+    
+class tooltip_cl():
+    def __init__(self):
+        self.tooltips = []
+        
+tooltip_class = tooltip_cl()
+
 class tooltip():
-    def __init_(self, area, mouse_pos, table_name, table_description, table_width, table_height, screen):
-        # area = (x,y,width,height)
+    def __init__(self, area, table_name, table_description, belonging):
+        tooltip_class.tooltips.append(self)
+        self.belonging = belonging
+        self.area = area
+        self.table_name = table_name
+        self.table_desc = table_description
+        self.border = 20
         
-        pg.font.init()
-        
-        name_size = 20
-        desc_size = 10
-        t_width = 0
-        t_height = 0
+    def draw_tooltip(self, mouse_pos, screen, on__screen):
+        if not on__screen.active_screen == "Exit":
+            if on__screen.active_screen.name in self.belonging:
+                pg.font.init()
                 
-        for char in table_name:
-            t_width += name_size
-            
-        for char in table_description:
-            pass
-            
-        name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
-        desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
-        name = name_font.render(table_name, False, (255,255,255))
-        desc = desc_font.render(table_description, False, (200,200,200))
-        name_rect = name.get_rect()
-        desc_rect = desc.get_rect()
-        
-        screen.blit(name,(0,0))
-        screen.blit(desc,(0,30))
-        
-        print(name_rect.get_height())
-        print(desc_rect.get_height())
-        
-        tooltip_table = pg.Surface()
-        if mouse_pos[0] >= area[0] and mouse_pos[0] <= (area[0] + area[2]):
-            if mouse_pos[1] >= area[1] and mouse_pos[1] <= (area[1] + area[3]):
-                pass
+                name_size = 40
+                desc_size = 25
+                
+                table_width = 0
+                table_height = 0
+                
+                name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
+                desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
+                name = name_font.render(self.table_name, False, (255,255,255))
+                name_rect = name.get_rect()
+                
+                # Dělení řádků popisu
+                desc_text_list = []
+                desc_pos_list = []
+                desc_i = 0
+                desc_widths = []
+                
+                for desc_line in self.table_desc.split('\n'):
+                    desc_text_line = desc_font.render(desc_line, True, (200,200,200))
+                    desc_text_list.append(desc_text_line)
+                    desc_widths.append(desc_text_line.get_rect().width)
+                    desc_pos = desc_text_line.get_rect(topleft=(mouse_pos[0] + self.border, mouse_pos[1] + (name_size / 1.2) + (desc_size * desc_i) + self.border))
+                    desc_pos_list.append(desc_pos)
+                    desc_i = desc_i + 1
+                 
+                if name_rect[0] > max(desc_widths):
+                    table_width = name_rect[0] + (self.border * 2)
+                    
+                if name_rect[0] < max(desc_widths):
+                    table_width = max(desc_widths) + (self.border * 2)
+                
+                t_height = name_rect[1] + desc_pos_list[-1][1] + (self.border * 2)
+                
+                table = pg.surface.Surface((table_width,table_height))
+                table.fill((30,30,30,180))
+                
+                if mouse_pos[0] >= self.area[0] and mouse_pos[0] <= (self.area[0] + self.area[2]):
+                    if mouse_pos[1] >= self.area[1] and mouse_pos[1] <= (self.area[1] + self.area[3]):
+                        screen.blit(table, mouse_pos)
+                        screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + self.border))
+                        for desc_j in range(desc_i):
+                            screen.blit(desc_text_list[desc_j], desc_pos_list[desc_j])
+                    
+health_stat_tooltip = tooltip((700,250,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile")
 
 class table():
     def __init__(self, name):
