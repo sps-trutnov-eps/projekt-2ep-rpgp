@@ -666,14 +666,15 @@ class bought_icon():
             self.texture_e = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/icons/euqipped_icon.png"), (self.scale,self.scale))
             
         def blit_self(self, screen, on_screen):
-            if self.item == None:
-                self.find_equiped(screen)
-            elif self.item.belonging == on_screen.active_screen.name and self.item.bought:
-                screen.blit(self.texture, (self.button.position[0] + self.offset, self.button.position[1] + self.offset))
-                if self.item == player.weapon or self.item == player.armor:
-                    screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1]))
-                elif self.item.id == player.weapon or self.item.id == player.armor:
-                    screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1] - 10))
+            if not on_screen.active_screen == "Exit":
+                if self.item == None:
+                    self.find_equiped(screen)
+                elif self.item.belonging == on_screen.active_screen.name and self.item.bought:
+                    screen.blit(self.texture, (self.button.position[0] + self.offset, self.button.position[1] + self.offset))
+                    if self.item == player.weapon or self.item == player.armor:
+                        screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1]))
+                    elif self.item.id == player.weapon or self.item.id == player.armor:
+                        screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1] - 10))
                     
 def shop_b_init():
     weapon_textures = []
@@ -792,7 +793,9 @@ item_board_b = Button(["Shop"], (248,395), (255,0,0), 224, 105, [["change_screen
 buy_b = Button(["Weapon board", "Armor board", "Item board"], (50,760), (30,30,30,100), 225, 100, [["buy_item"]], "r", None, False, None)
 equip_b = Button(["Weapon board", "Armor board", "Item board"], (325,760), (30,30,30,100), 225, 100, [["equip_item"]], "r", None, False, None)
 
-save_b = Button(["Game table"], (520, 460), (30,30,30,180), 165, 80, [["save"]], "r", None, False, None)
+save_b = Button(["Game table"], (450, 360), (30,30,30,180), 300, 80, [["save"]], "r", None, False, None)
+exit_b2 = Button(["Game table"], (450, 460), (30,30,30,180), 300, 80, [["change_screen", "Exit"]], "r", None, False, None)
+save_and_exit = Button(["Game table"], (450, 560), (30,30,30,180), 300, 80, [["save"], ["change_screen", "Exit"]], "r", None, False, None)
 
 higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)

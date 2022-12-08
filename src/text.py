@@ -113,7 +113,9 @@ tsh_equip = text(["Weapon board", "Armor board", "Item board"], "Equip", (437, 8
 
 # Texty v nastavení ve hře
 caption = text(["Game table"], "Settings", (600,200), pg.font.Font(def_link, heading1_size), def_colour)
-save = text(["Game table"], "Save", (600,500), pg.font.Font(def_link, settings_size), def_colour)
+save = text(["Game table"], "Save", (600,400), pg.font.Font(def_link, settings_size), def_colour)
+exit_t = text(["Game table"], "Exit", (600,500), pg.font.Font(def_link, settings_size), def_colour)
+save_and_exit = text(["Game table"], "Save and Exit", (600,600), pg.font.Font(def_link, settings_size), def_colour)
 
 # Peníze a level
 golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
