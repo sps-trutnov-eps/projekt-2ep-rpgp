@@ -89,38 +89,47 @@ class tooltip():
                     desc_pos_list.append(desc_pos)
                     desc_i = desc_i + 1
                  
-                if name_rect[0] > max(desc_widths):
-                    table_width = name_rect[0] + (self.border * 2)
+                if name_rect.width > max(desc_widths):
+                    table_width = name_rect.width + (self.border * 2)
                     
-                if name_rect[0] < max(desc_widths):
+                elif name_rect.width < max(desc_widths):
                     table_width = max(desc_widths) + (self.border * 2)
+                 
+                table_height = name_rect[1] + (int(len(desc_pos_list)) * desc_size) + (self.border * 2) + desc_size
                 
-                t_height = name_rect[1] + desc_pos_list[-1][1] + (self.border * 2)
-                
-                table = pg.surface.Surface((table_width,table_height))
+                table = pg.surface.Surface((table_width,table_height), pg.SRCALPHA)
                 table.fill((30,30,30,180))
                 
                 if mouse_pos[0] >= self.area[0] and mouse_pos[0] <= (self.area[0] + self.area[2]):
                     if mouse_pos[1] >= self.area[1] and mouse_pos[1] <= (self.area[1] + self.area[3]):
                         if self.draw_pos == "bottom_right":
                             screen.blit(table, mouse_pos)
-                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + self.border))
+                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2)))
                             for desc_j in range(desc_i):
                                 screen.blit(desc_text_list[desc_j], desc_pos_list[desc_j])
                         
                         if self.draw_pos == "bottom_left":
                             screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1]))
-                            screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + self.border))
+                            screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2)))
                             for desc_j in range(desc_i):
                                 screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1]))
                                 
                         if self.draw_pos == "top_right":
                             screen.blit(table, (mouse_pos[0], mouse_pos[1] - table_height))
-                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + self.border - table_height))
+                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2) - table_height))
                             for desc_j in range(desc_i):
                                 screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0], desc_pos_list[desc_j][1] - table_height))
+                                
+                        if self.draw_pos == "top_left":
+                            screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1] - table_height))
+                            screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2) - table_height))
+                            for desc_j in range(desc_i):
+                                screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
                     
-health_stat_tooltip = tooltip((700,250,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile","top_right")
+health_stat_tooltip = tooltip((700,250,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile","bottom_left")
+mana_stat_tooltip = tooltip((700,334,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", "Profile","bottom_left")
+int_stat_tooltip = tooltip((700,418,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", "Profile","top_left")
+luck_stat_tooltip = tooltip((700,502,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", "Profile","top_left")
 
 class table():
     def __init__(self, name):
