@@ -437,6 +437,7 @@ class Button():
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
+                    print(active_item.id)
         if not active_item == None:
             if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
                 active_item.bought = True
@@ -459,40 +460,38 @@ class Button():
                         active_item.bought = False
                             
                 # Skill scrolly #
-                if active_item.id == "skill_scroll_1":
-                    for it in item_class.misc_items:
-                        for i in it:
-                            if i.id == "skill_1":
-                                if not i in player.skills:
-                                    player.skills.append(i)
-                                    for b in button_class.buttons:
-                                        if b.tasks[0][0] == "change_item":
-                                            b.get_texture(i.icon)
-                                            b.draw = True
-                            else:
-                                text_class.show_message("bought")
-                if active_item.id == "skill_scroll_2":
-                    for i in item_class.misc_items:
-                        if i.name == "Scroll 2":
+                if active_item.id == "skill_1":
+                    for i in skill_class.skills:
+                        if i.name == "Poison Dart":
                             if not i in player.skills:
                                 player.skills.append(i)
                                 for b in button_class.buttons:
-                                    if b.tasks[0][0] == "change_item":
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 4 and b.tasks[0][2] == player.skills:
                                         b.get_texture(i.icon)
-                                        b.draw = True
-                            else:
-                                text_class.show_message("bought")
-                if active_item.id == "skill_scroll_3":
-                    for i in item_class.misc_items:
-                        if i.name == "Scroll 3":
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
+                                
+                if active_item.id == "skill_2":
+                    for i in skill_class.skills:
+                        if i.name == "Lightning Bolt":
                             if not i in player.skills:
                                 player.skills.append(i)
                                 for b in button_class.buttons:
-                                    if b.tasks[0][0] == "change_item":
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 5 and b.tasks[0][2] == player.skills:
                                         b.get_texture(i.icon)
-                                        b.draw = True
-                            else:
-                                text_class.show_message("bought")
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
+                                        
+                if active_item.id == "skill_3":
+                    for i in skill_class.skills:
+                        if i.name == "Life Steal":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 6 and b.tasks[0][2] == player.skills:
+                                        b.get_texture(i.icon)
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
                     
                 self.equip_item(False)
                 
