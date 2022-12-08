@@ -93,6 +93,11 @@ def work_buttons_and_texts():
     for b in on__screen.bought_icons:
         b.blit_self(screen, on__screen)
         
+def blit_tooltips():
+    if not tooltip_class.tooltips == []:
+        for tooltip in tooltip_class.tooltips:
+            tooltip.draw_tooltip(m_pos, screen, on__screen)
+        
 def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
@@ -201,8 +206,11 @@ while True:
     # Zrušení multi-klikání
     click_acc = stop_multi_click(devmode, m_pressed, click_acc)
     
-    ### Vykreslení tlačítek + kontrola stisku tlačítek ###
+    # Vykreslení tlačítek + kontrola stisku tlačítek
     work_buttons_and_texts()
+    
+    # Vykreslení tooltipů
+    blit_tooltips()
     
     if pressed[pg.K_a]:
         print(player.equipped_skills)
