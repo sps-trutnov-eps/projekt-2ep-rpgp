@@ -283,7 +283,8 @@ class Button():
     def change_item(self, new_item_number, items):
         for item in items:
             item.shown = False
-        items[new_item_number].shown = True
+        if len(items) - 1 >= new_item_number:
+            items[new_item_number].shown = True
         
     def change_role(self, role):
         player.role = role
@@ -458,8 +459,40 @@ class Button():
                         active_item.bought = False
                             
                 # Skill scrolly #
-                if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
-                    player.skills[active_item.id] = True
+                if active_item.id == "skill_scroll_1":
+                    for it in item_class.misc_items:
+                        for i in it:
+                            if i.id == "skill_1":
+                                if not i in player.skills:
+                                    player.skills.append(i)
+                                    for b in button_class.buttons:
+                                        if b.tasks[0][0] == "change_item":
+                                            b.get_texture(i.icon)
+                                            b.draw = True
+                            else:
+                                text_class.show_message("bought")
+                if active_item.id == "skill_scroll_2":
+                    for i in item_class.misc_items:
+                        if i.name == "Scroll 2":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item":
+                                        b.get_texture(i.icon)
+                                        b.draw = True
+                            else:
+                                text_class.show_message("bought")
+                if active_item.id == "skill_scroll_3":
+                    for i in item_class.misc_items:
+                        if i.name == "Scroll 3":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item":
+                                        b.get_texture(i.icon)
+                                        b.draw = True
+                            else:
+                                text_class.show_message("bought")
                     
                 self.equip_item(False)
                 
@@ -786,13 +819,13 @@ skill_slot_3 = Button(["Skill board"], (668, 750), (30,30,30,180), 64,64, [["sel
 
 equip_skill = Button(["Skill board"], (80, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
 
-skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
-skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
-skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
-skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
-skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), True, None)
-skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
-skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
+skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
+skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
+skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
+skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
+skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
+skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
+skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)

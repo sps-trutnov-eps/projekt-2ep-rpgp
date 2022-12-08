@@ -298,3 +298,7 @@ skill_class.skills = [
 
 # Defaultní skill
 player.equipped_skills[0] = fireball
+player.skills.append(fireball)
+player.skills.append(water_blast)
+player.skills.append(rock_throw)
+player.skills.append(ice_storm)
