@@ -217,7 +217,13 @@ while True:
     blit_tooltips()
     
     if pressed[pg.K_a]:
-        print(player.equipped_skills)
+        text = ""
+        for s in player.equipped_skills:
+            if s == None:
+                text = text + "None, "
+            else:
+                text = text + s.name + ","
+        print(text)
         
     # BITVA
     if on__screen.battle == True:
@@ -249,12 +255,12 @@ while True:
             work_buttons_and_texts()
             
             if not battle_info.pause:
-                if round_time >= 1500:
+                if round_time >= 1520:
                     round_time = 0
                     battle_info.check_fight(on__screen)
                 if affects_time >= 1000:
                     affects_time = 0
-                    # Sem dodat účinky debuffů
+                    battle_info.check_debuffs()
             else:
                 round_time = 0
                 affects_time = 0
@@ -266,7 +272,10 @@ while True:
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
             
             pg.display.update()
-            round_time += clock.tick(100)
+            time = 0
+            time += clock.tick(100)
+            round_time += time
+            affects_time += time
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     pg.display.update()

@@ -1,5 +1,7 @@
 import sys
 import pygame as pg
+from skills import *
+from text import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -59,13 +61,16 @@ class Enemy():
         self.hp = hp
         self.damage = damage
         self.armor = armor
+        self.id = "enemy"
         
 class Battle_info():
     def start(self):
         self.player_turn = True
         self.pause = False
         self.hp_color = (190,50,50)
+        self.hp_background_color = (130,10,10)
         self.mana_color = (80,110,200)
+        self.mana_background_color = (20,50,130)
         self.bar_width = 300
         
     def get_info(self, level):
@@ -74,13 +79,22 @@ class Battle_info():
         self.stage = 0
         self.active_enemy = level.enemies[self.stage]
         self.enemy_hp_copy = level.enemies[self.stage].hp
-        self.enemy_max_hp = self.enemy_hp_copy = level.enemies[self.stage].hp
+        self.enemy_max_hp = self.enemy_hp_copy
+        self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
+        for d in debuff_class.debuffs:
+            d.duration_e = 0
     
     def make_player(self, player):
         self.player_copy = player
         self.player_max_hp = player.hp
         self.player_hp_copy = player.hp
+        self.player_max_mana = player.mana
+        self.player_mana_copy = player.mana
         self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
+        self.awaiting_skill = None
+        self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
+        for d in debuff_class.debuffs:
+            d.duration_p = 0
         
     def blit_player(self, screen):
         screen.blit(self.player_texture_copy, (180, 285))
@@ -90,26 +104,31 @@ class Battle_info():
             screen.blit(self.active_enemy.texture, (790, 285))
         
     def fight(self):
-        if self.player_turn:
-            damage = self.player_copy.weapon.damage * ((100 - self.active_enemy.armor) / 100)
+        # Útok hráče
+        if self.player_turn and self.awaiting_skill == None:
+            damage = (self.player_copy.weapon.damage * ((100 - self.player_effects["damage_ef"]) / 100)) * ((100 - self.active_enemy.armor + self.enemy_effects["defense_ef"]) / 100)
             damage = round(damage)
             if damage >= 0:
                 self.enemy_hp_copy -= damage
             else:
                 pass
             self.player_turn = False
+        # Použití skillu
+        elif self.player_turn and not self.awaiting_skill == None:
+            self.awaiting_skill.skill_used("player", battle_info)
+            self.awaiting_skill = None
+        # Útok nepřítele
         else:
             if self.player_copy.armor == None:
                 self.player_hp_copy -= self.active_enemy.damage
             else:
-                damage = self.active_enemy.damage * ((100 - self.player_copy.armor.armor) / 100)
+                damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
                 damage = round(damage)
                 if damage >= 0:
                     self.player_hp_copy -= damage
                 else:
                     pass
             self.player_turn = True
-        print("Player HP: " + str(self.player_hp_copy) + " Enemy HP: " + str(self.enemy_hp_copy))
             
     def pause_battle(self):
         self.pause = True
@@ -133,22 +152,46 @@ class Battle_info():
             if self.stage <= self.stages:
                 self.active_enemy = self.level.enemies[self.stage]
                 self.enemy_hp_copy = self.level.enemies[self.stage].hp
+                self.enemy_max_hp = self.enemy_hp_copy
+                self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
+                for d in debuff_class.debuffs:
+                    d.duration_e = 0
             else:
                 self.pause_battle()
                 for table in on__screen.tables:
                     if table.name == "Win table":
                         on__screen.active_table = table
-    
-    def activate_skill(self):
-        pass
+        
+        for s in player.equipped_skills:
+            if not s == None:
+                if s.momental_cooldown > 0:
+                    s.momental_cooldown -= 1
     
     def show_bars(self, screen):
         if not self.active_enemy == None:
             max_enemy_hp = self.active_enemy.hp
         # HP bar nepřítele
+        for t in text_class.texts:
+            if t.id == "e_hp":
+                t.update(str(self.enemy_hp_copy) + "/" + str(self.enemy_max_hp), None)
+        pg.draw.rect(screen, self.hp_background_color, (765, 35, self.bar_width, 44))
         pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
-        # HP bar hráče
+        # HP a mana bar hráče
+        for t in text_class.texts:
+            if t.id == "p_hp":
+                t.update(str(self.player_hp_copy) + "/" + str(self.player_max_hp), None)
+        pg.draw.rect(screen, self.hp_background_color, (135, 775, self.bar_width, 44))
         pg.draw.rect(screen, self.hp_color, (135,775,(self.bar_width * (self.player_hp_copy / self.player_max_hp)),44))
+        for t in text_class.texts:
+            if t.id == "p_mana":
+                t.update(str(self.player_mana_copy) + "/" + str(self.player_max_mana), None)
+        pg.draw.rect(screen, self.mana_background_color, (135, 820, self.bar_width, 44))
+        pg.draw.rect(screen, self.mana_color, (135, 820,(self.bar_width * (self.player_mana_copy / self.player_max_mana)),44))
+        
+    def check_debuffs(self):
+        for d in debuff_class.debuffs:
+            self.player_hp_copy, self.player_effects, self.enemy_effects, self.player_turn = d.debuff_tick(self.player_copy, self.player_hp_copy, self.player_effects, self.enemy_effects, self.player_turn)
+            self.enemy_hp_copy, self.player_effects, self.enemy_effects, self.player_turn = d.debuff_tick(self.active_enemy, self.enemy_hp_copy, self.player_effects, self.enemy_effects, self.player_turn)
         
 battle_info = Battle_info()
         
@@ -161,7 +204,7 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 20, 5, 30)
+zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 50, 5, 30)
 slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])

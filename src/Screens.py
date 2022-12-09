@@ -314,6 +314,8 @@ class Button():
                 self.equip_skill()
             if task[0] == "change_stat":
                 self.change_stat(task[1])
+            if task[0] == "activate_skill":
+                self.activate_skill(task[1])
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -335,7 +337,8 @@ class Button():
     def change_item(self, new_item_number, items):
         for item in items:
             item.shown = False
-        items[new_item_number].shown = True
+        if len(items) - 1 >= new_item_number:
+            items[new_item_number].shown = True
         
     def change_role(self, role):
         player.role = role
@@ -488,6 +491,7 @@ class Button():
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
+                    print(active_item.id)
         if not active_item == None:
             if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
                 active_item.bought = True
@@ -510,8 +514,38 @@ class Button():
                         active_item.bought = False
                             
                 # Skill scrolly #
-                if active_item.id == "skill_scroll_1" or active_item.id == "skill_scroll_2" or active_item.id == "skill_scroll_3":
-                    player.skills[active_item.id] = True
+                if active_item.id == "skill_1":
+                    for i in skill_class.skills:
+                        if i.name == "Poison Dart":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 4 and b.tasks[0][2] == player.skills:
+                                        b.get_texture(i.icon)
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
+                                
+                if active_item.id == "skill_2":
+                    for i in skill_class.skills:
+                        if i.name == "Lightning Bolt":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 5 and b.tasks[0][2] == player.skills:
+                                        b.get_texture(i.icon)
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
+                                        
+                if active_item.id == "skill_3":
+                    for i in skill_class.skills:
+                        if i.name == "Life Steal":
+                            if not i in player.skills:
+                                player.skills.append(i)
+                                for b in button_class.buttons:
+                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 6 and b.tasks[0][2] == player.skills:
+                                        b.get_texture(i.icon)
+                                        text_class.show_message("buy")
+                                        multi_click_prevention = True
                     
                 self.equip_item(False)
                 
@@ -628,9 +662,13 @@ class Button():
                         for button in button_class.buttons:
                             if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
                                 button.get_texture(None)
+                            if button.tasks[0][0] == "activate_skill" and button.tasks[0][1] == x:
+                                button.get_texture(None)
                     else:
                         for button in button_class.buttons:
                             if button.tasks[0][0] == "select_skill_slot" and button.tasks[0][1] == x + 1:
+                                button.get_texture(p_skill.icon)
+                            if button.tasks[0][0] == "activate_skill" and button.tasks[0][1] == x:
                                 button.get_texture(p_skill.icon)
                         
                 multi_click_prevention = True
@@ -675,6 +713,11 @@ class Button():
             multi_click_prevention = True
             
         multi_click_prevention = False
+            
+    def activate_skill(self, index):
+        if battle_info.awaiting_skill == None and player.equipped_skills[index].momental_cooldown == 0:
+            battle_info.awaiting_skill = player.equipped_skills[index]
+            player.equipped_skills[index].momental_cooldown = player.equipped_skills[index].cooldown
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
@@ -853,6 +896,9 @@ higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["chan
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
+battle_skill_1_b = Button(["Battle"], (710, 786), (30,30,30,180), 80, 80, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
+battle_skill_2_b = Button(["Battle"], (795, 786), (30,30,30,180), 80, 80, [["activate_skill", 1]], False, None, True, None)
+battle_skill_3_b = Button(["Battle"], (890, 786), (30,30,30,180), 80, 80, [["activate_skill", 2]], False, None, True, None)
 skill_board_b = Button(["Profile"], (820, 640), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 to_profile = Button(["Skill board","Debuff board","Stat board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None)
@@ -864,13 +910,13 @@ skill_slot_3 = Button(["Skill board"], (668, 750), (30,30,30,180), 64,64, [["sel
 
 equip_skill = Button(["Skill board"], (80, 725), (30,30,30,180), 225,100, [["equip_skill"]], "r", None, True, None)
 
-skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
-skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
-skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
-skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
-skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), True, None)
-skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), True, None)
-skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, skill_class.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), True, None)
+skill_1_b = Button(["Skill board"], (130,120), (30,30,30,180), 100, 100, [["change_item", 0, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), True, None)
+skill_2_b = Button(["Skill board"], (270,120), (30,30,30,180), 100, 100, [["change_item", 1, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), True, None)
+skill_3_b = Button(["Skill board"], (410,120), (30,30,30,180), 100, 100, [["change_item", 2, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), True, None)
+skill_4_b = Button(["Skill board"], (550,120), (30,30,30,180), 100, 100, [["change_item", 3, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), True, None)
+skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["change_item", 4, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
+skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
+skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 
 hp_stat_b = Button(["Profile"], (1036,250), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 mana_stat_b = Button(["Profile"], (1036,334), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)

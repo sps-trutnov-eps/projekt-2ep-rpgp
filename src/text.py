@@ -33,7 +33,7 @@ class text_cl():
 text_class = text_cl()
     
 class text():
-    def __init__(self, belonging, text, position, font, colour):
+    def __init__(self, belonging, text, position, font, colour, id ="basic"):
         text_class.texts.append(self)
         self.belonging = belonging
         self.text = text
@@ -41,6 +41,7 @@ class text():
         self.font = font
         self.colour = colour
         self.size = self.font.size(self.text)
+        self.id = id
         
     def blit_self(self, screen, on__screen):
         if not on__screen.active_screen == "Exit":
@@ -122,6 +123,9 @@ golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor
 p_level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
 # Texty v bitvě
+player_hp = text(["Battle"], "/", (290,795), pg.font.Font(def_link, regular_size), def_colour, "p_hp")
+player_mana = text(["Battle"], "/", (290,845), pg.font.Font(def_link, regular_size), def_colour, "p_mana")
+enemy_hp = text(["Battle"], "/", (915,56), pg.font.Font(def_link, regular_size), def_colour, "e_hp")
 pause_question = text(["Pause table"], "Do you wish to leave the battle?", (600,330), pg.font.Font(def_link, settings_size), def_colour)
 pause_yes = text(["Pause table"], "Yes", (450,542), pg.font.Font(def_link, 38), def_colour)
 pause_no = text(["Pause table"], "No", (750,542), pg.font.Font(def_link, 38), def_colour)
