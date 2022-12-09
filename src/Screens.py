@@ -162,6 +162,8 @@ class Button():
         self.alpha = 180
         self.draw = draw
         self.active_skill_slot = None
+        self.offset = width/3
+        self.draw_texture = True
         if not texture == None:
             if scale:
                 self.texture = pg.transform.scale(texture, (width, height))
@@ -230,11 +232,10 @@ class Button():
                 if on__screen.active_table.name in self.belonging:
                     if not self.draw == False:
                         if self.draw == "c":
-                            offset = self.width/3
-                            backgr_size = self.width + offset
+                            backgr_size = self.width + self.offset
                             button_sf = pg.Surface((backgr_size, backgr_size), pg.SRCALPHA)
                             pg.draw.circle(button_sf, self.colour, ((backgr_size/2),(backgr_size/2)), backgr_size/2)
-                            screen.blit(button_sf, ((self.position[0] - offset/2),(self.position[1] - offset/2)))
+                            screen.blit(button_sf, ((self.position[0] - self.offset/2),(self.position[1] - self.offset/2)))
                         elif self.draw == "r":
                             button_sf = pg.Surface((self.width, self.height), pg.SRCALPHA)
                             button_sf.fill(self.colour)
@@ -242,15 +243,15 @@ class Button():
                     if self.texture == None:
                         pass
                     else:
-                        screen.blit(self.texture, (self.position))
+                        if self.draw_texture:
+                            screen.blit(self.texture, (self.position))
             elif on__screen.active_screen.name in self.belonging:
                 if not self.draw == False:
                     if self.draw == "c":
-                        offset = self.width/3
-                        backgr_size = self.width + offset
+                        backgr_size = self.width + self.offset
                         button_sf = pg.Surface((backgr_size, backgr_size), pg.SRCALPHA)
                         pg.draw.circle(button_sf, self.colour, ((backgr_size/2),(backgr_size/2)), backgr_size/2)
-                        screen.blit(button_sf, ((self.position[0] - offset/2),(self.position[1] - offset/2)))
+                        screen.blit(button_sf, ((self.position[0] - self.offset/2),(self.position[1] - self.offset/2)))
                     elif self.draw == "r":
                         button_sf = pg.Surface((self.width, self.height), pg.SRCALPHA)
                         button_sf.fill(self.colour)
@@ -258,7 +259,8 @@ class Button():
                 if self.texture == None:
                     pass
                 else:
-                    screen.blit(self.texture, (self.position))
+                    if self.draw_texture:
+                        screen.blit(self.texture, (self.position))
         
     def work(self):
         for task in self.tasks:
@@ -715,9 +717,11 @@ class Button():
         multi_click_prevention = False
             
     def activate_skill(self, index):
-        if battle_info.awaiting_skill == None and player.equipped_skills[index].momental_cooldown == 0:
-            battle_info.awaiting_skill = player.equipped_skills[index]
-            player.equipped_skills[index].momental_cooldown = player.equipped_skills[index].cooldown
+        if battle_info.awaiting_skill == None and not player.equipped_skills[index] == None:
+            if player.equipped_skills[index].momental_cooldown == 0:
+                battle_info.awaiting_skill = player.equipped_skills[index]
+                self.draw = "c"
+                self.offset = 5
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
@@ -896,9 +900,9 @@ higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["chan
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
 fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
 
-battle_skill_1_b = Button(["Battle"], (710, 786), (30,30,30,180), 80, 80, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
-battle_skill_2_b = Button(["Battle"], (795, 786), (30,30,30,180), 80, 80, [["activate_skill", 1]], False, None, True, None)
-battle_skill_3_b = Button(["Battle"], (890, 786), (30,30,30,180), 80, 80, [["activate_skill", 2]], False, None, True, None)
+battle_skill_1_b = Button(["Battle"], (708, 788), (30,30,30,180), 82, 82, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
+battle_skill_2_b = Button(["Battle"], (796, 788), (30,30,30,180), 82, 82, [["activate_skill", 1]], False, None, True, None)
+battle_skill_3_b = Button(["Battle"], (884, 788), (30,30,30,180), 82, 82, [["activate_skill", 2]], False, None, True, None)
 skill_board_b = Button(["Profile"], (820, 640), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 to_profile = Button(["Skill board","Debuff board","Stat board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None)

@@ -42,9 +42,10 @@ class text():
         self.colour = colour
         self.size = self.font.size(self.text)
         self.id = id
+        self.show = True
         
     def blit_self(self, screen, on__screen):
-        if not on__screen.active_screen == "Exit":
+        if not on__screen.active_screen == "Exit" and self.show:
             if not on__screen.active_table == "Close":
                 if on__screen.active_table.name in self.belonging:
                     surf = self.font.render(self.text, True, self.colour)
@@ -134,6 +135,16 @@ death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 3
 death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
 win_leave = text(["Win table"], "Back", (450,542), pg.font.Font(def_link, 38), def_colour)
 win_continue = text(["Win table"], "Next level", (750, 542), pg.font.Font(def_link, 38), def_colour)
+cooldown_text1 = text(["Battle"], "0", (749,825), pg.font.Font(def_link, heading1_size), def_colour)
+cooldown_text2 = text(["Battle"], "0", (837,825), pg.font.Font(def_link, heading1_size), def_colour)
+cooldown_text3 = text(["Battle"], "0", (925,825), pg.font.Font(def_link, heading1_size), def_colour)
+text_class.cooldown_texts = [
+                    cooldown_text1,
+                    cooldown_text2,
+                    cooldown_text3
+                            ]
+for t in text_class.cooldown_texts:
+    t.show = False
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)

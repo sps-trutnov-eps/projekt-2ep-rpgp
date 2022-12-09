@@ -159,7 +159,7 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Yes", pressed, screen, (200,200,200))
+        tt.show("3", pressed, screen, (200,200,200))
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
@@ -245,6 +245,8 @@ while True:
         
             battle_info.blit_player(screen)
             battle_info.blit_enemy(screen)
+            battle_info.show_turn(screen)
+            button_class.buttons = battle_info.show_cooldown(button_class)
             
             blit_screen()
             
@@ -266,8 +268,7 @@ while True:
                 affects_time = 0
             
             if pressed[pg.K_a]:
-                for t in text_class.texts:
-                    print(t.text)
+                print(text_class.cooldown_texts)
             
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
             

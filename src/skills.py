@@ -234,6 +234,8 @@ class skill():
             battle_info.player_hp_copy = target_hp
             battle_info.enemy_hp_copy = caster_hp
             
+        self.momental_cooldown = self.cooldown
+            
     def draw_skill(self, font, screen, on_screen):
         if on_screen.active_screen.name in self.belonging and self.shown:
             
@@ -278,13 +280,13 @@ class skill():
             screen.blit(icon_scaled, (100,330))
             screen.blit(name_text, name_text_rect)
             
-fireball = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), "Fireball", "Cast a fireball and\nshoot it at your enemy!","Deals X damage to enemy and applies the\nOn Fire! debuff.", 3, "Skill board", True)
-water_blast = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), "Water Blast", "Cast a big wave of\nwater against your enemy!", "Deals X damage and applies the Wet! debuff.", 3, "Skill board", False)
-rock_throw = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), "Rock Throw", "Throw a large boulder at your enemy!", "Deals X damage to enemy and stuns them\nfor X rounds", 3, "Skill board", False)
-ice_storm = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), "Ice Storm", "Send a shower of sharp icicles\ndown on your enemy!", "Deals X damage to enemy and applies the\nFrozen! debuff.", 3, "Skill board", False)
-poison_dart = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), "Poison Dart", "Blow a poison dart at your enemy!", "Applies the Poisoned! debuff.", 3, "Skill board", False)
-lightning_bolt = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), "Lightning Bolt", "Shoot a lightning bolt at your enemy!", "Deals X damage to enemy and applies the\nShocked! debuff.", 3, "Skill board", False)
-life_steal = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), "Life Steal", "Steal health for yourself\nfrom your enemy!", "Steals X health from enemy and gives it to you.", 3, "Skill board", False)
+fireball = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/fireball.png"), "Fireball", "Cast a fireball and\nshoot it at your enemy!","Deals X damage to enemy and applies the\nOn Fire! debuff.", 5, "Skill board", True)
+water_blast = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/water_blast.png"), "Water Blast", "Cast a big wave of\nwater against your enemy!", "Deals X damage and applies the Wet! debuff.", 5, "Skill board", False)
+rock_throw = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/rock_throw.png"), "Rock Throw", "Throw a large boulder at your enemy!", "Deals X damage to enemy and stuns them\nfor X rounds", 5, "Skill board", False)
+ice_storm = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_storm.png"), "Ice Storm", "Send a shower of sharp icicles\ndown on your enemy!", "Deals X damage to enemy and applies the\nFrozen! debuff.", 5, "Skill board", False)
+poison_dart = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), "Poison Dart", "Blow a poison dart at your enemy!", "Applies the Poisoned! debuff.", 5, "Skill board", False)
+lightning_bolt = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), "Lightning Bolt", "Shoot a lightning bolt at your enemy!", "Deals X damage to enemy and applies the\nShocked! debuff.", 5, "Skill board", False)
+life_steal = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), "Life Steal", "Steal health for yourself\nfrom your enemy!", "Steals X health from enemy and gives it to you.", 5, "Skill board", False)
 
 skill_class.skills = [
     fireball,

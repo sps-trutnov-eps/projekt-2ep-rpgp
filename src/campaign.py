@@ -72,6 +72,10 @@ class Battle_info():
         self.mana_color = (80,110,200)
         self.mana_background_color = (20,50,130)
         self.bar_width = 300
+        self.cooldown_texts = range(11)
+        for s in player.equipped_skills:
+            if not s == None:
+                s.momental_cooldown = 0
         
     def get_info(self, level):
         self.level = level
@@ -187,6 +191,33 @@ class Battle_info():
                 t.update(str(self.player_mana_copy) + "/" + str(self.player_max_mana), None)
         pg.draw.rect(screen, self.mana_background_color, (135, 820, self.bar_width, 44))
         pg.draw.rect(screen, self.mana_color, (135, 820,(self.bar_width * (self.player_mana_copy / self.player_max_mana)),44))
+    
+    def show_turn(self, screen):
+        width = 70
+        height = 30
+        if self.player_turn:
+            pg.draw.polygon(screen, (40,180,40), ( (248,680),((248 - (width / 2)), (680 + height)),((248 + (width / 2)),(680 + height))) )
+        else:
+            pg.draw.polygon(screen, (40,180,40), ( (966,680),((966 - (width / 2)), (680 + height)),((966 + (width / 2)),(680 + height))) )
+            
+    def show_cooldown(self, button_class):
+        if self.awaiting_skill == None:
+            for b in button_class.buttons:
+                if b.tasks[0][0] == "activate_skill":
+                    b.draw_texture = True
+                    b.draw = False
+            for t in text_class.cooldown_texts:
+                t.show = False
+        for i in range(len(player.equipped_skills) - 1):
+            if not player.equipped_skills[i] == None:
+                if player.equipped_skills[i].momental_cooldown > 0:
+                    for b in button_class.buttons:
+                        if b.tasks[0][0] == "activate_skill" and b.tasks[0][1] == i:
+                            b.draw_texture = False
+                    text_class.cooldown_texts[i].text = str(player.equipped_skills[i].momental_cooldown)
+                    text_class.cooldown_texts[i].show = True
+        
+        return button_class.buttons
         
     def check_debuffs(self):
         for d in debuff_class.debuffs:
