@@ -9,7 +9,6 @@ else:
     DATA_ROOT = '..'
     
 tp_size = (135,378)
-te_size = (352,374)
     
 class Level():
     def __init__(self, number):
@@ -57,7 +56,11 @@ class Enemy():
     def __init__(self, name, texture, hp, damage, armor):
         self.name = name
         self.position = (800,450)
-        self.texture = texture
+        width = texture.get_width()
+        height = texture.get_height()
+        self.texture = pg.transform.scale(texture, (width * 9, height * 9))
+        self.width = self.texture.get_width()
+        self.height = self.texture.get_height()
         self.hp = hp
         self.damage = damage
         self.armor = armor
@@ -105,7 +108,7 @@ class Battle_info():
         
     def blit_enemy(self, screen):
         if not self.active_enemy == None:
-            screen.blit(self.active_enemy.texture, (790, 285))
+            screen.blit(self.active_enemy.texture, (1020 - self.active_enemy.width, 663 - self.active_enemy.height))
         
     def fight(self):
         # Útok hráče
@@ -121,6 +124,7 @@ class Battle_info():
         elif self.player_turn and not self.awaiting_skill == None:
             self.awaiting_skill.skill_used("player", battle_info)
             self.awaiting_skill = None
+            self.player_turn = False
         # Útok nepřítele
         else:
             if self.player_copy.armor == None:
@@ -198,9 +202,10 @@ class Battle_info():
         if self.player_turn:
             pg.draw.polygon(screen, (40,180,40), ( (248,680),((248 - (width / 2)), (680 + height)),((248 + (width / 2)),(680 + height))) )
         else:
-            pg.draw.polygon(screen, (40,180,40), ( (966,680),((966 - (width / 2)), (680 + height)),((966 + (width / 2)),(680 + height))) )
+            middle = 1020 - (self.active_enemy.width / 2)
+            pg.draw.polygon(screen, (40,180,40), ( (middle,680),((middle - (width / 2)), (680 + height)),((middle + (width / 2)),(680 + height))) )
             
-    def show_cooldown(self, button_class):
+    def show_cooldown(self, button_class, screen):
         if self.awaiting_skill == None:
             for b in button_class.buttons:
                 if b.tasks[0][0] == "activate_skill":
@@ -214,6 +219,7 @@ class Battle_info():
                     for b in button_class.buttons:
                         if b.tasks[0][0] == "activate_skill" and b.tasks[0][1] == i:
                             b.draw_texture = False
+                            
                     text_class.cooldown_texts[i].text = str(player.equipped_skills[i].momental_cooldown)
                     text_class.cooldown_texts[i].show = True
         
@@ -286,8 +292,8 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-zombie = Enemy("Zombie", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), te_size), 50, 5, 30)
-slime = Enemy("Slime", pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), te_size), 20, 2, 0)
+zombie = Enemy("Zombie", pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), 50, 5, 30)
+slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])
 levels[1].get_enemies([zombie])

@@ -321,6 +321,8 @@ class Button():
                 self.change_stat(task[1])
             if task[0] == "activate_skill":
                 self.activate_skill(task[1])
+            if task[0] == "drink_potion":
+                self.drink_potion(task[1])
         
     def change_screen(self, new_screen, on_screen):
         if new_screen == "Exit":
@@ -722,6 +724,9 @@ class Button():
                 battle_info.awaiting_skill = player.equipped_skills[index]
                 self.draw = "c"
                 self.offset = 5
+                
+    def drink_potion(self, potion_type):
+        pass
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):

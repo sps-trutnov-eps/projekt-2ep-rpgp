@@ -237,14 +237,13 @@ while True:
             screen.fill((88,88,88))
             
             battle_info.show_bars(screen)
-        
             battle_info.blit_player(screen)
             battle_info.blit_enemy(screen)
             battle_info.show_turn(screen)
-            button_class.buttons = battle_info.show_cooldown(button_class)
             
             blit_screen()
             
+            button_class.buttons = battle_info.show_cooldown(button_class, screen)
             battle_info.show_debuffs(screen)
             
             counter.blit_self(screen, on__screen)
