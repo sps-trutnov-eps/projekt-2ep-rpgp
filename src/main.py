@@ -1,5 +1,6 @@
 # --- Projekt Role-playing parodie Vojtěcha Nepimacha a Pavla Kotka ---
 import sys
+
 import pygame as pg
 from Screens import *
 from dev_tools import *
@@ -217,13 +218,7 @@ while True:
     blit_tooltips()
     
     if pressed[pg.K_a]:
-        text = ""
-        for s in player.equipped_skills:
-            if s == None:
-                text = text + "None, "
-            else:
-                text = text + s.name + ","
-        print(text)
+        print(button_class.skill_buttons)
         
     # BITVA
     if on__screen.battle == True:

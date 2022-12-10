@@ -28,6 +28,7 @@ on__screen = on_screen()
 class button_cl():
     def __init__(self):
         self.buttons = []
+        self.skill_buttons = []
         
 button_class = button_cl()
 
@@ -153,6 +154,8 @@ class table():
 class Button():
     def __init__(self, belonging, position, colour, width, height, tasks, draw, texture, scale, condition):
         button_class.buttons.append(self)
+        if belonging[0] == "Skill board" and tasks[0][0] == "change_item":
+            button_class.skill_buttons.append(self)
         self.belonging = belonging
         self.position = position
         self.width = width
@@ -521,33 +524,30 @@ class Button():
                         if i.name == "Poison Dart":
                             if not i in player.skills:
                                 player.skills.append(i)
-                                for b in button_class.buttons:
-                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 4 and b.tasks[0][2] == player.skills:
-                                        b.get_texture(i.icon)
-                                        text_class.show_message("buy")
-                                        multi_click_prevention = True
+                                index = len(player.skills) - 1
+                                button_class.skill_buttons[index].get_texture(i.icon)
+                                text_class.show_message("buy")
+                                multi_click_prevention = True
                                 
                 if active_item.id == "skill_2":
                     for i in skill_class.skills:
                         if i.name == "Lightning Bolt":
                             if not i in player.skills:
                                 player.skills.append(i)
-                                for b in button_class.buttons:
-                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 5 and b.tasks[0][2] == player.skills:
-                                        b.get_texture(i.icon)
-                                        text_class.show_message("buy")
-                                        multi_click_prevention = True
+                                index = len(player.skills) - 1
+                                button_class.skill_buttons[index].get_texture(i.icon)
+                                text_class.show_message("buy")
+                                multi_click_prevention = True
                                         
                 if active_item.id == "skill_3":
                     for i in skill_class.skills:
                         if i.name == "Life Steal":
                             if not i in player.skills:
                                 player.skills.append(i)
-                                for b in button_class.buttons:
-                                    if b.tasks[0][0] == "change_item" and b.tasks[0][1] == 6 and b.tasks[0][2] == player.skills:
-                                        b.get_texture(i.icon)
-                                        text_class.show_message("buy")
-                                        multi_click_prevention = True
+                                index = len(player.skills) - 1
+                                button_class.skill_buttons[index].get_texture(i.icon)
+                                text_class.show_message("buy")
+                                multi_click_prevention = True
                     
                 self.equip_item(False)
                 
