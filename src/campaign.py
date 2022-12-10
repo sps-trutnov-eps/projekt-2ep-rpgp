@@ -225,6 +225,7 @@ class Battle_info():
         index_list = []
         position = 0
         offset = 0
+        # Vykreslení debuffů u nepřítele
         for i in range(len(debuff_class.debuffs) - 1):
             if debuff_class.debuffs[i].duration_e > 0:
                 sort_list.append(debuff_class.debuffs[i].duration_e)
@@ -232,14 +233,41 @@ class Battle_info():
                 info_list[position][1] = i
                 position += 1
         sort_list.sort(reverse=True)
+        
         for li in sort_list:
             for l in info_list:
                 if li == l[0]:
                     index_list.append(l[1])
+                    
         for i in index_list:
             icon = debuff_class.debuffs[i].icon
             icon_size = [icon.get_width(), icon.get_height()]
             screen.blit(icon, (((558 - (icon_size[0] / 2)) + (77 * offset)),(82 - (icon_size[1] / 2))))
+            offset += 1
+            
+        sort_list = []
+        info_list = [[0,0],[0,0],[0,0]]
+        index_list = []
+        position = 0
+        offset = 0
+        # Vykreslení debuffů u hráče
+        for i in range(len(debuff_class.debuffs) - 1):
+            if debuff_class.debuffs[i].duration_p > 0:
+                sort_list.append(debuff_class.debuffs[i].duration_p)
+                info_list[position][0] = debuff_class.debuffs[i].duration_p
+                info_list[position][1] = i
+                position += 1
+        sort_list.sort(reverse=True)
+        
+        for li in sort_list:
+            for l in info_list:
+                if li == l[0]:
+                    index_list.append(l[1])
+                    
+        for i in index_list:
+            icon = debuff_class.debuffs[i].icon
+            icon_size = [icon.get_width(), icon.get_height()]
+            screen.blit(icon, (((490 - (icon_size[0] / 2)) + (77 * offset)),(822 - (icon_size[1] / 2))))
             offset += 1
         
     def check_debuffs(self):
