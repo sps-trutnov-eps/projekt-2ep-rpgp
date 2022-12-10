@@ -303,8 +303,8 @@ ice_storm = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/ice_sto
 poison_dart = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/poison_dart.png"), "Poison Dart", "Blow a poison dart at your enemy!", "Applies the Poisoned! debuff.", 5, "Skill board", False)
 lightning_bolt = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/lightning_bolt.png"), "Lightning Bolt", "Shoot a lightning bolt at your enemy!", "Deals X damage to enemy and applies the\nShocked! debuff.", 5, "Skill board", False)
 life_steal = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_steal.png"), "Life Steal", "Steal health for yourself\nfrom your enemy!", "Steals X health from enemy and gives it to you.", 5, "Skill board", False)
-drink_health_potion = skill(None, "Drink Health Potion", "Drinky drinky", "Gibe healf", 5, "Nowhere", False)
-drink_mana_potion = skill(None, "Drink Mana Potion", "Drinky drinky", "Gibe manamana", 5, "Nowhere", False)
+drink_health_potion = skill(None, "Drink Health Potion", "Drinky drinky", "Gibe healf", 0, "Nowhere", False)
+drink_mana_potion = skill(None, "Drink Mana Potion", "Drinky drinky", "Gibe manamana", 0, "Nowhere", False)
 
 skill_class.skills = [
     fireball,
