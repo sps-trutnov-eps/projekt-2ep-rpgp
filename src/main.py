@@ -245,6 +245,8 @@ while True:
             
             blit_screen()
             
+            battle_info.show_debuffs(screen)
+            
             counter.blit_self(screen, on__screen)
             
             click_acc = stop_multi_click(devmode, m_pressed, click_acc)
