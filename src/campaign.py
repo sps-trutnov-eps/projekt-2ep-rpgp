@@ -292,8 +292,8 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-zombie = Enemy("Zombie", pg.image.load(DATA_ROOT + "/data/textures/enemy/zombie.png"), 50, 5, 30)
-slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/enemy/slime.png"), 20, 2, 0)
+zombie = Enemy("Zombie", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/zombie.png"), 50, 5, 30)
+slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/slime.png"), 20, 2, 0)
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([zombie, slime])
 levels[1].get_enemies([zombie])
