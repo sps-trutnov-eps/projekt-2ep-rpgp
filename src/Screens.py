@@ -861,10 +861,10 @@ shop_level = blit_object(["Weapon board", "Armor board", "Item board"], (60, 700
 shop_damage = blit_object(["Weapon board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/damage_icon_2.png"), True, 54, 54)
 shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/defense_icon.png"), True, 54, 54)
 shop_potion = blit_object(["Item board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
-health_stat = blit_object(["Profile"], (700,250), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
-mana_stat = blit_object(["Profile"], (700,334), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
-intelligence_stat = blit_object(["Profile"], (700,418), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
-luck_stat = blit_object(["Profile"], (700,502), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/luck_icon.png"), True, 64,64)
+health_stat = blit_object(["Profile"], (700,230), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
+mana_stat = blit_object(["Profile"], (700,314), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
+intelligence_stat = blit_object(["Profile"], (700,398), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
+luck_stat = blit_object(["Profile"], (700,482), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/luck_icon.png"), True, 64,64)
 shop_price.show = False
 shop_level.show = False
 shop_damage.show = False
@@ -929,10 +929,10 @@ skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["chan
 skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 
-hp_stat_b = Button(["Profile"], (1036,250), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-mana_stat_b = Button(["Profile"], (1036,334), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-int_stat_b = Button(["Profile"], (1036,418), (30,30,30,180), 64, 64, [["change_stat", "int"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-luck_stat_b = Button(["Profile"], (1036,502), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+hp_stat_b = Button(["Profile"], (1036,230), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+mana_stat_b = Button(["Profile"], (1036,314), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+int_stat_b = Button(["Profile"], (1036,398), (30,30,30,180), 64, 64, [["change_stat", "int"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+luck_stat_b = Button(["Profile"], (1036,482), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)

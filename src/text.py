@@ -167,10 +167,12 @@ slot_3 = text(["Skill board"], "3", (700,710), pg.font.Font(def_link,heading1_si
 to_debuffs = text(["Skill board"], "Debuffs", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
 to_skills = text(["Debuff board"], "Skills", (1007.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
 equip_skill = text(["Skill board"], "Equip", (192.5, 775), pg.font.Font(def_link,heading1_size),def_colour)
-hp_stat_value = text(["Profile"], str(player.hp_stat), (900,282), pg.font.Font(def_link,heading1_size),def_colour)
-mana_stat_value = text(["Profile"], str(player.mana_stat), (900,366), pg.font.Font(def_link,heading1_size),def_colour)
-int_stat_value = text(["Profile"], str(player.int_stat), (900,450), pg.font.Font(def_link,heading1_size),def_colour)
-luck_stat_value = text(["Profile"], str(player.luck_stat), (900,534), pg.font.Font(def_link,heading1_size),def_colour)
+hp_stat_value = text(["Profile"], str(player.hp_stat), (900,262), pg.font.Font(def_link,heading1_size),def_colour)
+mana_stat_value = text(["Profile"], str(player.mana_stat), (900,346), pg.font.Font(def_link,heading1_size),def_colour)
+int_stat_value = text(["Profile"], str(player.int_stat), (900,430), pg.font.Font(def_link,heading1_size),def_colour)
+luck_stat_value = text(["Profile"], str(player.luck_stat), (900,514), pg.font.Font(def_link,heading1_size),def_colour)
+stat_table_name = text(["Profile"], "Stats", (680,200), pg.font.Font(def_link,heading1_size),def_colour)
+skill_icon_name = text(["Profile"], "Skills", (90, 710), pg.font.Font(def_link,heading1_size),def_colour)
 
 # Texty v game menu
 profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)

@@ -38,7 +38,7 @@ def blit_screen():
     if on__screen.active_screen.name == "Profile":
         stat_bg = pg.surface.Surface((440,350),pg.SRCALPHA)
         stat_bg.fill((30,30,30,180))
-        screen.blit(stat_bg, (680,230))
+        screen.blit(stat_bg, (680,210))
     for o in on__screen.blit_objects:
         o.blit_self(screen, on__screen)
     if not on__screen.active_table == "Close":
