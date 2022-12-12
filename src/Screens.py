@@ -127,10 +127,10 @@ class tooltip():
                             for desc_j in range(desc_i):
                                 screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
                     
-health_stat_tooltip = tooltip((700,250,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile","bottom_left")
-mana_stat_tooltip = tooltip((700,334,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", "Profile","bottom_left")
-int_stat_tooltip = tooltip((700,418,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", "Profile","top_left")
-luck_stat_tooltip = tooltip((700,502,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", "Profile","top_left")
+health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile","bottom_left")
+mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", "Profile","bottom_left")
+int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", "Profile","top_left")
+luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", "Profile","top_left")
 
 class table():
     def __init__(self, name):

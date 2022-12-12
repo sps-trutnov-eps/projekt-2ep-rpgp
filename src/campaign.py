@@ -122,9 +122,9 @@ class Battle_info():
             self.player_turn = False
         # Použití skillu
         elif self.player_turn and not self.awaiting_skill == None:
+            self.player_turn = False
             self.awaiting_skill.skill_used("player", battle_info)
             self.awaiting_skill = None
-            self.player_turn = False
         # Útok nepřítele
         else:
             if self.player_copy.armor == None:
@@ -209,16 +209,15 @@ class Battle_info():
         if self.awaiting_skill == None:
             for b in button_class.buttons:
                 if b.tasks[0][0] == "activate_skill":
-                    b.draw_texture = True
                     b.draw = False
             for t in text_class.cooldown_texts:
                 t.show = False
-        for i in range(len(player.equipped_skills) - 1):
+        for i in range(len(player.equipped_skills)):
             if not player.equipped_skills[i] == None:
                 if player.equipped_skills[i].momental_cooldown > 0:
                     for b in button_class.buttons:
                         if b.tasks[0][0] == "activate_skill" and b.tasks[0][1] == i:
-                            b.draw_texture = False
+                            b.draw = True
                             
                     text_class.cooldown_texts[i].text = str(player.equipped_skills[i].momental_cooldown)
                     text_class.cooldown_texts[i].show = True
@@ -232,7 +231,7 @@ class Battle_info():
         position = 0
         offset = 0
         # Vykreslení debuffů u nepřítele
-        for i in range(len(debuff_class.debuffs) - 1):
+        for i in range(len(debuff_class.debuffs)):
             if debuff_class.debuffs[i].duration_e > 0:
                 sort_list.append(debuff_class.debuffs[i].duration_e)
                 info_list[position][0] = debuff_class.debuffs[i].duration_e
@@ -257,7 +256,7 @@ class Battle_info():
         position = 0
         offset = 0
         # Vykreslení debuffů u hráče
-        for i in range(len(debuff_class.debuffs) - 1):
+        for i in range(len(debuff_class.debuffs)):
             if debuff_class.debuffs[i].duration_p > 0:
                 sort_list.append(debuff_class.debuffs[i].duration_p)
                 info_list[position][0] = debuff_class.debuffs[i].duration_p

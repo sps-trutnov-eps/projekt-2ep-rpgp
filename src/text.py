@@ -97,6 +97,7 @@ def_link = DATA_ROOT + "/data/fonts/VeniceClassic.ttf"
 def_colour = (200,200,200)
 dark_colour = (30,30,30)
 dark_red = (190,20,20)
+black = (0,0,0)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -135,9 +136,9 @@ death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 3
 death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
 win_leave = text(["Win table"], "Back", (450,542), pg.font.Font(def_link, 38), def_colour)
 win_continue = text(["Win table"], "Next level", (750, 542), pg.font.Font(def_link, 38), def_colour)
-cooldown_text1 = text(["Battle"], "0", (749,825), pg.font.Font(def_link, heading1_size), def_colour)
-cooldown_text2 = text(["Battle"], "0", (837,825), pg.font.Font(def_link, heading1_size), def_colour)
-cooldown_text3 = text(["Battle"], "0", (925,825), pg.font.Font(def_link, heading1_size), def_colour)
+cooldown_text1 = text(["Battle"], "0", (749,825), pg.font.Font(def_link, heading1_size), black)
+cooldown_text2 = text(["Battle"], "0", (837,825), pg.font.Font(def_link, heading1_size), black)
+cooldown_text3 = text(["Battle"], "0", (925,825), pg.font.Font(def_link, heading1_size), black)
 text_class.cooldown_texts = [
                     cooldown_text1,
                     cooldown_text2,
