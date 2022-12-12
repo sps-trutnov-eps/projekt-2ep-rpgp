@@ -102,6 +102,8 @@ class Battle_info():
         self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
         for d in debuff_class.debuffs:
             d.duration_p = 0
+        text_class.counter_texts[0].update(str(player.inventory["healing_potion"]), None)
+        text_class.counter_texts[1].update(str(player.inventory["mana_potion"]), None)
         
     def blit_player(self, screen):
         screen.blit(self.player_texture_copy, (180, 285))
@@ -210,6 +212,8 @@ class Battle_info():
             for b in button_class.buttons:
                 if b.tasks[0][0] == "activate_skill":
                     b.draw = False
+                if b.tasks[0][0] == "drink_potion":
+                    b.draw = False
             for t in text_class.cooldown_texts:
                 t.show = False
         for i in range(len(player.equipped_skills)):
@@ -217,7 +221,7 @@ class Battle_info():
                 if player.equipped_skills[i].momental_cooldown > 0:
                     for b in button_class.buttons:
                         if b.tasks[0][0] == "activate_skill" and b.tasks[0][1] == i:
-                            b.draw = True
+                            b.draw = "c"
                             
                     text_class.cooldown_texts[i].text = str(player.equipped_skills[i].momental_cooldown)
                     text_class.cooldown_texts[i].show = True

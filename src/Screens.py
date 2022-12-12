@@ -726,7 +726,13 @@ class Button():
                 self.offset = 5
                 
     def drink_potion(self, potion_type):
-        pass
+        if battle_info.awaiting_skill == None:
+            if potion_type == "health" and player.inventory["healing_potion"] > 0:
+                battle_info.awaiting_skill = drink_health_potion
+                self.draw = "r"
+            elif potion_type == "mana" and player.inventory["mana_potion"] > 0:
+                battle_info.awaiting_skill = drink_mana_potion
+                self.draw = "r"
         
 class blit_object():
     def __init__(self, belonging, position, texture, scale, width, height):
@@ -908,8 +914,8 @@ fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_b
 battle_skill_1_b = Button(["Battle"], (708, 788), (30,30,30,180), 82, 82, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
 battle_skill_2_b = Button(["Battle"], (796, 788), (30,30,30,180), 82, 82, [["activate_skill", 1]], False, None, True, None)
 battle_skill_3_b = Button(["Battle"], (884, 788), (30,30,30,180), 82, 82, [["activate_skill", 2]], False, None, True, None)
-battle_health_potion = Button(["Battle"], (984, 752), (30,30,30,180), 64, 108, [["drink_potion", "mana"]], False, None, True, None)
-battle_health_potion = Button(["Battle"], (1064, 752), (30,30,30,180), 64, 108, [["drink_potion", "health"]], False, None, True, None)
+battle_health_potion = Button(["Battle"], (984, 752), (30,30,30,180), 68, 112, [["drink_potion", "mana"]], False, None, True, None)
+battle_health_potion = Button(["Battle"], (1064, 752), (30,30,30,180), 68, 112, [["drink_potion", "health"]], False, None, True, None)
 skill_board_b = Button(["Profile"], (820, 640), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 to_profile = Button(["Skill board","Debuff board","Stat board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None)

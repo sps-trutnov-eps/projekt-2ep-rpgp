@@ -3,6 +3,7 @@ import sys
 import random
 from data import *
 from campaign import *
+from text import *
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     DATA_ROOT = '.'
@@ -203,7 +204,10 @@ class skill():
                 poisoned_debuff.duration_p = poisoned_debuff.duration
             
         if self.name == "Life Steal":
-            hp_amount = 15
+            if target_hp > 15:
+                hp_amount = 15
+            else:
+                hp_amount = target_hp
             caster_hp += hp_amount
             target_hp -= hp_amount
             
@@ -231,6 +235,7 @@ class skill():
             if player.inventory["healing_potion"] > 0:
                 player.inventory["healing_potion"] -= 1
                 caster_hp += 50
+                text_class.counter_texts[0].update(str(player.inventory["healing_potion"]), None)
                 if caster_hp > battle_info.player_max_hp:
                     caster_hp = battle_info.player_max_hp
                 
@@ -238,6 +243,7 @@ class skill():
             if player.inventory["mana_potion"] > 0:
                 player.inventory["mana_potion"] -= 1
                 caster_mana += 50
+                text_class.counter_texts[1].update(str(player.inventory["mana_potion"]), None)
                 if caster_mana > battle_info.player_max_mana:
                     caster_mana = battle_info.player_max_mana
                 
