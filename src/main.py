@@ -102,6 +102,11 @@ def blit_tooltips():
     if not tooltip_class.tooltips == []:
         for tooltip in tooltip_class.tooltips:
             tooltip.draw_tooltip(m_pos, screen, on__screen)
+            
+def blit_xp_bar():
+    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
+        if on__screen.active_screen.name == "Profile":
+            xp_bar.draw_bar(screen)
         
 def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###
@@ -216,6 +221,9 @@ while True:
     
     # Vykreslení tooltipů
     blit_tooltips()
+    
+    # Vykreslení xp baru v profilu
+    blit_xp_bar()
     
     if pressed[pg.K_a]:
         print(button_class.skill_buttons)
