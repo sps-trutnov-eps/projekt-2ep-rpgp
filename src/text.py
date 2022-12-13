@@ -29,6 +29,13 @@ class text_cl():
         for m in self.messages:
             if m.name == wanted_name:
                 m.shown = True
+                
+    def check(self):
+        got_it = False
+        for m in self.messages:
+            if m.shown == True:
+                got_it = True
+        return got_it
         
 text_class = text_cl()
     
@@ -99,7 +106,7 @@ dark_colour = (30,30,30)
 dark_red = (190,20,20)
 black = (0,0,0)
 white = (255,255,255)
-cooldown_color = (40,180,40)
+cooldown_color = (255,20,20)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -136,8 +143,8 @@ pause_no = text(["Pause table"], "No", (750,542), pg.font.Font(def_link, 38), de
 death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, settings_size), def_colour)
 death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 38), def_colour)
 death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
-win_leave = text(["Win table"], "Back", (450,542), pg.font.Font(def_link, 38), def_colour)
-win_continue = text(["Win table"], "Next level", (750, 542), pg.font.Font(def_link, 38), def_colour)
+win_leave = text(["Win table"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
+win_continue = text(["Win table"], "Next level", (750, 722), pg.font.Font(def_link, 38), def_colour)
 health_p_counter = text(["Battle"], str(player.inventory["healing_potion"]), (1100,845), pg.font.Font(def_link, regular_size), def_colour)
 mana_p_counter = text(["Battle"], str(player.inventory["mana_potion"]), (1020,845), pg.font.Font(def_link, regular_size), def_colour)
 text_class.counter_texts = [
@@ -165,6 +172,7 @@ no_golds = message("no golds", ["Weapon board", "Armor board", "Item board"], "I
 no_more = message("no more", ["Weapon board", "Armor board", "Item board"], "Can't buy more of this", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_equip = message("no equip", ["Weapon board", "Armor board", "Item board"], "Can't equip this item", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_owner = message("no owner", ["Weapon board", "Armor board", "Item board"], "You don't own this yet", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_mana = message("no mana", ["Battle"], "You don't have enough mana", (600, 700), pg.font.Font(def_link, message_size), dark_red)
 save = message("save", ["Game table"], "Game saved", (600, 700), pg.font.Font(def_link, message_size), def_colour)
 
 # Texty v profilu

@@ -232,6 +232,7 @@ while True:
     if on__screen.battle == True:
         round_time = 0
         affects_time = 0
+        message_time = 0
         while on__screen.battle == True:
             events = pg.event.get()
             pressed = pg.key.get_pressed()
@@ -267,6 +268,9 @@ while True:
                 if affects_time >= 1000:
                     affects_time = 0
                     battle_info.check_debuffs()
+                if message_time >= 1500:
+                    message_time = 0
+                    text_class.hide_messages()
             else:
                 round_time = 0
                 affects_time = 0
@@ -281,6 +285,8 @@ while True:
             time += clock.tick(100)
             round_time += time
             affects_time += time
+            if text_class.check():
+                message_time += time
     
     devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
     pg.display.update()

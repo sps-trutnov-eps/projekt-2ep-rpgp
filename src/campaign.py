@@ -19,6 +19,10 @@ class Level():
     def get_enemies(self, enemies):
         self.enemies = enemies
         
+    def get_rewards(self, xp, gold):
+        self.gold_reward = gold
+        self.xp_reward = xp
+        
 class Counter():
     def __init__(self):
         self.number = 1
@@ -318,3 +322,24 @@ levels[16].get_enemies([zombie])
 levels[17].get_enemies([zombie])
 levels[18].get_enemies([zombie])
 levels[19].get_enemies([zombie])
+
+levels[0].get_rewards(10,50)
+levels[1].get_rewards(10,50)
+levels[2].get_rewards(10,50)
+levels[3].get_rewards(10,50)
+levels[4].get_rewards(10,50)
+levels[5].get_rewards(10,50)
+levels[6].get_rewards(10,50)
+levels[7].get_rewards(10,50)
+levels[8].get_rewards(10,50)
+levels[9].get_rewards(10,50)
+levels[10].get_rewards(10,50)
+levels[11].get_rewards(10,50)
+levels[12].get_rewards(10,50)
+levels[13].get_rewards(10,50)
+levels[14].get_rewards(10,50)
+levels[15].get_rewards(10,50)
+levels[16].get_rewards(10,50)
+levels[17].get_rewards(10,50)
+levels[18].get_rewards(10,50)
+levels[19].get_rewards(10,50)

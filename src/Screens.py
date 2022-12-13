@@ -394,7 +394,19 @@ class Button():
         text_class.texts.pop()
         
     def win_battle(self):
+        if levels[counter.number - 1].completed == False:
+            player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20)))
+            player.xp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20)))
+        else:
+            player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20 - 40)))
+            player.exp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20 - 60)))
+        player.calculate_level()
+        index_golds = text_class.texts.index(golds)
+        text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
+        index_level = text_class.texts.index(p_level)
+        text_class.texts[index_level].update(str(player.level), None)
         levels[counter.number].unlocked = True
+        levels[counter.number - 1].completed = True
         counter.number += 1
         self.end_battle()
     
@@ -720,10 +732,12 @@ class Button():
             
     def activate_skill(self, index):
         if battle_info.awaiting_skill == None and not player.equipped_skills[index] == None:
-            if player.equipped_skills[index].momental_cooldown == 0:
+            if player.equipped_skills[index].momental_cooldown == 0 and player.equipped_skills[index].mana_cost <= battle_info.player_mana_copy:
                 battle_info.awaiting_skill = player.equipped_skills[index]
                 self.draw = "c"
                 self.offset = 5
+            elif player.equipped_skills[index].momental_cooldown == 0 and not player.equipped_skills[index].mana_cost <= battle_info.player_mana_copy:
+                text_class.show_message("no mana")
                 
     def drink_potion(self, potion_type):
         if battle_info.awaiting_skill == None:
@@ -904,8 +918,8 @@ battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_
 leave_battle_b = Button(["Pause table", "Death table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
 stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"],["unpause_battle"]], "r", None, False, None)
 retry_battle_b = Button(["Death table"], (620, 500), (30,30,30,180), 260, 85, [["restart_battle"]], "r", None, False, None)
-completed_battle_b = Button(["Win table"], (320,500), (30,30,30,180), 260, 85, [["win_battle"]], "r", None, False, None)
-continue_battle_b = Button(["Win table"], (620,500), (30,30,30,180), 260, 85, [["continue_battle"]], "r", None, False, None)
+completed_battle_b = Button(["Win table"], (320,680), (30,30,30,180), 260, 85, [["win_battle"]], "r", None, False, None)
+continue_battle_b = Button(["Win table"], (620,680), (30,30,30,180), 260, 85, [["continue_battle"]], "r", None, False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
 weapon_board_b = Button(["Shop"], (731,245), (255,0,0), 221, 267, [["change_screen", "Weapon board"],["reset_item_show"]], False, None, False, None)
