@@ -268,6 +268,10 @@ while True:
                 if affects_time >= 1000:
                     affects_time = 0
                     battle_info.check_debuffs()
+                    if battle_info.player_mana_copy >= battle_info.player_max_mana:
+                        battle_info.player_mana_copy = battle_info.player_max_mana
+                    elif battle_info.player_mana_copy < battle_info.player_max_mana:
+                        battle_info.player_mana_copy += 1
                 if message_time >= 1500:
                     message_time = 0
                     text_class.hide_messages()
