@@ -1,6 +1,9 @@
 Nesplněno:
 * Vykreslování informací v bitvě
-* Uložení skillů
+* Uložení skillů + MNOHA DALŠÍCH VĚCÍ
+* Informace o efektech scrollů
+* Ikonka pro množství lektvarů
+* Informace po vyhrané bitvě ve výherní tabulkce
 
 Splněno:
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.

@@ -213,11 +213,19 @@ def init_items(role):
         ]
     
     ### MISC ITEMY ###
+    scroll_name_1 = "Vitriolic scroll"
+    scroll_name_2 = "Icebound scroll"
+    scroll_name_3 = "Rancid scroll"
+    
+    scroll_desc_1 = "Unlocks a new skill.\nYour eyes begin to water\njust in the presence of it."
+    scroll_desc_2 = "Unlocks a new skill.\nThe cold that comes from\nthis scroll is immeasurable."
+    scroll_desc_3 = "Unlocks a new skill.\nIt gives off a musty smell with\na bit of the essence of death."
+    
     potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"healing_potion")
     potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"mana_potion")
-    skill_scroll_1 = item("Scroll 1", "Skill scroll 1", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_1")
-    skill_scroll_2 = item("Scroll 2", "Skill scroll 2", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_ice.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_2")
-    skill_scroll_3 = item("Scroll 3", "Skill scroll 3", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_3")
+    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_1")
+    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_ice.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_2")
+    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"skill_3")
     
     item_class.misc_items = [
         potion_healing,
@@ -248,7 +256,7 @@ class item():
         self.special_effect = stats[4]
         self.item_type = None
         
-    def draw(self, font, screen, on_screen):
+    def draw(self, font, screen, on_screen, tooltip_class):
         if on_screen.active_screen.name in self.belonging and self.shown:
             
             texture_scaled = pg.transform.scale(self.texture, (192, 192))
@@ -278,19 +286,50 @@ class item():
             screen.blit(name_text, name_text_rect)
             
             # Cena a potřebný level
-            price_surf = self.desc_font.render("Price: " + str(self.price), True, (0,0,0))
-            screen.blit(price_surf, (120,645))
+            price_surf = self.desc_font.render(str(self.price), True, (0,0,0))
+            screen.blit(price_surf, (125,645))
             
-            level_surf = self.desc_font.render("Level: ", True, (0,0,0))
-            screen.blit(level_surf, (120, 710))
+            #level_surf = self.desc_font.render(, True, (0,0,0))
+            #screen.blit(level_surf, (120, 710))
+            
+            weapon = False
+            armor = False
+            potion = False
+            scroll = False
             
             if not self.damage == None:
-                damage_surf = self.desc_font.render("Damage: " + str(self.damage), True, (0,0,0))
+                damage_surf = self.desc_font.render(str(self.damage), True, (0,0,0))
                 screen.blit(damage_surf, (395,675))
+                weapon = True
             
             if not self.armor == None:
-                armor_surf = self.desc_font.render("Armor: " + str(self.armor) + "%", True, (0,0,0))
+                armor_surf = self.desc_font.render(str(self.armor) + "%", True, (0,0,0))
                 screen.blit(armor_surf, (395,675))
+                armor = True
             
             if self.armor == None and self.damage == None:
-                pass
+                if "potion" in self.name:
+                    if self.name == "Healing potion":
+                        effect_surf = self.desc_font.render("+50 HP", True, (0,0,0))
+                        quantity_surf = self.desc_font.render(str(player.inventory["healing_potion"]), True, (0,0,0))
+                        potion = True
+                    elif self.name == "Mana potion":
+                        effect_surf = self.desc_font.render("+50 Mana", True, (0,0,0))
+                        quantity_surf = self.desc_font.render(str(player.inventory["mana_potion"]), True, (0,0,0))
+                        potion = True
+                    screen.blit(effect_surf, (395, 645))
+                    screen.blit(quantity_surf, (395, 710))
+                
+            for t in tooltip_class.tooltips:
+                if t.table_name == "Item cost":
+                    t.show = True
+                elif t.table_name == "Item level":
+                    t.show = True
+                elif t.table_name == "Item damage" and weapon:
+                    t.show = True
+                elif t.table_name == "Item armor" and armor:
+                    t.show = True
+                elif (t.table_name == "Item effect" or t.table_name == "Item quantity") and potion:
+                    t.show = True
+        return tooltip_class.tooltips
+                    

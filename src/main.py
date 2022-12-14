@@ -47,15 +47,18 @@ def blit_screen():
         screen.blit(table, (on__screen.active_table.position))
         
 def blit_shop_items():
+    for t in tooltip_class.tooltips:
+            if "Item" in t.table_name:
+                t.show = False
     if not item_class.weapons == []:
         for weapon in item_class.weapons:
-            weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+            tooltip_class.tooltips = weapon.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen, tooltip_class)
     if not item_class.armors == []:
         for armor in item_class.armors:
-            armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+            tooltip_class.tooltips = armor.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen, tooltip_class)
     if not item_class.misc_items == []:
         for misc_item in item_class.misc_items:
-            misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen)
+            tooltip_class.tooltips = misc_item.draw(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", screen, on__screen, tooltip_class)
     
 def blit_skills():
     if not skill_class.skills == []:
@@ -219,11 +222,11 @@ while True:
     # Vykreslení tlačítek + kontrola stisku tlačítek
     work_buttons_and_texts()
     
-    # Vykreslení tooltipů
-    blit_tooltips()
-    
     # Vykreslení xp baru v profilu
     blit_xp_bar()
+        
+    # Vykreslení tooltipů
+    blit_tooltips()
     
     if pressed[pg.K_a]:
         print(button_class.skill_buttons)

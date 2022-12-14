@@ -59,10 +59,13 @@ class tooltip():
         self.table_desc = table_description
         self.border = 20
         self.draw_pos = draw_pos
+        self.show = True
+        if "Item" in self.table_name:
+            self.show = False
         
     def draw_tooltip(self, mouse_pos, screen, on__screen):
         if not on__screen.active_screen == "Exit":
-            if on__screen.active_screen.name in self.belonging:
+            if on__screen.active_screen.name in self.belonging and self.show:
                 pg.font.init()
                 
                 name_size = 40
@@ -127,10 +130,16 @@ class tooltip():
                             for desc_j in range(desc_i):
                                 screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
                     
-health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", "Profile","bottom_left")
-mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", "Profile","bottom_left")
-int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", "Profile","top_left")
-luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", "Profile","top_left")
+health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left")
+mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left")
+int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left")
+luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left")
+cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon board", "Armor board", "Item board"],"top_right")
+level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right")
+damage_tooltip = tooltip((330,670,54,54), "Item damage", "Damage this weapon deals", ["Weapon board"],"top_left")
+armour_tooltip = tooltip((330,670,54,54), "Item armor", "Armor provided", ["Armor board"],"top_left")
+effect_tooltip = tooltip((330,640,54,54), "Item effect", "Efect of the item", ["Item board"],"top_left")
+quantity_tooltip = tooltip((330,700,54,54), "Item quantity", "How much of this\nitem you own", ["Item board"],"top_left")
 
 class table():
     def __init__(self, name):
@@ -891,7 +900,8 @@ shop_price = blit_object(["Weapon board", "Armor board", "Item board"], (60, 640
 shop_level = blit_object(["Weapon board", "Armor board", "Item board"], (60, 700), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 shop_damage = blit_object(["Weapon board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/damage_icon_2.png"), True, 54, 54)
 shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/defense_icon.png"), True, 54, 54)
-shop_potion = blit_object(["Item board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
+shop_potion_effect = blit_object(["Item board"], (330,640), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
+shop_potion_quantity = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
 health_stat = blit_object(["Profile"], (700,210), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
 mana_stat = blit_object(["Profile"], (700,294), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
 intelligence_stat = blit_object(["Profile"], (700,378), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
@@ -900,7 +910,8 @@ shop_price.show = False
 shop_level.show = False
 shop_damage.show = False
 shop_armor.show = False
-shop_potion.show = False
+shop_potion_effect.show = False
+shop_potion_quantity.show = False
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
