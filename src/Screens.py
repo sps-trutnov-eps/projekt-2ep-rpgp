@@ -782,7 +782,7 @@ class blit_object():
     def check_active_item(self, screen):
         for it in item_class.all_items:
             for i in it:
-                if i.shown:
+                if (i.shown and not self.position == (330,700)) or (i.shown and not i.name in ["Vitriolic scroll", "Tempestous scroll", "Rancid scroll"]):
                     screen.blit(self.texture, self.position)
     
     def get_condition(self, condition):

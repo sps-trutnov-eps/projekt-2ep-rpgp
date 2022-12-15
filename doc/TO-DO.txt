@@ -1,11 +1,12 @@
 Nesplněno:
 * Vykreslování informací v bitvě
 * Uložení skillů + MNOHA DALŠÍCH VĚCÍ
-* Informace o efektech scrollů
 * Ikonka pro množství lektvarů
 * Informace po vyhrané bitvě ve výherní tabulkce
 
 Splněno:
+
+* Informace o efektech scrollů
 * Ikonky obrázků nepřesahující přes kolečka v item shopu.
 * Kulaté, průhledné, šedé pozadí pro ikony na game menu.
 * Dokončení třetího typu zbraní pro válečníka.

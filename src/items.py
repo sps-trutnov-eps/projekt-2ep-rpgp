@@ -214,12 +214,12 @@ def init_items(role):
     
     ### MISC ITEMY ###
     scroll_name_1 = "Vitriolic scroll"
-    scroll_name_2 = "Icebound scroll"
+    scroll_name_2 = "Tempestous scroll"
     scroll_name_3 = "Rancid scroll"
     
-    scroll_desc_1 = "Unlocks a new skill.\nYour eyes begin to water\njust in the presence of it."
-    scroll_desc_2 = "Unlocks a new skill.\nThe cold that comes from\nthis scroll is immeasurable."
-    scroll_desc_3 = "Unlocks a new skill.\nIt gives off a musty smell with\na bit of the essence of death."
+    scroll_desc_1 = "Your eyes begin to water\njust in the presence of it."
+    scroll_desc_2 = "Sometimes it flashes and makes your\nmuscles twitch when touched."
+    scroll_desc_3 = "It gives off a musty smell with\na bit of the essence of death."
     
     potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"healing_potion")
     potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None],"mana_potion")
@@ -319,6 +319,11 @@ class item():
                         potion = True
                     screen.blit(effect_surf, (395, 645))
                     screen.blit(quantity_surf, (395, 710))
+                    
+                elif "scroll" in self.name:
+                    effect_surf = self.desc_font.render("New skill", True, (0,0,0))
+                    screen.blit(effect_surf, (395, 645))
+                    scroll = True
                 
             for t in tooltip_class.tooltips:
                 if t.table_name == "Item cost":
@@ -331,5 +336,8 @@ class item():
                     t.show = True
                 elif (t.table_name == "Item effect" or t.table_name == "Item quantity") and potion:
                     t.show = True
+                elif t.table_name == "Item effect" and scroll:
+                    t.show = True
+                    
         return tooltip_class.tooltips
                     
