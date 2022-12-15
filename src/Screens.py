@@ -403,6 +403,7 @@ class Button():
         text_class.texts.pop()
         
     def win_battle(self):
+        # Přidání odměn
         if levels[counter.number - 1].completed == False:
             player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20)))
             player.xp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20)))
@@ -410,10 +411,14 @@ class Button():
             player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20 - 40)))
             player.exp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20 - 60)))
         player.calculate_level()
+        
+        # Update textů
         index_golds = text_class.texts.index(golds)
         text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
         index_level = text_class.texts.index(p_level)
         text_class.texts[index_level].update(str(player.level), None)
+        
+        # Odemknutí dalšího levelu
         levels[counter.number].unlocked = True
         levels[counter.number - 1].completed = True
         counter.number += 1

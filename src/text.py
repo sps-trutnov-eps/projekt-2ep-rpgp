@@ -57,11 +57,17 @@ class text():
                 if on__screen.active_table.name in self.belonging:
                     surf = self.font.render(self.text, True, self.colour)
                     width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
-                    screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
+                    if self.id == "i":
+                        screen.blit(surf, (self.position[0], self.position[1]))
+                    else:
+                        screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
             elif on__screen.active_screen.name in self.belonging:
                 surf = self.font.render(self.text, True, self.colour)
                 width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
-                screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
+                if self.id == "i":
+                    screen.blit(surf, (self.position[0], self.position[1]))
+                else:
+                    screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
             
         
     def update(self, new_text, new_pos):
@@ -106,7 +112,7 @@ dark_colour = (30,30,30)
 dark_red = (190,20,20)
 black = (0,0,0)
 white = (255,255,255)
-cooldown_color = (255,20,20)
+cooldown_color = (220,100,220)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -140,11 +146,6 @@ enemy_hp = text(["Battle"], "/", (915,56), pg.font.Font(def_link, regular_size),
 pause_question = text(["Pause table"], "Do you wish to leave the battle?", (600,330), pg.font.Font(def_link, settings_size), def_colour)
 pause_yes = text(["Pause table"], "Yes", (450,542), pg.font.Font(def_link, 38), def_colour)
 pause_no = text(["Pause table"], "No", (750,542), pg.font.Font(def_link, 38), def_colour)
-death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, settings_size), def_colour)
-death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 38), def_colour)
-death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
-win_leave = text(["Win table"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
-win_continue = text(["Win table"], "Next level", (750, 722), pg.font.Font(def_link, 38), def_colour)
 health_p_counter = text(["Battle"], str(player.inventory["healing_potion"]), (1100,845), pg.font.Font(def_link, regular_size), def_colour)
 mana_p_counter = text(["Battle"], str(player.inventory["mana_potion"]), (1020,845), pg.font.Font(def_link, regular_size), def_colour)
 text_class.counter_texts = [
@@ -161,6 +162,18 @@ text_class.cooldown_texts = [
                             ]
 for t in text_class.cooldown_texts:
     t.show = False
+    
+# Texty po bitvě
+death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, heading0_size), def_colour)
+death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 38), def_colour)
+death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
+win_statement = text(["Win table"], "You have won this battle!", (600, 200), pg.font.Font(def_link, heading0_size), def_colour)
+win_leave = text(["Win table"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
+win_continue = text(["Win table"], "Next level", (750, 722), pg.font.Font(def_link, 38), def_colour)
+#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
+#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
+#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
+#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)
