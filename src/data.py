@@ -25,13 +25,17 @@ class player():
         self.mana_stat = 0
         self.int_stat = 0
         self.luck_stat = 0
-        self.stat_point = 20
+        self.stat_point = 10
         self.id = "player"
         
     def calculate_level(self):
+        new_lvl = False
         if self.xp >= self.xp_req:
             self.xp -= self.xp_req
-            self.lvl += 1
-            self.xp_req += self.xp_req / 8
+            self.level += 1
+            self.stat_point += 1
+            self.xp_req += int(self.xp_req / 8)
+            new_lvl = True
+        return new_lvl
         
 player = player()

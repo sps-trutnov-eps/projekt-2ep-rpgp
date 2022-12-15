@@ -113,6 +113,7 @@ dark_red = (190,20,20)
 black = (0,0,0)
 white = (255,255,255)
 cooldown_color = (220,100,220)
+golden = (240,200,60)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -170,10 +171,11 @@ death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 3
 win_statement = text(["Win table"], "You have won this battle!", (600, 200), pg.font.Font(def_link, heading0_size), def_colour)
 win_leave = text(["Win table"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
 win_continue = text(["Win table"], "Next level", (750, 722), pg.font.Font(def_link, 38), def_colour)
-#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
-#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
-#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
-#gold_gained = text(["Win table"], "", (300, 0), pg.font.Font(def_link, regular size), def_colour)
+gold_gained = text(["Win table"], "", (600, 300), pg.font.Font(def_link, regular_size), def_colour)
+xp_gained = text(["Win table"], "", (600, 350), pg.font.Font(def_link, regular_size), def_colour)
+new_level = text(["Win table"], "NEXT LEVEL", (600, 470), pg.font.Font(def_link, message_size), golden)
+new_point = text(["Win table"], "you gained a stat point", (600, 500), pg.font.Font(def_link, regular_size), golden)
+#new_skill = text(["Win table"], "", (600, 0), pg.font.Font(def_link, regular_size), def_colour)
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)

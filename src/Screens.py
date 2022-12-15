@@ -403,15 +403,6 @@ class Button():
         text_class.texts.pop()
         
     def win_battle(self):
-        # Přidání odměn
-        if levels[counter.number - 1].completed == False:
-            player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20)))
-            player.xp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20)))
-        else:
-            player.gold += int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 20 - 40)))
-            player.exp += int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 20 - 60)))
-        player.calculate_level()
-        
         # Update textů
         index_golds = text_class.texts.index(golds)
         text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
@@ -714,28 +705,28 @@ class Button():
             
     def change_stat(self, stat):
         multi_click_prevention = False
-        if stat == "hp" and multi_click_prevention == False and player.stat_point > 0 and player.hp_stat < 5:
-            player.max_hp += 20
+        if stat == "hp" and multi_click_prevention == False and player.stat_point > 0 and player.hp_stat < 10:
+            player.max_hp += 40
             player.stat_point = player.stat_point - 1
             player.hp_stat += 1
             hp_stat_value.update(str(player.hp_stat),None)
             multi_click_prevention = True
             
-        if stat == "mana" and multi_click_prevention == False and player.stat_point > 0 and player.mana_stat < 5:
+        if stat == "mana" and multi_click_prevention == False and player.stat_point > 0 and player.mana_stat < 10:
             player.max_mana += 20
             player.stat_point = player.stat_point - 1
             player.mana_stat += 1
             mana_stat_value.update(str(player.mana_stat),None)
             multi_click_prevention = True
             
-        if stat == "int" and multi_click_prevention == False and player.stat_point > 0 and player.int_stat < 5:
+        if stat == "int" and multi_click_prevention == False and player.stat_point > 0 and player.int_stat < 10:
             player.int += 1
             player.stat_point = player.stat_point - 1
             player.int_stat += 1
             int_stat_value.update(str(player.int_stat),None)
             multi_click_prevention = True
             
-        if stat == "luck" and multi_click_prevention == False and player.stat_point > 0 and player.luck_stat < 5:
+        if stat == "luck" and multi_click_prevention == False and player.stat_point > 0 and player.luck_stat < 10:
             player.luck += 1
             player.stat_point = player.stat_point - 1
             player.luck_stat += 1

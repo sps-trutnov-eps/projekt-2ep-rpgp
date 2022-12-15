@@ -97,10 +97,10 @@ class Battle_info():
     
     def make_player(self, player):
         self.player_copy = player
-        self.player_max_hp = player.hp
-        self.player_hp_copy = player.hp
-        self.player_max_mana = player.mana
-        self.player_mana_copy = player.mana
+        self.player_max_hp = player.max_hp
+        self.player_hp_copy = player.max_hp
+        self.player_max_mana = player.max_mana
+        self.player_mana_copy = player.max_mana
         self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
         self.awaiting_skill = None
         self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
@@ -175,11 +175,43 @@ class Battle_info():
                 for table in on__screen.tables:
                     if table.name == "Win table":
                         on__screen.active_table = table
+                self.rewards()
         
         for s in player.equipped_skills:
             if not s == None:
                 if s.momental_cooldown > 0:
                     s.momental_cooldown -= 1
+    
+    def rewards(self):
+        str_first_gold = str(player.gold)
+        str_first_xp = str(player.xp)
+        str_first_req = str(player.xp_req)
+        
+        # Přidání odměn
+        if levels[counter.number - 1].completed == False:
+            gold_gain = int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 25)))
+            player.gold += gold_gain
+            xp_gain = int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 25)))
+            player.xp += xp_gain
+        else:
+            gold_gain = int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / (25 - 40))))
+            player.gold += gold_gain
+            xp_gain = int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / (25 - 60))))
+            player.xp += xp_gain
+        next_level = player.calculate_level()
+        
+        # Zpráva na tabulce
+        index_new_gold = text_class.texts.index(gold_gained)
+        text_class.texts[index_new_gold].update("Your gold: " + str_first_gold + " + " + str(gold_gain), None)
+        index_new_xp = text_class.texts.index(xp_gained)
+        text_class.texts[index_new_xp].update("Your experience: " + str_first_xp + " + " + str(xp_gain) + "/" + str_first_req, None)
+        index_new_lvl = text_class.texts.index(new_level)
+        if next_level:
+            text_class.texts[index_new_lvl].show = True
+            text_class.texts[index_new_lvl + 1].show = True
+        else:
+            text_class.texts[index_new_lvl].show = False
+            text_class.texts[index_new_lvl + 1].show = False
     
     def show_bars(self, screen):
         if not self.active_enemy == None:
@@ -323,7 +355,7 @@ levels[17].get_enemies([zombie])
 levels[18].get_enemies([zombie])
 levels[19].get_enemies([zombie])
 
-levels[0].get_rewards(10,50)
+levels[0].get_rewards(100,50)
 levels[1].get_rewards(10,50)
 levels[2].get_rewards(10,50)
 levels[3].get_rewards(10,50)
