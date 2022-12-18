@@ -45,10 +45,10 @@ class debuff():
         if not target == None:
             if target.id == "player" and self.duration_p > 0:
                 self.duration_p -= 1
-            elif target.id == "enemy" and self.duration_e > 0:
+            elif (target.id == "enemy" or target.id == "mini_boss") and self.duration_e > 0:
                 self.duration_e -= 1
             
-            if (target.id == "player" and self.duration_p > 0) or (target.id == "enemy" and self.duration_e > 0):
+            if (target.id == "player" and self.duration_p > 0) or (target.id == "enemy" and self.duration_e > 0) or (target.id == "mini_boss" and self.duration_e > 0):
                 if self.name == "On Fire!":
                     if target.id == "player":
                         if not target.armor.armor == None:
@@ -56,7 +56,7 @@ class debuff():
                             damage = round(damage)
                         else:
                             damage = 1
-                    elif target.id == "enemy":
+                    elif target.id == "enemy" or target.id == "mini_boss":
                         if not target.armor == None:
                             damage = 1 * ((100 - target.armor) / 100)
                             damage = round(damage)
@@ -69,7 +69,7 @@ class debuff():
                     if stun_chance == 4:
                         if target.id == "player":
                             player_turn = False
-                        elif target.id == "enemy":
+                        elif target.id == "enemy" or target.id == "mini_boss":
                             player_turn = True
                     
                 if self.name == "Poisoned!":
@@ -79,14 +79,14 @@ class debuff():
                     # Zranitelnost se udává v %
                     if target.id == "player":
                         player_effects["defense_ef"] = 10
-                    elif target.id == "enemy":
+                    elif target.id == "enemy" or target.id == "mini_boss":
                         enemy_effects["defense_ef"] = 10
                     
                 if self.name == "Shocked!":
                     # Oslabení se udává v %
                     if target.id == "player":
                         player_effects["damage_ef"] = 10
-                    elif target.id == "enemy":
+                    elif target.id == "enemy" or target.id == "mini_boss":
                         enemy_effects["damage_ef"] = 10
             
         return target_hp, player_effects, enemy_effects, player_turn
@@ -136,11 +136,11 @@ class debuff():
             screen.blit(icon_scaled, (100,80 + (self.debuff_order * self.space)))
             screen.blit(name_text, name_text_rect)
 
-on_fire_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/onfire2.png"), "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.",8, "Debuff board",0)
-frozen_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/frozen.png"), "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.",30, "Debuff board",1)
-poisoned_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/poisoned.png"), "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X %\nfor the duration of this debuff.",30, "Debuff board",2)
-wet_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/wet.png"), "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.",3, "Debuff board",3)
-shocked_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/shocked.png"), "Shocked!", "You have been struck with lightning making it\ndifficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of\nthis debuff.",3, "Debuff board",4)
+on_fire_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/onfire2.png"), "On Fire!", "You have been set on fire and are burning!", "Take X damage per second for the duration of this debuff.", 8, "Debuff board",0)
+frozen_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/frozen.png"), "Frozen!", "You have been frozen to the bone and are struggling to move!", "For the duration of this debuff there is an X % chance to freeze completely every round.", 18, "Debuff board",1)
+poisoned_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/poisoned.png"), "Poisoned!", "You have been poisoned and thus weakened!", "Take X damage per second and your attack damage and defense are lowered by X %\nfor the duration of this debuff.", 26, "Debuff board",2)
+wet_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/wet.png"), "Wet!", "You and your armor have been soaked reducing your defense!", "Your defense has been reduced by X % for the duration of this debuff.", 16, "Debuff board",3)
+shocked_debuff = debuff(pg.image.load(DATA_ROOT + "/data/textures/icons/debuffs/shocked.png"), "Shocked!", "You have been struck with lightning making it\ndifficult to wield your weapon.", "Your attack damage has been lowered by X % for the duration of\nthis debuff.", 16, "Debuff board",4)
 
 debuff_class.debuffs = [
     on_fire_debuff,
@@ -247,8 +247,9 @@ class skill():
                 text_class.counter_texts[1].update(str(player.inventory["mana_potion"]), None)
                 if caster_mana > battle_info.player_max_mana:
                     caster_mana = battle_info.player_max_mana
-                
-        caster_mana -= self.mana_cost
+            
+        if caster == "player":
+            caster_mana -= self.mana_cost
         
         # Uložení zpracovaných dat zpět do battle_info
         if caster == "player":
@@ -315,21 +316,6 @@ life_steal = skill(pg.image.load(DATA_ROOT + "/data/textures/icons/skills/life_s
 drink_health_potion = skill(None, "Drink Health Potion", "Drinky drinky", "Gibe healf", 0, "Nowhere", False, 0)
 drink_mana_potion = skill(None, "Drink Mana Potion", "Drinky drinky", "Gibe manamana", 0, "Nowhere", False, 0)
 
-skill_class.skills = [
-    fireball,
-    water_blast,
-    rock_throw,
-    ice_storm,
-    poison_dart,
-    lightning_bolt,
-    life_steal,
-    drink_health_potion,
-    drink_mana_potion
-    ]
-
 # Defaultní skill
 player.equipped_skills[0] = fireball
 player.skills.append(fireball)
-player.skills.append(water_blast)
-player.skills.append(rock_throw)
-player.skills.append(ice_storm)

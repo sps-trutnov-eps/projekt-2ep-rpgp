@@ -1,5 +1,6 @@
 import sys
 import pygame as pg
+import random
 from skills import *
 from text import *
 
@@ -70,6 +71,21 @@ class Enemy():
         self.armor = armor
         self.id = "enemy"
         
+class Mini_boss():
+    def __init__(self, name, texture, hp, damage, armor, skill):
+        self.name = name
+        self.position = (800,450)
+        width = texture.get_width()
+        height = texture.get_height()
+        self.texture = pg.transform.scale(texture, (width * 9, height * 9))
+        self.width = self.texture.get_width()
+        self.height = self.texture.get_height()
+        self.hp = hp
+        self.damage = damage
+        self.armor = armor
+        self.skill = skill
+        self.id = "mini_boss"
+        
 class Battle_info():
     def start(self):
         self.player_turn = True
@@ -94,6 +110,7 @@ class Battle_info():
         self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
         for d in debuff_class.debuffs:
             d.duration_e = 0
+        self.mb_skill_chance = 0
     
     def make_player(self, player):
         self.player_copy = player
@@ -133,15 +150,34 @@ class Battle_info():
             self.awaiting_skill = None
         # Útok nepřítele
         else:
-            if self.player_copy.armor == None:
-                self.player_hp_copy -= self.active_enemy.damage
-            else:
-                damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
-                damage = round(damage)
-                if damage >= 0:
-                    self.player_hp_copy -= damage
+            used_skill = False
+            if self.active_enemy.id == "mini_boss":
+                if self.mb_skill_chance > 1:
+                    r = random.randint(2, 12)
+                    if self.mb_skill_chance > r:
+                        self.active_enemy.skill.skill_used("enemy", battle_info)
+                        self.mb_skill_chance = 0
+                        used_skill = True
+                    else:
+                        self.mb_skill_chance += 1
                 else:
-                    pass
+                    self.mb_skill_chance += 1
+            
+            if not used_skill:
+                if self.player_copy.armor == None:
+                    damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 + self.player_effects["defense_ef"]) / 100)
+                    damage = round(damage)
+                    if damage >= 0:
+                        self.player_hp_copy -= damage
+                    else:
+                        pass
+                else:
+                    damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
+                    damage = round(damage)
+                    if damage >= 0:
+                        self.player_hp_copy -= damage
+                    else:
+                        pass
             self.player_turn = True
             
     def pause_battle(self):
@@ -150,7 +186,7 @@ class Battle_info():
     def unpause_battle(self):
         self.pause = False
             
-    def check_fight(self, on__screen):
+    def check_fight(self, on__screen, button_class):
         if not self.active_enemy == None:
             self.fight()
         if self.enemy_hp_copy <= 0 and not self.active_enemy == None:
@@ -175,14 +211,16 @@ class Battle_info():
                 for table in on__screen.tables:
                     if table.name == "Win table":
                         on__screen.active_table = table
-                self.rewards()
+                button_class = self.rewards(button_class)
         
         for s in player.equipped_skills:
             if not s == None:
                 if s.momental_cooldown > 0:
                     s.momental_cooldown -= 1
+        
+        return button_class
     
-    def rewards(self):
+    def rewards(self, button_class):
         str_first_gold = str(player.gold)
         str_first_xp = str(player.xp)
         str_first_req = str(player.xp_req)
@@ -200,18 +238,37 @@ class Battle_info():
             player.xp += xp_gain
         next_level = player.calculate_level()
         
+        new_skill = False
+        for en in self.level.enemies:
+            if en.id == "mini_boss":
+                if not en.skill in player.skills:
+                    player.skills.append(en.skill)
+                    new_skill = True
+                    index = len(player.skills) - 1
+                    button_class.skill_buttons[index].get_texture(en.skill.icon)
+        
         # Zpráva na tabulce
         index_new_gold = text_class.texts.index(gold_gained)
         text_class.texts[index_new_gold].update("Your gold: " + str_first_gold + " + " + str(gold_gain), None)
         index_new_xp = text_class.texts.index(xp_gained)
         text_class.texts[index_new_xp].update("Your experience: " + str_first_xp + " + " + str(xp_gain) + "/" + str_first_req, None)
         index_new_lvl = text_class.texts.index(new_level)
+        index_new_skill = text_class.texts.index(new_skill_1)
+        
         if next_level:
             text_class.texts[index_new_lvl].show = True
             text_class.texts[index_new_lvl + 1].show = True
         else:
             text_class.texts[index_new_lvl].show = False
             text_class.texts[index_new_lvl + 1].show = False
+        if new_skill:
+            text_class.texts[index_new_skill].show = True
+            text_class.texts[index_new_skill + 1].show = True
+        else:
+            text_class.texts[index_new_skill].show = False
+            text_class.texts[index_new_skill + 1].show = False
+        
+        return button_class
     
     def show_bars(self, screen):
         if not self.active_enemy == None:
@@ -333,8 +390,12 @@ levels[0].unlocked = True
 # Nepřátelé
 zombie = Enemy("Zombie", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/zombie.png"), 50, 5, 30)
 slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/slime.png"), 20, 2, 0)
+# Mini bossové
+water_lord = Mini_boss("Water lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[1])
+stone_lord = Mini_boss("Stone lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[2])
+ice_lord = Mini_boss("Ice lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[3])
 # Zařazení nepřátel do levelu
-levels[0].get_enemies([zombie, slime])
+levels[0].get_enemies([water_lord])
 levels[1].get_enemies([zombie])
 levels[2].get_enemies([zombie])
 levels[3].get_enemies([zombie])

@@ -114,6 +114,7 @@ black = (0,0,0)
 white = (255,255,255)
 cooldown_color = (220,100,220)
 golden = (240,200,60)
+skill_colour = (60,200,240)
 
 coin_level_font = pg.font.Font(def_link, 54)
 
@@ -175,7 +176,8 @@ gold_gained = text(["Win table"], "", (600, 300), pg.font.Font(def_link, regular
 xp_gained = text(["Win table"], "", (600, 350), pg.font.Font(def_link, regular_size), def_colour)
 new_level = text(["Win table"], "NEXT LEVEL", (600, 470), pg.font.Font(def_link, message_size), golden)
 new_point = text(["Win table"], "you gained a stat point", (600, 500), pg.font.Font(def_link, regular_size), golden)
-#new_skill = text(["Win table"], "", (600, 0), pg.font.Font(def_link, regular_size), def_colour)
+new_skill_1 = text(["Win table"], "NEW SKILL", (600, 580), pg.font.Font(def_link, message_size), skill_colour)
+new_skill_2 = text(["Win table"], "you unlocked a new skill", (600, 610), pg.font.Font(def_link, regular_size), skill_colour)
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)

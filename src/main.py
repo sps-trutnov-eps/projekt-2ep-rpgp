@@ -267,7 +267,7 @@ while True:
             if not battle_info.pause:
                 if round_time >= 1520:
                     round_time = 0
-                    battle_info.check_fight(on__screen)
+                    button_class = battle_info.check_fight(on__screen, button_class)
                 if affects_time >= 1000:
                     affects_time = 0
                     battle_info.check_debuffs()
