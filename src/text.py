@@ -207,6 +207,8 @@ int_stat_value = text(["Profile"], str(player.int_stat), (900,410), pg.font.Font
 luck_stat_value = text(["Profile"], str(player.luck_stat), (900,494), pg.font.Font(def_link,heading1_size),def_colour)
 stat_table_name = text(["Profile"], "Stats", (900,160), pg.font.Font(def_link,heading1_size),def_colour)
 skill_icon_name = text(["Profile"], "Skills", (900, 585), pg.font.Font(def_link,heading1_size),def_colour)
+xp_name = text(["Profile"], "LEVEL: " + str(player.level), (225, 230), pg.font.Font(def_link,regular_size),def_colour)
+xp_value = text(["Profile"], "XP: " + str(player.xp) + " / " + str(player.xp_req), (480, 230), pg.font.Font(def_link,regular_size),def_colour)
 
 # Texty v game menu
 profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)
