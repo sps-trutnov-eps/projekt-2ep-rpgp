@@ -113,7 +113,10 @@ def blit_tooltips():
 def blit_xp_bar():
     if not on__screen.active_screen == "Exit":
         if on__screen.active_screen.name == "Profile":
-            xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
+            big_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
+        if not on__screen.active_table == "Close":
+            if on__screen.active_table.name == "Win table":
+                small_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
         
 def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###

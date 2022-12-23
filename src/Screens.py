@@ -827,7 +827,8 @@ class xp_bar():
         pg.draw.rect(screen,(30,30,30),(self.position,self.size))
         pg.draw.rect(screen,(200,200,200),(self.inner_position, (rect_width, self.inner_size)))
         
-xp_bar = xp_bar(1, (160,250))
+big_xp_bar = xp_bar(1, (160,250))
+small_xp_bar = xp_bar(1/2, (400, 400))
                  
 def shop_b_init():
     weapon_textures = []
