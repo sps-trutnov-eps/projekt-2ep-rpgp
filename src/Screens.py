@@ -813,22 +813,32 @@ class bought_icon():
                     elif self.item.id == player.weapon or self.item.id == player.armor:
                         screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1] - 10))
                  
-class xp_bar():
+class Xp_bar():
     def __init__(self, size_m, position):
+        self.size_m = size_m
         self.size = (400 * size_m,25 * size_m)
         self.inner_size = 17 * size_m
         self.position = position
         self.inner_position = (position[0] + ((self.size[1] - self.inner_size) / 2), position[1] + ((self.size[1] - self.inner_size) / 2))
+        self.difference = None
         
     def draw_bar(self, screen, xp, level, xp_req):
         xp_1_percent = xp_req / 100
         xp_percent = xp / xp_1_percent
-        rect_width = 3.92 * xp_percent
+        rect_width = (3.92 * self.size_m) * xp_percent
         pg.draw.rect(screen,(30,30,30),(self.position,self.size))
         pg.draw.rect(screen,(200,200,200),(self.inner_position, (rect_width, self.inner_size)))
+        if not self.difference == None:
+            pg.draw.rect(screen,(40,200,20),(self.inner_position, (rect_width, self.inner_size)))
+            xp_percent = (xp - self.difference) / xp_1_percent
+            rect2_width = (3.92 * self.size_m) * xp_percent
+            pg.draw.rect(screen,(200,200,200),(self.inner_position, (rect2_width, self.inner_size)))
         
-big_xp_bar = xp_bar(1, (160,250))
-small_xp_bar = xp_bar(1/2, (400, 400))
+    def get_xp_difference(self, xp_difference):
+        self.difference = xp_difference
+        
+xp_bar = Xp_bar(1, (160,250))
+small_xp_bar = Xp_bar(3/4, (450, 400))
                  
 def shop_b_init():
     weapon_textures = []

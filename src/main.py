@@ -113,7 +113,7 @@ def blit_tooltips():
 def blit_xp_bar():
     if not on__screen.active_screen == "Exit":
         if on__screen.active_screen.name == "Profile":
-            big_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
+            xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
         if not on__screen.active_table == "Close":
             if on__screen.active_table.name == "Win table":
                 small_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
@@ -262,6 +262,7 @@ while True:
             battle_info.show_turn(screen)
             
             blit_screen()
+            blit_xp_bar()
             
             button_class.buttons = battle_info.show_cooldown(button_class, screen)
             battle_info.show_debuffs(screen)
@@ -275,7 +276,7 @@ while True:
             if not battle_info.pause:
                 if round_time >= 1520:
                     round_time = 0
-                    button_class = battle_info.check_fight(on__screen, button_class)
+                    button_class, small_xp_bar = battle_info.check_fight(on__screen, button_class, small_xp_bar)
                 if affects_time >= 1000:
                     affects_time = 0
                     battle_info.check_debuffs()

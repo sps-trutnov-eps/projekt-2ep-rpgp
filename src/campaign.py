@@ -186,7 +186,7 @@ class Battle_info():
     def unpause_battle(self):
         self.pause = False
             
-    def check_fight(self, on__screen, button_class):
+    def check_fight(self, on__screen, button_class, small_xp_bar):
         if not self.active_enemy == None:
             self.fight()
         if self.enemy_hp_copy <= 0 and not self.active_enemy == None:
@@ -211,16 +211,16 @@ class Battle_info():
                 for table in on__screen.tables:
                     if table.name == "Win table":
                         on__screen.active_table = table
-                button_class = self.rewards(button_class)
+                button_class, small_xp_bar = self.rewards(button_class, small_xp_bar)
         
         for s in player.equipped_skills:
             if not s == None:
                 if s.momental_cooldown > 0:
                     s.momental_cooldown -= 1
         
-        return button_class
+        return button_class, small_xp_bar
     
-    def rewards(self, button_class):
+    def rewards(self, button_class, small_xp_bar):
         str_first_gold = str(player.gold)
         str_first_xp = str(player.xp)
         str_first_req = str(player.xp_req)
@@ -268,7 +268,12 @@ class Battle_info():
             text_class.texts[index_new_skill].show = False
             text_class.texts[index_new_skill + 1].show = False
         
-        return button_class
+        if next_level:
+            pass
+        else:
+            small_xp_bar.get_xp_difference(xp_gain)
+        
+        return button_class, small_xp_bar
     
     def show_bars(self, screen):
         if not self.active_enemy == None:
@@ -395,7 +400,7 @@ water_lord = Mini_boss("Water lord", pg.image.load(DATA_ROOT + "/data/textures/c
 stone_lord = Mini_boss("Stone lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[2])
 ice_lord = Mini_boss("Ice lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[3])
 # Zařazení nepřátel do levelu
-levels[0].get_enemies([water_lord])
+levels[0].get_enemies([slime])
 levels[1].get_enemies([zombie])
 levels[2].get_enemies([zombie])
 levels[3].get_enemies([zombie])
@@ -416,7 +421,7 @@ levels[17].get_enemies([zombie])
 levels[18].get_enemies([zombie])
 levels[19].get_enemies([zombie])
 
-levels[0].get_rewards(100,50)
+levels[0].get_rewards(10,50)
 levels[1].get_rewards(10,50)
 levels[2].get_rewards(10,50)
 levels[3].get_rewards(10,50)
