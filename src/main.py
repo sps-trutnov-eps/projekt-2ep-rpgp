@@ -113,7 +113,7 @@ def blit_tooltips():
 def blit_xp_bar():
     if not on__screen.active_screen == "Exit":
         if on__screen.active_screen.name == "Profile":
-            xp_bar.draw_bar(screen)
+            xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
         
 def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
     ### DEVELOPER MODE ###
@@ -233,7 +233,8 @@ while True:
     blit_tooltips()
     
     if pressed[pg.K_a]:
-        print(button_class.skill_buttons)
+        player.xp += 1
+        print(player.xp)
         
     # BITVA
     if on__screen.battle == True:

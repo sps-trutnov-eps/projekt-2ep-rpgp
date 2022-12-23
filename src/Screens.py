@@ -814,19 +814,20 @@ class bought_icon():
                         screen.blit(self.texture_e, (self.button.position[0] + self.offset, self.button.position[1] - 10))
                  
 class xp_bar():
-    def __init__(self, xp, level, xp_req):
-        self.xp = xp
-        self.level = level
-        self.xp_req = xp_req
+    def __init__(self, size_m, position):
+        self.size = (400 * size_m,25 * size_m)
+        self.inner_size = 17 * size_m
+        self.position = position
+        self.inner_position = (position[0] + ((self.size[1] - self.inner_size) / 2), position[1] + ((self.size[1] - self.inner_size) / 2))
         
-    def draw_bar(self, screen):
-        xp_1_percent = self.xp_req / 100
-        xp_percent = self.xp / xp_1_percent
+    def draw_bar(self, screen, xp, level, xp_req):
+        xp_1_percent = xp_req / 100
+        xp_percent = xp / xp_1_percent
         rect_width = 3.92 * xp_percent
-        pg.draw.rect(screen,(30,30,30),(160,250,400,25))
-        pg.draw.rect(screen,(200,200,200),(164,254,rect_width,17))
+        pg.draw.rect(screen,(30,30,30),(self.position,self.size))
+        pg.draw.rect(screen,(200,200,200),(self.inner_position, (rect_width, self.inner_size)))
         
-xp_bar = xp_bar(player.xp, player.level, player.xp_req)
+xp_bar = xp_bar(1, (160,250))
                  
 def shop_b_init():
     weapon_textures = []
