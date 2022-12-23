@@ -987,9 +987,9 @@ close_b = Button(["New game table", "Settings table", "Credits table", "Game tab
 # Obrazovky
 main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"))
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"))
-shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop.png"))
-profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile.png"))
-campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign.png"))
+shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop.png"))
+profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/profile.png"))
+campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign.png"))
 battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign_battle.png"))
 
 # Podobrazovky profilu
