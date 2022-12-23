@@ -33,6 +33,10 @@ bt_acc = True
 tt_acc = True
 pt_acc = True
 
+def blit_background():
+    if not on__screen.active_screen.backbackground == None:
+        screen.blit(on__screen.active_screen.backbackground,(0,0))
+
 def blit_screen():
     screen.blit(on__screen.active_screen.background,(0,0))
     if on__screen.active_screen.name == "Profile":
@@ -245,8 +249,8 @@ while True:
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
-                    
-            screen.fill((88,88,88))
+            
+            blit_background()
             
             battle_info.show_bars(screen)
             battle_info.blit_player(screen)

@@ -40,7 +40,7 @@ class text_cl():
 text_class = text_cl()
     
 class text():
-    def __init__(self, belonging, text, position, font, colour, id ="basic"):
+    def __init__(self, belonging, text, position, font, colour, id_ ="basic"):
         text_class.texts.append(self)
         self.belonging = belonging
         self.text = text
@@ -48,7 +48,7 @@ class text():
         self.font = font
         self.colour = colour
         self.size = self.font.size(self.text)
-        self.id = id
+        self.id = id_
         self.show = True
         
     def blit_self(self, screen, on__screen):
@@ -57,15 +57,19 @@ class text():
                 if on__screen.active_table.name in self.belonging:
                     surf = self.font.render(self.text, True, self.colour)
                     width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
-                    if self.id == "i":
+                    if self.id == "f":
                         screen.blit(surf, (self.position[0], self.position[1]))
+                    elif self.id == "b":
+                        screen.blit(surf, ((self.position[0] - width), (self.position[1] - height)))
                     else:
                         screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
             elif on__screen.active_screen.name in self.belonging:
                 surf = self.font.render(self.text, True, self.colour)
                 width, height = self.font.size(self.text)[0], self.font.size(self.text)[1]
-                if self.id == "i":
+                if self.id == "f":
                     screen.blit(surf, (self.position[0], self.position[1]))
+                elif self.id == "b":
+                    screen.blit(surf, ((self.position[0] - width), (self.position[1])))
                 else:
                     screen.blit(surf, ((self.position[0] - (width / 2)), (self.position[1] - (height / 2))))
             
@@ -207,8 +211,8 @@ int_stat_value = text(["Profile"], str(player.int_stat), (900,410), pg.font.Font
 luck_stat_value = text(["Profile"], str(player.luck_stat), (900,494), pg.font.Font(def_link,heading1_size),def_colour)
 stat_table_name = text(["Profile"], "Stats", (900,160), pg.font.Font(def_link,heading1_size),def_colour)
 skill_icon_name = text(["Profile"], "Skills", (900, 585), pg.font.Font(def_link,heading1_size),def_colour)
-xp_name = text(["Profile"], "LEVEL: " + str(player.level), (225, 230), pg.font.Font(def_link,regular_size),def_colour)
-xp_value = text(["Profile"], "XP: " + str(player.xp) + " / " + str(player.xp_req), (480, 230), pg.font.Font(def_link,regular_size),def_colour)
+xp_name = text(["Profile"], "LEVEL: " + str(player.level), (165, 210), pg.font.Font(def_link,regular_size),def_colour,"f")
+xp_value = text(["Profile"], "XP: " + str(player.xp) + " / " + str(player.xp_req), (555, 210), pg.font.Font(def_link,regular_size),def_colour,"b")
 
 # Texty v game menu
 profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)

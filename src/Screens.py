@@ -33,10 +33,14 @@ class button_cl():
 button_class = button_cl()
 
 class screen():
-    def __init__(self, name, background):
+    def __init__(self, name, background, backbackground = None):
         on__screen.screens.append(self)
         self.name = name
         self.background = pg.transform.scale(background, (1200,900))
+        if not backbackground == None:
+            self.backbackground = pg.transform.scale(backbackground, (1200,900))
+        else:
+            self.backbackground = None
         buttons = button_class.buttons
         self.buttons = []
         for button in buttons:
@@ -373,7 +377,7 @@ class Button():
                     on__screen.active_screen = screen
             for l in levels:
                 if counter.number == l.number:
-                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
+                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), dark_colour)
                     text_class.texts_bundling()
                     
                     battle_info.get_info(l)
@@ -389,7 +393,7 @@ class Button():
                     on__screen.active_screen = screen
             for l in levels:
                 if counter.number == l.number:
-                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), def_colour)
+                    level_text = text(["Battle"], "Level " + str(l.number), (600,180), pg.font.Font(def_link, heading0_size), dark_colour)
                     text_class.texts_bundling()
                     
                     battle_info.get_info(l)
@@ -408,6 +412,10 @@ class Button():
         text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
         index_level = text_class.texts.index(p_level)
         text_class.texts[index_level].update(str(player.level), None)
+        index_xp_name = text_class.texts.index(xp_name)
+        text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
+        index_xp_value = text_class.texts.index(xp_value)
+        text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
         
         # Odemknutí dalšího levelu
         levels[counter.number].unlocked = True
@@ -990,7 +998,7 @@ game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screen
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop.png"))
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/profile.png"))
 campaign = screen("Campaign", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign.png"))
-battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign_battle.png"))
+battle = screen("Battle", pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign_battle.png"), pg.image.load(DATA_ROOT + "/data/textures/screens/campaign/campaign_battle_bg.png"))
 
 # Podobrazovky profilu
 skill_board = screen("Skill board",pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board.png"))
