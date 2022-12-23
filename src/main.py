@@ -107,7 +107,7 @@ def blit_tooltips():
             tooltip.draw_tooltip(m_pos, screen, on__screen)
             
 def blit_xp_bar():
-    if not on__screen.active_screen == "Exit" or not on__screen.active_screen == None:
+    if not on__screen.active_screen == "Exit":
         if on__screen.active_screen.name == "Profile":
             xp_bar.draw_bar(screen)
         

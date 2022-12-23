@@ -118,7 +118,7 @@ class Battle_info():
         self.player_hp_copy = player.max_hp
         self.player_max_mana = player.max_mana
         self.player_mana_copy = player.max_mana
-        self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), tp_size)
+        self.player_texture_copy = pg.transform.scale(pg.image.load(DATA_ROOT + "/data/textures/characters/player/player.png"), tp_size)
         self.awaiting_skill = None
         self.player_effects = {"damage_ef" : 0, "defense_ef" : 0}
         for d in debuff_class.debuffs:

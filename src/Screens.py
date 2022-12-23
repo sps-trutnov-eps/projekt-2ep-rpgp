@@ -138,7 +138,7 @@ cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon
 level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right")
 damage_tooltip = tooltip((330,670,54,54), "Item damage", "Damage this weapon deals", ["Weapon board"],"top_left")
 armour_tooltip = tooltip((330,670,54,54), "Item armor", "Armor provided", ["Armor board"],"top_left")
-effect_tooltip = tooltip((330,640,54,54), "Item effect", "Efect of the item", ["Item board"],"top_left")
+effect_tooltip = tooltip((330,640,54,54), "Item effect", "What the item does", ["Item board"],"top_left")
 quantity_tooltip = tooltip((330,700,54,54), "Item quantity", "How much of this\nitem you own", ["Item board"],"top_left")
 
 class table():
@@ -895,12 +895,12 @@ shopkeeper = blit_object(["Shop"], (505, 300), pg.image.load(DATA_ROOT + "/data/
 shop_foreground = blit_object(["Shop"], (0,0), pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop_foreground.png"), True, 1200, 900)
 coin = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,30), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
 level = blit_object(["Game menu", "Shop", "Profile", "Campaign", "Weapon board", "Armor board", "Item board"], (1125,85), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
-player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "/data/textures/characters/player/player_template.png"), True, 180, 504)
+player_profile = blit_object(["Profile"], (270,320), pg.image.load(DATA_ROOT + "/data/textures/characters/player/player.png"), True, 180, 504)
 shop_price = blit_object(["Weapon board", "Armor board", "Item board"], (60, 640), pg.image.load(DATA_ROOT + "/data/textures/icons/money_icon.png"), True, 54, 54)
 shop_level = blit_object(["Weapon board", "Armor board", "Item board"], (60, 700), pg.image.load(DATA_ROOT + "/data/textures/icons/player_level_icon.png"), True, 54, 54)
 shop_damage = blit_object(["Weapon board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/damage_icon_2.png"), True, 54, 54)
 shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/defense_icon.png"), True, 54, 54)
-shop_potion_effect = blit_object(["Item board"], (330,640), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
+shop_potion_effect = blit_object(["Item board"], (330,640), pg.image.load(DATA_ROOT + "/data/textures/icons/item_effect_icon.png"), True, 54, 54)
 shop_potion_quantity = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
 health_stat = blit_object(["Profile"], (700,210), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
 mana_stat = blit_object(["Profile"], (700,294), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
