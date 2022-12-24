@@ -956,8 +956,8 @@ shop_potion_effect.show = False
 shop_potion_quantity.show = False
 
 # Tlačítka pro změnu obrazovky
-exit_b = Button(["Main menu"], (490,760), None, 215, 85, [["change_screen", "Exit"]], False, None, False, None)
-continue_b = Button(["Main menu"], (680, 485), None, 445, 85, [["load"]], False, None, False, None)
+exit_b = Button(["Main menu"], (806,726), None, 187, 92, [["change_screen", "Exit"]], False, None, False, None)
+continue_b = Button(["Main menu"], (733, 431), None, 334, 88, [["load"]], False, None, False, None)
 warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
 ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
 mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
@@ -1019,9 +1019,8 @@ int_stat_b = Button(["Profile"], (1036,378), (30,30,30,180), 64, 64, [["change_s
 luck_stat_b = Button(["Profile"], (1036,462), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 
 # Tlačítka tabulek
-new_game_b = Button(["Main menu"], (75,485), None, 445, 85, [["change_table", "New game table"]], False, None, False, None)
-settings_b = Button(["Main menu"], (75,625), None, 445,85, [["change_table", "Settings table"]], False, None, False, None)
-credits_b = Button(["Main menu"], (680,625), None, 445,85, [["change_table", "Credits table"]], False, None, False, None)
+new_game_b = Button(["Main menu"], (707,283), None, 388, 88, [["change_table", "New game table"]], False, None, False, None)
+credits_b = Button(["Main menu"], (765,573), None, 270,94, [["change_table", "Credits table"]], False, None, False, None)
 game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table", "Game table"]], "c", pg.image.load(DATA_ROOT+ "/data/textures/icons/menu_icon.png"), True, None)
 
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
