@@ -25,7 +25,7 @@ class player():
         self.mana_stat = 0
         self.int_stat = 0
         self.luck_stat = 0
-        self.stat_point = 10
+        self.stat_point = 0
         self.id = "player"
         
     def calculate_level(self):

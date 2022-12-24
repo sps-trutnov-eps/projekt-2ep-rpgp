@@ -32,6 +32,7 @@ click_acc = True
 bt_acc = True
 tt_acc = True
 pt_acc = True
+sg_acc = True
 
 def blit_background():
     if not on__screen.active_screen.backbackground == None:
@@ -117,8 +118,15 @@ def blit_xp_bar():
         if not on__screen.active_table == "Close":
             if on__screen.active_table.name == "Win table":
                 small_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
-        
-def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
+                
+def update_tooltips():
+    on_fire_tooltip.update_tooltip(fireball.shown)
+    wet_tooltip.update_tooltip(water_blast.shown)
+    shocked_tooltip.update_tooltip(lightning_bolt.shown)
+    poisoned_tooltip.update_tooltip(poison_dart.shown)
+    frozen_tooltip.update_tooltip(ice_storm.shown)
+    
+def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc):
     ### DEVELOPER MODE ###
     if pressed[pg.K_d]:
         dev_shortcut = 1
@@ -186,10 +194,23 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc):
         else:
             tt_acc = True
             
-        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc
+        ### SKILL GIVER ###
+        if pressed[pg.K_g] and sg_acc:
+            player.skills.append(water_blast)
+            player.skills.append(rock_throw)
+            player.skills.append(ice_storm)
+            player.skills.append(poison_dart)
+            player.skills.append(lightning_bolt)
+            player.skills.append(life_steal)
+        elif pressed[pg.K_g] and not sg_acc:
+            pass
+        else:
+            sg_acc = True
+            
+        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc
     
     else:
-        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc
+        return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc
 
 while True:
     # Získání infa o akcích
@@ -235,6 +256,9 @@ while True:
     # Vykreslení tooltipů
     blit_tooltips()
     
+    # Aktualizace vybraných tooltipů
+    update_tooltips()
+
     if pressed[pg.K_a]:
         player.xp += 1
         print(player.xp)
@@ -294,7 +318,7 @@ while True:
             if pressed[pg.K_a]:
                 print(text_class.cooldown_texts)
             
-            devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
+            devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc)
             
             pg.display.update()
             time = 0
@@ -304,7 +328,7 @@ while True:
             if text_class.check():
                 message_time += time
     
-    devmode, dev_shortcut, bt_acc, tt_acc, pt_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc)
+    devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc)
     pg.display.update()
     clock.tick(100)
     

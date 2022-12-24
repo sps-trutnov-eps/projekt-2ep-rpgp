@@ -55,7 +55,7 @@ class tooltip_cl():
 tooltip_class = tooltip_cl()
 
 class tooltip():
-    def __init__(self, area, table_name, table_description, belonging, draw_pos):
+    def __init__(self, area, table_name, table_description, belonging, draw_pos, conditional, condition):
         tooltip_class.tooltips.append(self)
         self.belonging = belonging
         self.area = area
@@ -64,86 +64,108 @@ class tooltip():
         self.border = 20
         self.draw_pos = draw_pos
         self.show = True
+        self.conditional = conditional
+        self.condition = condition
+        self.condition_met = False
         if "Item" in self.table_name:
             self.show = False
+        if self.conditional == True and self.condition == True:
+            self.condition_met = True
+        if self.conditional == False and self.condition == None:
+            self.condition_met = True
+            
+    def update_tooltip(self, updated_condition):
+        self.condition = updated_condition
+        if self.conditional == True and self.condition == True:
+            self.condition_met = True
+        if self.condition == False:
+            self.condition_met = False
         
     def draw_tooltip(self, mouse_pos, screen, on__screen):
-        if not on__screen.active_screen == "Exit":
-            if on__screen.active_screen.name in self.belonging and self.show:
-                pg.font.init()
-                
-                name_size = 40
-                desc_size = 25
-                
-                table_width = 0
-                table_height = 0
-                
-                name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
-                desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
-                name = name_font.render(self.table_name, False, (255,255,255))
-                name_rect = name.get_rect()
-                
-                # Dělení řádků popisu
-                desc_text_list = []
-                desc_pos_list = []
-                desc_i = 0
-                desc_widths = []
-                
-                for desc_line in self.table_desc.split('\n'):
-                    desc_text_line = desc_font.render(desc_line, True, (200,200,200))
-                    desc_text_list.append(desc_text_line)
-                    desc_widths.append(desc_text_line.get_rect().width)
-                    desc_pos = desc_text_line.get_rect(topleft=(mouse_pos[0] + self.border, mouse_pos[1] + (name_size / 1.2) + (desc_size * desc_i) + self.border))
-                    desc_pos_list.append(desc_pos)
-                    desc_i = desc_i + 1
-                 
-                if name_rect.width > max(desc_widths):
-                    table_width = name_rect.width + (self.border * 2)
+        if self.condition_met == True:
+            if not on__screen.active_screen == "Exit":
+                if on__screen.active_screen.name in self.belonging and self.show:
+                    pg.font.init()
                     
-                elif name_rect.width < max(desc_widths):
-                    table_width = max(desc_widths) + (self.border * 2)
-                 
-                table_height = name_rect[1] + (int(len(desc_pos_list)) * desc_size) + (self.border * 2) + desc_size
-                
-                table = pg.surface.Surface((table_width,table_height), pg.SRCALPHA)
-                table.fill((30,30,30,180))
-                
-                if mouse_pos[0] >= self.area[0] and mouse_pos[0] <= (self.area[0] + self.area[2]):
-                    if mouse_pos[1] >= self.area[1] and mouse_pos[1] <= (self.area[1] + self.area[3]):
-                        if self.draw_pos == "bottom_right":
-                            screen.blit(table, mouse_pos)
-                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2)))
-                            for desc_j in range(desc_i):
-                                screen.blit(desc_text_list[desc_j], desc_pos_list[desc_j])
+                    name_size = 40
+                    desc_size = 25
+                    
+                    table_width = 0
+                    table_height = 0
+                    
+                    name_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", name_size)
+                    desc_font = pg.font.Font(DATA_ROOT + "/data/fonts/VeniceClassic.ttf", desc_size)
+                    name = name_font.render(self.table_name, False, (255,255,255))
+                    name_rect = name.get_rect()
+                    
+                    # Dělení řádků popisu
+                    desc_text_list = []
+                    desc_pos_list = []
+                    desc_i = 0
+                    desc_widths = []
+                    
+                    for desc_line in self.table_desc.split('\n'):
+                        desc_text_line = desc_font.render(desc_line, True, (200,200,200))
+                        desc_text_list.append(desc_text_line)
+                        desc_widths.append(desc_text_line.get_rect().width)
+                        desc_pos = desc_text_line.get_rect(topleft=(mouse_pos[0] + self.border, mouse_pos[1] + (name_size / 1.2) + (desc_size * desc_i) + self.border))
+                        desc_pos_list.append(desc_pos)
+                        desc_i = desc_i + 1
+                     
+                    if name_rect.width > max(desc_widths):
+                        table_width = name_rect.width + (self.border * 2)
                         
-                        if self.draw_pos == "bottom_left":
-                            screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1]))
-                            screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2)))
-                            for desc_j in range(desc_i):
-                                screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1]))
-                                
-                        if self.draw_pos == "top_right":
-                            screen.blit(table, (mouse_pos[0], mouse_pos[1] - table_height))
-                            screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2) - table_height))
-                            for desc_j in range(desc_i):
-                                screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0], desc_pos_list[desc_j][1] - table_height))
-                                
-                        if self.draw_pos == "top_left":
-                            screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1] - table_height))
-                            screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2) - table_height))
-                            for desc_j in range(desc_i):
-                                screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
+                    elif name_rect.width < max(desc_widths):
+                        table_width = max(desc_widths) + (self.border * 2)
+                     
+                    table_height = name_rect[1] + (int(len(desc_pos_list)) * desc_size) + (self.border * 2) + desc_size
                     
-health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left")
-mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left")
-int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left")
-luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left")
-cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon board", "Armor board", "Item board"],"top_right")
-level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right")
-damage_tooltip = tooltip((330,670,54,54), "Item damage", "Damage this weapon deals", ["Weapon board"],"top_left")
-armour_tooltip = tooltip((330,670,54,54), "Item armor", "Armor provided", ["Armor board"],"top_left")
-effect_tooltip = tooltip((330,640,54,54), "Item effect", "What the item does", ["Item board"],"top_left")
-quantity_tooltip = tooltip((330,700,54,54), "Item quantity", "How much of this\nitem you own", ["Item board"],"top_left")
+                    table = pg.surface.Surface((table_width,table_height), pg.SRCALPHA)
+                    table.fill((30,30,30,180))
+                    
+                    if mouse_pos[0] >= self.area[0] and mouse_pos[0] <= (self.area[0] + self.area[2]):
+                        if mouse_pos[1] >= self.area[1] and mouse_pos[1] <= (self.area[1] + self.area[3]):
+                            if self.draw_pos == "bottom_right":
+                                screen.blit(table, mouse_pos)
+                                screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2)))
+                                for desc_j in range(desc_i):
+                                    screen.blit(desc_text_list[desc_j], desc_pos_list[desc_j])
+                            
+                            if self.draw_pos == "bottom_left":
+                                screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1]))
+                                screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2)))
+                                for desc_j in range(desc_i):
+                                    screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1]))
+                                    
+                            if self.draw_pos == "top_right":
+                                screen.blit(table, (mouse_pos[0], mouse_pos[1] - table_height))
+                                screen.blit(name, (mouse_pos[0] + self.border, mouse_pos[1] + (self.border/2) - table_height))
+                                for desc_j in range(desc_i):
+                                    screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0], desc_pos_list[desc_j][1] - table_height))
+                                    
+                            if self.draw_pos == "top_left":
+                                screen.blit(table, (mouse_pos[0] - table_width, mouse_pos[1] - table_height))
+                                screen.blit(name, (mouse_pos[0] + self.border - table_width, mouse_pos[1] + (self.border/2) - table_height))
+                                for desc_j in range(desc_i):
+                                    screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
+                    
+health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left",False, None)
+mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left",False, None)
+int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left",False, None)
+luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left",False, None)
+cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
+level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
+damage_tooltip = tooltip((330,670,54,54), "Item damage", "Damage this weapon deals", ["Weapon board"],"top_left",False, None)
+armour_tooltip = tooltip((330,670,54,54), "Item armor", "Armor provided", ["Armor board"],"top_left",False, None)
+effect_tooltip = tooltip((330,640,54,54), "Item effect", "What the item does", ["Item board"],"top_left",False, None)
+quantity_tooltip = tooltip((330,700,54,54), "Item quantity", "How much of this\nitem you own", ["Item board"],"top_left",False, None)
+
+#Skill Debuff Tooltips
+on_fire_tooltip = tooltip((345,575,135,35), "On Fire!", "Deals X damage per second\nfor the duration of the debuff.", ["Skill board"],"top_right",True, fireball.shown)
+wet_tooltip = tooltip((860,535,75,35), "Wet!", "Lowers defense by X % for\nthe duration of the debuff.", ["Skill board"],"top_left",True, water_blast.shown)
+frozen_tooltip = tooltip((340,570,130,40), "Frozen!", "For the duration of the debuff\nthere is an X % chance to\nfreeze completely every round.", ["Skill board"],"top_right",True, ice_storm.shown)
+poisoned_tooltip = tooltip((530,480,160,40), "Poisoned!", "Deals X damage per second and\nlowers attack damage and defense by X %\nfor the duration of the debuff.", ["Skill board"],"top_right",True, poison_dart.shown)
+shocked_tooltip = tooltip((345,525,150,35), "Shocked!", "Lowers attack damage by X % for\nthe duration of the debuff.", ["Skill board"],"top_right",True, lightning_bolt.shown)
 
 class table():
     def __init__(self, name):

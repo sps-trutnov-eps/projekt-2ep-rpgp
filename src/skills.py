@@ -40,7 +40,6 @@ class debuff():
         self.debuff_order = order
         self.space = 135
         
-    ## Toto spustit každé kolo, i když není žádný debuff aktivní
     def debuff_tick(self, target, target_hp, player_effects, enemy_effects, player_turn):
         if not target == None:
             if target.id == "player" and self.duration_p > 0:
