@@ -195,6 +195,7 @@ equip = message("equip", ["Weapon board", "Armor board", "Item board"], "Item ha
 unequip = message("unequip", ["Weapon board", "Armor board", "Item board"], "Item has been unequiped", (300,150), pg.font.Font(def_link, message_size), dark_colour)
 equiped = message("equiped", ["Weapon board", "Armor board", "Item board"], "Item already equiped", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_golds = message("no golds", ["Weapon board", "Armor board", "Item board"], "Insufficient funds", (300,150), pg.font.Font(def_link, message_size), dark_red)
+no_level = message("no level", ["Weapon board", "Armor board", "Item board"], "Insufficient level", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_more = message("no more", ["Weapon board", "Armor board", "Item board"], "Can't buy more of this", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_equip = message("no equip", ["Weapon board", "Armor board", "Item board"], "Can't equip this item", (300,150), pg.font.Font(def_link, message_size), dark_red)
 no_owner = message("no owner", ["Weapon board", "Armor board", "Item board"], "You don't own this yet", (300,150), pg.font.Font(def_link, message_size), dark_red)
