@@ -145,6 +145,11 @@ save_and_exit = text(["Game table"], "Save and Exit", (600,600), pg.font.Font(de
 golds = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.gold), gold_level_position(1110,30,str(player.gold)), coin_level_font, dark_colour)
 p_level = text(["Game menu", "Shop", "Campaign", "Profile", "Weapon board", "Armor board", "Item board"], str(player.level), gold_level_position(1110,85,str(player.level)), coin_level_font, dark_colour)
 
+# Texty před bitvou
+fight = text(["Campaign"], "Fight", (1000, 810), pg.font.Font(def_link, heading1_size), def_colour)
+hp_p = text(["Campaign"], ": " + str(player.inventory["healing_potion"]), (125, 760), pg.font.Font(def_link, settings_size), dark_colour, "f")
+mana_p = text(["Campaign"], ": " + str(player.inventory["mana_potion"]), (125, 810), pg.font.Font(def_link, settings_size), dark_colour, "f")
+
 # Texty v bitvě
 player_hp = text(["Battle"], "/", (290,795), pg.font.Font(def_link, regular_size), def_colour, "p_hp")
 player_mana = text(["Battle"], "/", (290,845), pg.font.Font(def_link, regular_size), def_colour, "p_mana")

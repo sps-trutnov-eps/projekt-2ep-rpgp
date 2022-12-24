@@ -438,6 +438,10 @@ class Button():
         text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
         index_xp_value = text_class.texts.index(xp_value)
         text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
+        index_hp_p = text_class.texts.index(hp_p)
+        text_class.texts[index_hp_p].update(": " + str(player.inventory["healing_potion"]), None)
+        index_mana_p = text_class.texts.index(mana_p)
+        text_class.texts[index_mana_p].update(": " + str(player.inventory["mana_potion"]), None)
         
         # Odemknutí dalšího levelu
         levels[counter.number].unlocked = True
@@ -562,6 +566,12 @@ class Button():
                         active_item.bought = False
                         text_class.show_message("buy")
                         print(player.inventory[active_item.id])
+                        
+                        index_hp_p = text_class.texts.index(hp_p)
+                        text_class.texts[index_hp_p].update(": " + str(player.inventory["healing_potion"]), None)
+                        index_mana_p = text_class.texts.index(mana_p)
+                        text_class.texts[index_mana_p].update(": " + str(player.inventory["mana_potion"]), None)
+        
                     if active_item_type == "misc_item" and player.inventory[active_item.id] >= 99:
                         text_class.show_message("no more")
                         player.gold += active_item.price
@@ -946,6 +956,8 @@ shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "
 shop_potion_effect = blit_object(["Item board"], (330,640), pg.image.load(DATA_ROOT + "/data/textures/icons/item_effect_icon.png"), True, 54, 54)
 shop_potion_quantity_hp = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"), True, 54, 54, "hq")
 shop_potion_quantity_mana = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"), True, 54, 54, "mq")
+campaign_potions_hp = blit_object(["Campaign"], (75, 760), pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"), True, 48, 48)
+campaign_potions_mana = blit_object(["Campaign"], (75, 810), pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"), True, 48, 48)
 health_stat = blit_object(["Profile"], (700,210), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
 mana_stat = blit_object(["Profile"], (700,294), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
 intelligence_stat = blit_object(["Profile"], (700,378), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
@@ -990,7 +1002,7 @@ save_and_exit = Button(["Game table"], (450, 560), (30,30,30,180), 300, 80, [["s
 
 higher_level_b = Button(["Campaign"], (670,775), (30,30,30,180), 72, 72, [["change_level", "up"]], False, None, False, None)
 lower_level_b = Button(["Campaign"], (460,775), (30,30,30,180), 72, 72, [["change_level", "down"]], False, None, False, None)
-fight_b = Button(["Campaign"], (1000, 760), (30,30,30,180), 100, 100, [["start_battle"]], "r", None, False, None)
+fight_b = Button(["Campaign"], (900, 760), (30,30,30,180), 200, 100, [["start_battle"]], "r", None, False, None)
 
 battle_skill_1_b = Button(["Battle"], (708, 788), (30,30,30,180), 82, 82, [["activate_skill", 0]], False, player.equipped_skills[0].icon, True, None)
 battle_skill_2_b = Button(["Battle"], (796, 788), (30,30,30,180), 82, 82, [["activate_skill", 1]], False, None, True, None)
