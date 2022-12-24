@@ -1045,7 +1045,7 @@ game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table"
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Obrazovky
-main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu.png"))
+main_menu = screen("Main menu", pg.image.load(DATA_ROOT + "/data/textures/screens/main_menu_2.png"))
 game_menu = screen("Game menu", pg.image.load(DATA_ROOT + "/data/textures/screens/game_menu.png"))
 shop = screen("Shop", pg.image.load(DATA_ROOT + "/data/textures/screens/shop/shop.png"))
 profile = screen("Profile", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/profile.png"))
