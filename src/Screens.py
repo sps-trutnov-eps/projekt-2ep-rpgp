@@ -784,7 +784,7 @@ class Button():
                 self.draw = "r"
         
 class blit_object():
-    def __init__(self, belonging, position, texture, scale, width, height):
+    def __init__(self, belonging, position, texture, scale, width, height, id_ = "basic"):
         on__screen.blit_objects.append(self)
         self.belonging = belonging
         self.texture = texture
@@ -792,6 +792,7 @@ class blit_object():
         if scale:
             self.texture = pg.transform.scale(texture, (width, height))
         self.show = True
+        self.id = id_
         
     def blit_self(self, screen, on__screen):
         if self.show:
@@ -808,7 +809,7 @@ class blit_object():
     def check_active_item(self, screen):
         for it in item_class.all_items:
             for i in it:
-                if (i.shown and not self.position == (330,700)) or (i.shown and not i.name in ["Vitriolic scroll", "Tempestous scroll", "Rancid scroll"]):
+                if (i.shown and not self.position == (330,700)) or (i.shown and not i.name in ["Vitriolic scroll", "Tempestous scroll", "Rancid scroll"] and not (i.name == "Healing potion" and self.id == "mq") and not (i.name == "Mana potion" and self.id == "hq")):
                     screen.blit(self.texture, self.position)
     
     def get_condition(self, condition):
@@ -943,7 +944,8 @@ shop_level = blit_object(["Weapon board", "Armor board", "Item board"], (60, 700
 shop_damage = blit_object(["Weapon board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/damage_icon_2.png"), True, 54, 54)
 shop_armor = blit_object(["Armor board"], (330,670), pg.image.load(DATA_ROOT + "/data/textures/icons/defense_icon.png"), True, 54, 54)
 shop_potion_effect = blit_object(["Item board"], (330,640), pg.image.load(DATA_ROOT + "/data/textures/icons/item_effect_icon.png"), True, 54, 54)
-shop_potion_quantity = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/icons/potion_effect_icon.png"), True, 54, 54)
+shop_potion_quantity_hp = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"), True, 54, 54, "hq")
+shop_potion_quantity_mana = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"), True, 54, 54, "mq")
 health_stat = blit_object(["Profile"], (700,210), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
 mana_stat = blit_object(["Profile"], (700,294), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
 intelligence_stat = blit_object(["Profile"], (700,378), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
@@ -953,7 +955,8 @@ shop_level.show = False
 shop_damage.show = False
 shop_armor.show = False
 shop_potion_effect.show = False
-shop_potion_quantity.show = False
+shop_potion_quantity_hp.show = False
+shop_potion_quantity_mana.show = False
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (806,726), None, 187, 92, [["change_screen", "Exit"]], False, None, False, None)

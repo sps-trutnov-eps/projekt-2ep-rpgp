@@ -288,8 +288,9 @@ while True:
             blit_screen()
             blit_xp_bar()
             
-            button_class.buttons = battle_info.show_cooldown(button_class, screen)
-            battle_info.show_debuffs(screen)
+            if on__screen.active_table == "Close":
+                button_class.buttons = battle_info.show_cooldown(button_class, screen)
+                battle_info.show_debuffs(screen)
             
             counter.blit_self(screen, on__screen)
             

@@ -347,7 +347,7 @@ class Battle_info():
                     index_list.append(l[1])
                     
         for i in index_list:
-            icon = debuff_class.debuffs[i].icon
+            icon = pg.transform.scale(debuff_class.debuffs[i].icon, (64,64))
             icon_size = [icon.get_width(), icon.get_height()]
             screen.blit(icon, (((558 - (icon_size[0] / 2)) + (77 * offset)),(82 - (icon_size[1] / 2))))
             offset += 1
