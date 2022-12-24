@@ -551,7 +551,7 @@ class Button():
                     active_item_type = Button.item_type_check(active_item)
                     print(active_item.id)
         if not active_item == None:
-            if active_item.price <= player.gold and active_item.bought == False and multi_click_prevention == False:
+            if active_item.price <= player.gold and active_item.bought == False and active_item.level <= player.level and multi_click_prevention == False:
                 active_item.bought = True
                 player.gold = player.gold - active_item.price
                 multi_click_prevention = True        
@@ -617,8 +617,12 @@ class Button():
             if active_item.price > player.gold and multi_click_prevention == False:
                 text_class.show_message("no golds")
                 multi_click_prevention = True
+            elif active_item.level > player.level and multi_click_prevention == False:
+                text_class.show_message("no level")
+                multi_click_prevention = True
                 
             multi_click_prevention = False
+        
         
     def item_type_check(active_item):
         if not active_item == None:
