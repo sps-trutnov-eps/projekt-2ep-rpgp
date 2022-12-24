@@ -94,17 +94,17 @@ def init_items(role):
         weapon_desc_5_type_2 = "An ancient and infamous\nspell book of the dead,\ncursed with raw power and hate."
         
         
-        weapon_name_1_type_3 = "Wooden Mallet"
-        weapon_name_2_type_3 = "Steel Hammer"
-        weapon_name_3_type_3 = "Spiked Mace"
-        weapon_name_4_type_3 = "Metal Flail"
-        weapon_name_5_type_3 = "Thor's Mjölnir"
+        weapon_name_1_type_3 = "Wooden Necklace"
+        weapon_name_2_type_3 = "Jeweled Amulet"
+        weapon_name_3_type_3 = "Rune Stones"
+        weapon_name_4_type_3 = "Crystal Runes"
+        weapon_name_5_type_3 = "Smarlin's Crown"
         
-        weapon_desc_1_type_3 = "A wooden simple wooden\nmallet made from a stick\nand a piece of wood."
-        weapon_desc_2_type_3 = "A solid hammer made\nof cast steel."
-        weapon_desc_3_type_3 = "A spiked mace on a stick."
-        weapon_desc_4_type_3 = "A spiky metal ball\non a chain."
-        weapon_desc_5_type_3 = "The mythical hammer\nof the norse god\nof thunder, Thor."
+        weapon_desc_1_type_3 = "A magical rune carved\ninto a piece of wood."
+        weapon_desc_2_type_3 = "A powerful gemstone amulet."
+        weapon_desc_3_type_3 = "Ancient runes carved into stones."
+        weapon_desc_4_type_3 = "Large quartz crystals\nimbued with magical runes."
+        weapon_desc_5_type_3 = "The mysthical crown of\nSmarlin the Great.\nIt posseses extreme amounts of power."
         
     if role == "ranger":
         weapon_name_1_type_1 = "Wooden Bow"
