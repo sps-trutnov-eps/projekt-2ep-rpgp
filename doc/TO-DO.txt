@@ -1,9 +1,9 @@
 Nesplněno:
 * Vykreslování informací v bitvě
-* Uložení skillů + MNOHA DALŠÍCH VĚCÍ
 * Ikonka pro množství lektvarů
 
 Splněno:
+* Uložení skillů + MNOHA DALŠÍCH VĚCÍ
 * Mini-bossové a získání jejich skillu
 * Informace po vyhrané bitvě ve výherní tabulkce
 * Informace o efektech scrollů

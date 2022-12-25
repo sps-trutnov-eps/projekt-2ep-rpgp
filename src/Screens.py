@@ -377,6 +377,7 @@ class Button():
                     on_screen.active_table = table
                     
     def change_item(self, new_item_number, items):
+        print(items)
         for item in items:
             item.shown = False
         if len(items) - 1 >= new_item_number:
@@ -594,6 +595,15 @@ class Button():
             text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
             index_xp_value = text_class.texts.index(xp_value)
             text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
+               
+            # Update seznamů čudlíků
+            skill_1_b.tasks[0][2] = player.skills
+            skill_2_b.tasks[0][2] = player.skills
+            skill_3_b.tasks[0][2] = player.skills
+            skill_4_b.tasks[0][2] = player.skills
+            skill_5_b.tasks[0][2] = player.skills
+            skill_6_b.tasks[0][2] = player.skills
+            skill_7_b.tasks[0][2] = player.skills
                 
             # Update textur čudlíků
             for b in button_class.buttons:
