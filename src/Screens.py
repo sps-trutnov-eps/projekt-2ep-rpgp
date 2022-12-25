@@ -377,7 +377,6 @@ class Button():
                     on_screen.active_table = table
                     
     def change_item(self, new_item_number, items):
-        print(items)
         for item in items:
             item.shown = False
         if len(items) - 1 >= new_item_number:
@@ -613,7 +612,6 @@ class Button():
                     else:
                         b.get_texture(None)
                 if b.tasks[0][0] == "change_item" and b.tasks[0][2] == player.skills:
-                    print("x")
                     if len(player.skills) > b.tasks[0][1]:
                         b.get_texture(player.skills[b.tasks[0][1]].icon)
             
@@ -644,7 +642,6 @@ class Button():
                 if item.shown == True:
                     active_item = item
                     active_item_type = Button.item_type_check(active_item)
-                    print(active_item.id)
         if not active_item == None:
             if active_item.price <= player.gold and active_item.bought == False and active_item.level <= player.level and multi_click_prevention == False:
                 active_item.bought = True
@@ -660,7 +657,6 @@ class Button():
                         player.inventory[active_item.id] += 1
                         active_item.bought = False
                         text_class.show_message("buy")
-                        print(player.inventory[active_item.id])
                         
                         index_hp_p = text_class.texts.index(hp_p)
                         text_class.texts[index_hp_p].update(": " + str(player.inventory["healing_potion"]), None)
