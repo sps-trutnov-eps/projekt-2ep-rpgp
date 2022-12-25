@@ -484,6 +484,8 @@ class Button():
         for s in player.equipped_skills:
             if s == None:
                 file.write("None,")
+            elif s == "None":
+                file.write("None,")
             else:
                 file.write(s.name + ",")
 
@@ -532,7 +534,9 @@ class Button():
                 if d_l[s] == "None":
                     player.equipped_skills.append(None)
                 else:
-                    player.equipped_skills.append(d_l[s])
+                    for sk in skill_class.skills:
+                        if d_l[s] == sk.name:
+                            player.equipped_skills.append(sk)
                 s += 1
             x = 18 
             for il in item_class.all_items:
@@ -547,6 +551,22 @@ class Button():
             text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
             index_level = text_class.texts.index(p_level)
             text_class.texts[index_level].update(str(player.level), None)
+            index_hp_p = text_class.texts.index(hp_p)
+            text_class.texts[index_hp_p].update(str(player.inventory["healing_potion"]), None)
+            index_mana_p = text_class.texts.index(mana_p)
+            text_class.texts[index_mana_p].update(str(player.inventory["mana_potion"]), None)
+            index_hp = text_class.texts.index(hp_stat_value)
+            text_class.texts[index_hp].update(str(player.hp_stat), None)
+            index_mana = text_class.texts.index(mana_stat_value)
+            text_class.texts[index_mana].update(str(player.mana_stat), None)
+            index_int = text_class.texts.index(int_stat_value)
+            text_class.texts[index_int].update(str(player.int_stat), None)
+            index_luck = text_class.texts.index(luck_stat_value)
+            text_class.texts[index_luck].update(str(player.luck_stat), None)
+            index_xp_name = text_class.texts.index(xp_name)
+            text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
+            index_xp_value = text_class.texts.index(xp_value)
+            text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
             
             self.change_screen("Game menu", on__screen)
         
