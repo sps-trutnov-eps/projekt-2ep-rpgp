@@ -16,16 +16,12 @@ class player():
         self.xp_req = 100
         self.max_hp = 100
         self.max_mana = 100
-        self.hp = self.max_hp
-        self.mana = self.max_mana
         self.equipped_skills = [None, None, None]
-        self.int = 0
-        self.luck = 0
         self.hp_stat = 0
         self.mana_stat = 0
         self.int_stat = 0
         self.luck_stat = 0
-        self.stat_point = 0
+        self.stat_point = 10
         self.id = "player"
         
     def calculate_level(self):

@@ -467,6 +467,8 @@ class Button():
             file.write("None,")
         file.write(str(player.gold) + ",")
         file.write(str(player.level) + ",")
+        file.write(str(player.xp) + ",")
+        file.write(str(player.xp_req) + ",")
         file.write(str(player.inventory["healing_potion"]) + "," + str(player.inventory["mana_potion"]) + ",")
         for l in list(reversed(levels)):
             if l.unlocked == False:
@@ -474,6 +476,17 @@ class Button():
             elif l.unlocked == True:
                 file.write(str(l.number) + ",")
                 break
+        file.write(str(player.hp_stat) + ",")
+        file.write(str(player.mana_stat) + ",")
+        file.write(str(player.int_stat) + ",")
+        file.write(str(player.luck_stat) + ",")
+        file.write(str(player.stat_point) + ",")
+        for s in player.equipped_skills:
+            if s == None:
+                file.write("None,")
+            else:
+                file.write(s.name + ",")
+
         for i_l in item_class.all_items:
             for i in i_l:
                 if i.bought == True:
@@ -502,13 +515,26 @@ class Button():
                     player.weapon = a
             player.gold = int(d_l[3])
             player.level = int(d_l[4])
-            player.inventory = {"healing_potion":int(d_l[5]), "mana_potion":int(d_l[6])}
+            player.xp = int(d_l[5])
+            player.xp_req = int(d_l[6])
+            player.inventory = {"healing_potion":int(d_l[7]), "mana_potion":int(d_l[8])}
             for l in levels:
-                if l.number <= int(d_l[7]):
+                if l.number <= int(d_l[9]):
                     l.unlocked = True
                     levels[l.number - 1].completed = True
-                    
-            x = 8
+            player.hp_stat = int(d_l[10])
+            player.mana_stat = int(d_l[11])
+            player.int_stat = int(d_l[12])
+            player.luck_stat = int(d_l[13])
+            player.stat_point = int(d_l[14])
+            s = 15
+            while s < 18:
+                if d_l[s] == "None":
+                    player.equipped_skills.append(None)
+                else:
+                    player.equipped_skills.append(d_l[s])
+                s += 1
+            x = 18 
             for il in item_class.all_items:
                 for i in il:
                     if d_l[x] == "False":
@@ -739,13 +765,6 @@ class Button():
                 multi_click_prevention = True
             
             multi_click_prevention = False
-            print_list = []
-            for p_skill in player.equipped_skills:
-                if p_skill == None:
-                    print_list.append("None")
-                else:
-                    print_list.append(p_skill.name)
-            print(print_list)
             
     def change_stat(self, stat):
         multi_click_prevention = False
@@ -764,14 +783,12 @@ class Button():
             multi_click_prevention = True
             
         if stat == "int" and multi_click_prevention == False and player.stat_point > 0 and player.int_stat < 10:
-            player.int += 1
             player.stat_point = player.stat_point - 1
             player.int_stat += 1
             int_stat_value.update(str(player.int_stat),None)
             multi_click_prevention = True
             
         if stat == "luck" and multi_click_prevention == False and player.stat_point > 0 and player.luck_stat < 10:
-            player.luck += 1
             player.stat_point = player.stat_point - 1
             player.luck_stat += 1
             luck_stat_value.update(str(player.luck_stat),None)
