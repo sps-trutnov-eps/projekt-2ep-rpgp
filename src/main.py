@@ -260,8 +260,7 @@ while True:
     update_tooltips()
 
     if pressed[pg.K_a]:
-        player.xp += 1
-        print(player.xp)
+        print(player.skills)
         
     # BITVA
     if on__screen.battle == True:

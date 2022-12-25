@@ -481,6 +481,7 @@ class Button():
         file.write(str(player.int_stat) + ",")
         file.write(str(player.luck_stat) + ",")
         file.write(str(player.stat_point) + ",")
+        # Vybrané skilly
         for s in player.equipped_skills:
             if s == None:
                 file.write("None,")
@@ -488,7 +489,15 @@ class Button():
                 file.write("None,")
             else:
                 file.write(s.name + ",")
-
+        # Odemčené skilly
+        for skill in player.skills:
+            file.write(skill.name + ",")
+            
+        if len(player.skills) < 7:
+            missing = 7 - len(player.skills)
+            for x in range(missing):
+                file.write("None,")
+        # Itemy
         for i_l in item_class.all_items:
             for i in i_l:
                 if i.bought == True:
@@ -499,6 +508,7 @@ class Button():
         text_class.show_message("save")
         
     def load(self):
+        
         file = open("saved_data.csv", "r", encoding = "UTF-8")
         data = file.readline()
         if data == "":
@@ -529,16 +539,32 @@ class Button():
             player.int_stat = int(d_l[12])
             player.luck_stat = int(d_l[13])
             player.stat_point = int(d_l[14])
+            # Načtení vybavených skillů 15-17
             s = 15
+            i = 0
             while s < 18:
                 if d_l[s] == "None":
-                    player.equipped_skills.append(None)
+                    player.equipped_skills[i] = None
+                    i += 1
                 else:
                     for sk in skill_class.skills:
                         if d_l[s] == sk.name:
-                            player.equipped_skills.append(sk)
+                            player.equipped_skills[i] = sk
+                            i += 1
                 s += 1
-            x = 18 
+            # Načtení odemčených skillů 18-24
+            player.skills = []
+            sk = 18
+            while sk < 25:
+                if d_l[sk] == "None":
+                    pass
+                else:
+                    for skl in skill_class.skills:
+                        if d_l[sk] == skl.name:
+                            player.skills.append(skl)
+                sk += 1
+            # Načtení itemů v obchodě
+            x = 25
             for il in item_class.all_items:
                 for i in il:
                     if d_l[x] == "False":
@@ -547,6 +573,7 @@ class Button():
                         i.bought = True
                     x += 1
                 
+            # Update textů
             index_golds = text_class.texts.index(golds)
             text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
             index_level = text_class.texts.index(p_level)
@@ -567,6 +594,18 @@ class Button():
             text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
             index_xp_value = text_class.texts.index(xp_value)
             text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
+                
+            # Update textur čudlíků
+            for b in button_class.buttons:
+                if b.tasks[0][0] == "select_skill_slot":
+                    if not player.equipped_skills[b.tasks[0][1] - 1] == None or not not player.equipped_skills[b.tasks[0][1] - 1] == "None":
+                        b.get_texture(player.equipped_skills[b.tasks[0][1] - 1].icon)
+                    else:
+                        b.get_texture(None)
+                if b.tasks[0][0] == "change_item" and b.tasks[0][2] == player.skills:
+                    print("x")
+                    if len(player.skills) > b.tasks[0][1]:
+                        b.get_texture(player.skills[b.tasks[0][1]].icon)
             
             self.change_screen("Game menu", on__screen)
         
