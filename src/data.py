@@ -10,7 +10,7 @@ class player():
         self.armor = None
         self.inventory = {"healing_potion":0, "mana_potion":0}
         self.skills = []
-        self.gold = 1000
+        self.gold = 0
         self.level = 1
         self.xp = 0
         self.xp_req = 100
@@ -21,7 +21,7 @@ class player():
         self.mana_stat = 0
         self.int_stat = 0
         self.luck_stat = 0
-        self.stat_point = 10
+        self.stat_point = 40
         self.id = "player"
         
     def calculate_level(self):

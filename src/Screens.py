@@ -149,10 +149,11 @@ class tooltip():
                                 for desc_j in range(desc_i):
                                     screen.blit(desc_text_list[desc_j], (desc_pos_list[desc_j][0] - table_width, desc_pos_list[desc_j][1] - table_height))
                     
-health_stat_tooltip = tooltip((700,210,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left",False, None)
-mana_stat_tooltip = tooltip((700,294,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left",False, None)
-int_stat_tooltip = tooltip((700,378,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left",False, None)
-luck_stat_tooltip = tooltip((700,462,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left",False, None)
+health_stat_tooltip = tooltip((700,170,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left",False, None)
+mana_stat_tooltip = tooltip((700,254,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left",False, None)
+int_stat_tooltip = tooltip((700,338,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left",False, None)
+luck_stat_tooltip = tooltip((700,422,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left",False, None)
+stat_point_tooltip = tooltip((800,506,64,64),"Stat Point", "With every level up you gain\na stat point which you can\nuse to upgrade your stats.", ["Profile"], "top_left", False, None)
 cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
 level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
 damage_tooltip = tooltip((330,670,54,54), "Item damage", "Damage this weapon deals", ["Weapon board"],"top_left",False, None)
@@ -583,17 +584,19 @@ class Button():
             index_mana_p = text_class.texts.index(mana_p)
             text_class.texts[index_mana_p].update(str(player.inventory["mana_potion"]), None)
             index_hp = text_class.texts.index(hp_stat_value)
-            text_class.texts[index_hp].update(str(player.hp_stat), None)
+            text_class.texts[index_hp].update(str(player.hp_stat + "/10"), None)
             index_mana = text_class.texts.index(mana_stat_value)
-            text_class.texts[index_mana].update(str(player.mana_stat), None)
+            text_class.texts[index_mana].update(str(player.mana_stat + "/10"), None)
             index_int = text_class.texts.index(int_stat_value)
-            text_class.texts[index_int].update(str(player.int_stat), None)
+            text_class.texts[index_int].update(str(player.int_stat + "/10"), None)
             index_luck = text_class.texts.index(luck_stat_value)
-            text_class.texts[index_luck].update(str(player.luck_stat), None)
+            text_class.texts[index_luck].update(str(player.luck_stat + "/10"), None)
             index_xp_name = text_class.texts.index(xp_name)
             text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
             index_xp_value = text_class.texts.index(xp_value)
             text_class.texts[index_xp_value].update("XP: " + str(player.xp) + " / " + str(player.xp_req), None)
+            index_stat_point = text_class.texts.index(stat_point_value)
+            text_class.texts[index_stat_point].update(str(player.stat_point),None)
                
             # Update seznamů čudlíků
             skill_1_b.tasks[0][2] = player.skills
@@ -837,26 +840,30 @@ class Button():
             player.max_hp += 40
             player.stat_point = player.stat_point - 1
             player.hp_stat += 1
-            hp_stat_value.update(str(player.hp_stat),None)
+            hp_stat_value.update(str(player.hp_stat) + "/10",None)
+            stat_point_value.update(str(player.stat_point), None)
             multi_click_prevention = True
             
         if stat == "mana" and multi_click_prevention == False and player.stat_point > 0 and player.mana_stat < 10:
             player.max_mana += 20
             player.stat_point = player.stat_point - 1
             player.mana_stat += 1
-            mana_stat_value.update(str(player.mana_stat),None)
+            mana_stat_value.update(str(player.mana_stat) + "/10",None)
+            stat_point_value.update(str(player.stat_point), None)
             multi_click_prevention = True
             
         if stat == "int" and multi_click_prevention == False and player.stat_point > 0 and player.int_stat < 10:
             player.stat_point = player.stat_point - 1
             player.int_stat += 1
-            int_stat_value.update(str(player.int_stat),None)
+            int_stat_value.update(str(player.int_stat) + "/10",None)
+            stat_point_value.update(str(player.stat_point), None)
             multi_click_prevention = True
             
         if stat == "luck" and multi_click_prevention == False and player.stat_point > 0 and player.luck_stat < 10:
             player.stat_point = player.stat_point - 1
             player.luck_stat += 1
-            luck_stat_value.update(str(player.luck_stat),None)
+            luck_stat_value.update(str(player.luck_stat) + "/10",None)
+            stat_point_value.update(str(player.stat_point), None)
             multi_click_prevention = True
             
         multi_click_prevention = False
@@ -958,6 +965,21 @@ class Xp_bar():
         
 xp_bar = Xp_bar(1, (160,250))
 small_xp_bar = Xp_bar(3/4, (450, 400))
+
+class Stat_bar():
+    def __init__(self, bar_color):
+        self.color = bar_color
+        
+    def draw_stat_bar(self, screen, stat, index):
+        one_percent = 0.1
+        percent = stat / one_percent
+        pg.draw.rect(screen, (30,30,30), (780,(175 + (84 * index)),250,55))
+        pg.draw.rect(screen, self.color, (784,(179 + (84 * index)),2.42*percent,47))
+        
+health_stat_bar = Stat_bar((240,17,17))
+mana_stat_bar = Stat_bar((0,30,255))
+int_stat_bar = Stat_bar((98,61,99))
+luck_stat_bar = Stat_bar((90,156,81))
                  
 def shop_b_init():
     weapon_textures = []
@@ -1044,10 +1066,11 @@ shop_potion_quantity_hp = blit_object(["Item board"], (330,700), pg.image.load(D
 shop_potion_quantity_mana = blit_object(["Item board"], (330,700), pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"), True, 54, 54, "mq")
 campaign_potions_hp = blit_object(["Campaign"], (75, 760), pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"), True, 48, 48)
 campaign_potions_mana = blit_object(["Campaign"], (75, 810), pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"), True, 48, 48)
-health_stat = blit_object(["Profile"], (700,210), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
-mana_stat = blit_object(["Profile"], (700,294), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
-intelligence_stat = blit_object(["Profile"], (700,378), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
-luck_stat = blit_object(["Profile"], (700,462), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/luck_icon.png"), True, 64,64)
+health_stat = blit_object(["Profile"], (700,170), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/health_icon.png"), True, 64,64)
+mana_stat = blit_object(["Profile"], (700,254), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/mana_icon.png"), True, 64,64)
+intelligence_stat = blit_object(["Profile"], (700,338), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/intelligence_icon.png"), True, 64,64)
+luck_stat = blit_object(["Profile"], (700,422), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/luck_icon.png"), True, 64,64)
+stat_point_icon = blit_object(["Profile"], (800,506), pg.image.load(DATA_ROOT + "/data/textures/icons/stats/stat_point_icon.png"), True, 64,64)
 shop_price.show = False
 shop_level.show = False
 shop_damage.show = False
@@ -1095,7 +1118,7 @@ battle_skill_2_b = Button(["Battle"], (796, 788), (30,30,30,180), 82, 82, [["act
 battle_skill_3_b = Button(["Battle"], (884, 788), (30,30,30,180), 82, 82, [["activate_skill", 2]], False, None, True, None)
 battle_health_potion = Button(["Battle"], (984, 752), (30,30,30,180), 68, 112, [["drink_potion", "mana"]], False, None, True, None)
 battle_health_potion = Button(["Battle"], (1064, 752), (30,30,30,180), 68, 112, [["drink_potion", "health"]], False, None, True, None)
-skill_board_b = Button(["Profile"], (820, 640), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
+skill_board_b = Button(["Profile"], (820, 680), (30,30,30,180), 160,160, [["change_screen", "Skill board"]], "c", pg.image.load(DATA_ROOT + "/data/textures/screens/profile/skill_board_icon.png"), True, None)
 to_profile = Button(["Skill board","Debuff board","Stat board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Profile"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), True, None)
 skill_to_debuff = Button(["Skill board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Debuff board"]], "r", None, True, None)
 debuff_to_skill = Button(["Debuff board"], (895, 725), (30,30,30,180), 225,100, [["change_screen", "Skill board"]], "r", None, True, None)
@@ -1114,10 +1137,10 @@ skill_5_b = Button(["Skill board"], (690,120), (30,30,30,180), 100, 100, [["chan
 skill_6_b = Button(["Skill board"], (830,120), (30,30,30,180), 100, 100, [["change_item", 5, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 skill_7_b = Button(["Skill board"], (970,120), (30,30,30,180), 100, 100, [["change_item", 6, player.skills]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/lock.png"), True, None)
 
-hp_stat_b = Button(["Profile"], (1036,210), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-mana_stat_b = Button(["Profile"], (1036,294), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-int_stat_b = Button(["Profile"], (1036,378), (30,30,30,180), 64, 64, [["change_stat", "int"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
-luck_stat_b = Button(["Profile"], (1036,462), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+hp_stat_b = Button(["Profile"], (1036,170), (30,30,30,180), 64, 64, [["change_stat", "hp"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+mana_stat_b = Button(["Profile"], (1036,254), (30,30,30,180), 64, 64, [["change_stat", "mana"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+int_stat_b = Button(["Profile"], (1036,338), (30,30,30,180), 64, 64, [["change_stat", "int"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
+luck_stat_b = Button(["Profile"], (1036,422), (30,30,30,180), 64, 64, [["change_stat", "luck"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/stats/plus_icon.png"), True, None)
 
 # Tlačítka tabulek
 new_game_b = Button(["Main menu"], (707,283), None, 388, 88, [["change_table", "New game table"]], False, None, False, None)

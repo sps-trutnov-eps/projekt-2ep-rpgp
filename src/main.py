@@ -41,9 +41,9 @@ def blit_background():
 def blit_screen():
     screen.blit(on__screen.active_screen.background,(0,0))
     if on__screen.active_screen.name == "Profile":
-        stat_bg = pg.surface.Surface((440,350),pg.SRCALPHA)
+        stat_bg = pg.surface.Surface((440,440),pg.SRCALPHA)
         stat_bg.fill((30,30,30,180))
-        screen.blit(stat_bg, (680,190))
+        screen.blit(stat_bg, (680,150))
     for o in on__screen.blit_objects:
         o.blit_self(screen, on__screen)
     if not on__screen.active_table == "Close":
@@ -118,6 +118,14 @@ def blit_xp_bar():
         if not on__screen.active_table == "Close":
             if on__screen.active_table.name == "Win table":
                 small_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
+                
+def blit_stat_bar():
+    if not on__screen.active_screen == "Exit":
+        if on__screen.active_screen.name == "Profile":
+               health_stat_bar.draw_stat_bar(screen, player.hp_stat, 0)
+               mana_stat_bar.draw_stat_bar(screen, player.mana_stat, 1)
+               int_stat_bar.draw_stat_bar(screen, player.int_stat, 2)
+               luck_stat_bar.draw_stat_bar(screen, player.luck_stat, 3)
                 
 def update_tooltips():
     on_fire_tooltip.update_tooltip(fireball.shown)
@@ -231,6 +239,9 @@ while True:
     
     # Vykreslení obrazovky/tabulky
     blit_screen()
+    
+    # Vykreslení barů statů
+    blit_stat_bar()
     
     # Vykreslování itemů v obchodě
     blit_shop_items()
