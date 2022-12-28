@@ -223,9 +223,9 @@ def init_items(role):
     
     potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,2],"healing_potion")
     potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,8],"mana_potion")
-    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [750,None,None,1,None,1],"skill_1")
-    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1000,None,None,1,None,1],"skill_2")
-    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1200,None,None,1,None,1],"skill_3")
+    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [750,None,None,1,None,8],"skill_1")
+    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1000,None,None,1,None,12],"skill_2")
+    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1200,None,None,1,None,15],"skill_3")
     
     item_class.misc_items = [
         potion_healing,
