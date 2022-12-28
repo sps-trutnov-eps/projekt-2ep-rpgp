@@ -189,13 +189,13 @@ def init_items(role):
     armor_name_1 = "Leather Padding"
     armor_name_2 = "Sturdy Shield"
     armor_name_3 = "Iron Armor"
-    armor_name_4 = "ARMOR 4"
+    armor_name_4 = "Golden Armor"
     armor_name_5 = "ARMOR 5"
     
     armor_desc_1 = "Tough leather padding and hat."
     armor_desc_2 = "A fairly big shield\nthat can block some blows."
     armor_desc_3 = "Thonny Stank built\nthis in a cave."
-    armor_desc_4 = "armor desc 4"
+    armor_desc_4 = "This is one very glorious,\nvery shiny set of armor."
     armor_desc_5 = "armor desc 5"
     
     armor_1 = item(armor_name_1, armor_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/armors/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [15,None,5,None,None,2],"armor_1")
