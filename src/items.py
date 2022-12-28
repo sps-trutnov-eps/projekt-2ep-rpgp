@@ -148,23 +148,23 @@ def init_items(role):
     starter_weapon = item("Stick", "Nothing but a very\ngeneric stick.", pg.image.load(DATA_ROOT + "/data/textures/items/weapons/stick.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", True, [1,1,None,None,None,1],"weapon_0")
     starter_weapon.shown = False
     player.weapon = starter_weapon
-    weapon_1_type_1 = item(weapon_name_1_type_1, weapon_desc_1_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [10,5,None,None,None,1],"weapon_1_1")
-    weapon_2_type_1 = item(weapon_name_2_type_1, weapon_desc_2_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [20,15,None,None,None,2],"weapon_2_1")
-    weapon_3_type_1 = item(weapon_name_3_type_1, weapon_desc_3_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [50,35,None,None,None,6],"weapon_3_1")
-    weapon_4_type_1 = item(weapon_name_4_type_1, weapon_desc_4_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [75,50,None,None,None,10],"weapon_4_1")
-    weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [100,100,None,None,None,15],"weapon_5_1")
+    weapon_1_type_1 = item(weapon_name_1_type_1, weapon_desc_1_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [40,5,None,None,None,1],"weapon_1_1")
+    weapon_2_type_1 = item(weapon_name_2_type_1, weapon_desc_2_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [100,15,None,None,None,2],"weapon_2_1")
+    weapon_3_type_1 = item(weapon_name_3_type_1, weapon_desc_3_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [350,35,None,None,None,6],"weapon_3_1")
+    weapon_4_type_1 = item(weapon_name_4_type_1, weapon_desc_4_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [650,50,None,None,None,10],"weapon_4_1")
+    weapon_5_type_1 = item(weapon_name_5_type_1, weapon_desc_5_type_1, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_1/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [925,100,None,None,None,15],"weapon_5_1")
 
-    weapon_1_type_2 = item(weapon_name_1_type_2, weapon_desc_1_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [15,10,None,None,None,2],"weapon_1_2")
-    weapon_2_type_2 = item(weapon_name_2_type_2, weapon_desc_2_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [30,25,None,None,None,4],"weapon_2_2")
-    weapon_3_type_2 = item(weapon_name_3_type_2, weapon_desc_3_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [55,40,None,None,None,8],"weapon_3_2")
-    weapon_4_type_2 = item(weapon_name_4_type_2, weapon_desc_4_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [80,55,None,None,None,12],"weapon_4_2")
-    weapon_5_type_2 = item(weapon_name_5_type_2, weapon_desc_5_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [110,115,None,None,None,20],"weapon_5_2")
+    weapon_1_type_2 = item(weapon_name_1_type_2, weapon_desc_1_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [50,10,None,None,None,2],"weapon_1_2")
+    weapon_2_type_2 = item(weapon_name_2_type_2, weapon_desc_2_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [150,25,None,None,None,4],"weapon_2_2")
+    weapon_3_type_2 = item(weapon_name_3_type_2, weapon_desc_3_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [400,40,None,None,None,8],"weapon_3_2")
+    weapon_4_type_2 = item(weapon_name_4_type_2, weapon_desc_4_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [700,55,None,None,None,12],"weapon_4_2")
+    weapon_5_type_2 = item(weapon_name_5_type_2, weapon_desc_5_type_2, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_2/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [1000,115,None,None,None,20],"weapon_5_2")
         
-    weapon_1_type_3 = item(weapon_name_1_type_3, weapon_desc_1_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [10,5,None,None,None,1],"weapon_1_3")
-    weapon_2_type_3 = item(weapon_name_2_type_3, weapon_desc_2_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [25,20,None,None,None,3],"weapon_2_3")
-    weapon_3_type_3 = item(weapon_name_3_type_3, weapon_desc_3_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [45,30,None,None,None,5],"weapon_3_3")
-    weapon_4_type_3 = item(weapon_name_4_type_3, weapon_desc_4_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [70,55,None,None,None,9],"weapon_4_3")
-    weapon_5_type_3 = item(weapon_name_5_type_3, weapon_desc_5_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [95,90,None,None,None,12],"weapon_5_3")
+    weapon_1_type_3 = item(weapon_name_1_type_3, weapon_desc_1_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/1.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [40,5,None,None,None,1],"weapon_1_3")
+    weapon_2_type_3 = item(weapon_name_2_type_3, weapon_desc_2_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/2.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [120,20,None,None,None,3],"weapon_2_3")
+    weapon_3_type_3 = item(weapon_name_3_type_3, weapon_desc_3_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/3.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [300,30,None,None,None,5],"weapon_3_3")
+    weapon_4_type_3 = item(weapon_name_4_type_3, weapon_desc_4_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/4.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [550,55,None,None,None,9],"weapon_4_3")
+    weapon_5_type_3 = item(weapon_name_5_type_3, weapon_desc_5_type_3, pg.image.load(DATA_ROOT + "/data/textures/items/weapons/"+ player.role +"/type_3/5.png"), ((resolution[0]/4) - 96, (resolution[1]/2) - 225), "Weapon board", False, [850,90,None,None,None,12],"weapon_5_3")
     
     item_class.weapons = [
             starter_weapon,
@@ -198,11 +198,11 @@ def init_items(role):
     armor_desc_4 = "This is one very glorious,\nvery shiny set of armor."
     armor_desc_5 = "armor desc 5"
     
-    armor_1 = item(armor_name_1, armor_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/armors/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [15,None,5,None,None,2],"armor_1")
-    armor_2 = item(armor_name_2, armor_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/armors/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [25,None,10,None,None,5],"armor_2")
-    armor_3 = item(armor_name_3, armor_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/armors/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [40,None,15,None,None,8],"armor_3")
-    armor_4 = item(armor_name_4, armor_desc_4, pg.image.load(DATA_ROOT + "/data/textures/items/armors/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [75,None,25,None,None,15],"armor_4")
-    armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/items/armors/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [100,None,50,None,None,20],"armor_5")
+    armor_1 = item(armor_name_1, armor_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/armors/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [40,None,5,None,None,2],"armor_1")
+    armor_2 = item(armor_name_2, armor_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/armors/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [120,None,10,None,None,5],"armor_2")
+    armor_3 = item(armor_name_3, armor_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/armors/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [350,None,15,None,None,8],"armor_3")
+    armor_4 = item(armor_name_4, armor_desc_4, pg.image.load(DATA_ROOT + "/data/textures/items/armors/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [600,None,25,None,None,15],"armor_4")
+    armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/items/armors/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [850,None,50,None,None,20],"armor_5")
     
     item_class.armors = [
         armor_1,
@@ -221,11 +221,11 @@ def init_items(role):
     scroll_desc_2 = "Sometimes it flashes and makes your\nmuscles twitch when touched."
     scroll_desc_3 = "It gives off a musty smell with\na bit of the essence of death."
     
-    potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None,1],"healing_potion")
-    potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None,1],"mana_potion")
-    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None,1],"skill_1")
-    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None,1],"skill_2")
-    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1,None,None,1,None,1],"skill_3")
+    potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,2],"healing_potion")
+    potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,8],"mana_potion")
+    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [750,None,None,1,None,1],"skill_1")
+    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1000,None,None,1,None,1],"skill_2")
+    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1200,None,None,1,None,1],"skill_3")
     
     item_class.misc_items = [
         potion_healing,

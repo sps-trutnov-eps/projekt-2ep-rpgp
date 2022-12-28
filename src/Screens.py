@@ -432,7 +432,7 @@ class Button():
     def win_battle(self):
         # Update textů
         index_stat = text_class.texts.index(stat_point_value)
-        text_class.texts[index_stat],update(str(player.stat_point))
+        text_class.texts[index_stat].update(str(player.stat_point), None)
         index_golds = text_class.texts.index(golds)
         text_class.texts[index_golds].update(str(player.gold), gold_level_position(1110,30,str(player.gold)))
         index_level = text_class.texts.index(p_level)
