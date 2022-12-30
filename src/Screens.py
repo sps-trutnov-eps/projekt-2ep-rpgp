@@ -839,7 +839,7 @@ class Button():
     def change_stat(self, stat):
         multi_click_prevention = False
         if stat == "hp" and multi_click_prevention == False and player.stat_point > 0 and player.hp_stat < 10:
-            player.max_hp += 40
+            player.max_hp += 20
             player.stat_point = player.stat_point - 1
             player.hp_stat += 1
             hp_stat_value.update(str(player.hp_stat) + "/10",None)
