@@ -111,6 +111,11 @@ class Battle_info():
         for d in debuff_class.debuffs:
             d.duration_e = 0
         self.mb_skill_chance = 0
+        self.icon_memory_now = self.active_enemy.texture
+        if not self.stages == 0:
+            self.icon_memory_next = level.enemies[self.stage + 1].texture
+        else:
+            self.icon_memory_next = None
     
     def make_player(self, player):
         self.player_copy = player
@@ -129,9 +134,23 @@ class Battle_info():
     def blit_player(self, screen):
         screen.blit(self.player_texture_copy, (180, 285))
         
+    def blit_player_icon(self, screen):
+        icon = pg.transform.scale(self.player_texture_copy, (30,86))
+        width, height = icon.get_size()
+        screen.blit(icon, (108 - (width / 2), 820 - (height / 2)))
+        
     def blit_enemy(self, screen):
         if not self.active_enemy == None:
             screen.blit(self.active_enemy.texture, (1020 - self.active_enemy.width, 663 - self.active_enemy.height))
+            
+    def blit_enemy_icon(self, screen):
+        icon_now = pg.transform.scale(self.icon_memory_now, ((self.icon_memory_now.get_size()[0] / 9) * 2, (self.icon_memory_now.get_size()[1] / 9) * 2))
+        width, height = icon_now.get_size()
+        screen.blit(icon_now, (1088 - (width / 2), 80 - (height / 2)))
+        if not self.icon_memory_next == None:
+            icon_next = pg.transform.scale(self.icon_memory_next, ((self.icon_memory_next.get_size()[0] / 9) * 2, (self.icon_memory_next.get_size()[1] / 9) * 2))
+            width, height = icon_next.get_size()
+            screen.blit(icon_next, (284 - (width / 2), 80 - (height / 2)))
         
     def fight(self):
         # Útok hráče
@@ -284,7 +303,10 @@ class Battle_info():
                 t.update(str(self.enemy_hp_copy) + "/" + str(self.enemy_max_hp), None)
         pg.draw.rect(screen, self.hp_background_color, (765, 35, self.bar_width, 44))
         pg.draw.rect(screen, self.hp_color, (765,35,(self.bar_width * (self.enemy_hp_copy / self.enemy_max_hp)),44))
-        # HP a mana bar hráče
+        
+        pg.draw.rect(screen, self.mana_background_color, (765, 80, self.bar_width, 44))
+        
+        # HP a mana bar hráčes
         for t in text_class.texts:
             if t.id == "p_hp":
                 t.update(str(self.player_hp_copy) + "/" + str(self.player_max_hp), None)
@@ -401,7 +423,7 @@ stone_lord = Mini_boss("Stone lord", pg.image.load(DATA_ROOT + "/data/textures/c
 ice_lord = Mini_boss("Ice lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/gnome.png"), 100, 10, 35, skill_class.skills[3])
 # Zařazení nepřátel do levelu
 levels[0].get_enemies([slime])
-levels[1].get_enemies([zombie])
+levels[1].get_enemies([zombie, slime])
 levels[2].get_enemies([zombie])
 levels[3].get_enemies([zombie])
 levels[4].get_enemies([zombie])
