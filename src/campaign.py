@@ -112,7 +112,7 @@ class Battle_info():
             d.duration_e = 0
         self.mb_skill_chance = 0
         self.icon_memory_now = self.active_enemy.texture
-        if not self.stages == 0:
+        if not self.stages == self.stage:
             self.icon_memory_next = level.enemies[self.stage + 1].texture
         else:
             self.icon_memory_next = None
@@ -225,6 +225,11 @@ class Battle_info():
                 self.enemy_effects = {"damage_ef" : 0, "defense_ef" : 0}
                 for d in debuff_class.debuffs:
                     d.duration_e = 0
+                self.icon_memory_now = self.active_enemy.texture
+                if not self.stages == self.stage:
+                    self.icon_memory_next = self.level.enemies[self.stage + 1].texture
+                else:
+                    self.icon_memory_next = None
             else:
                 self.pause_battle()
                 for table in on__screen.tables:
