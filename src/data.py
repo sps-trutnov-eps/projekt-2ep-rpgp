@@ -30,7 +30,7 @@ class player():
             self.xp -= self.xp_req
             self.level += 1
             self.stat_point += 1
-            self.xp_req += int(self.xp_req / 8)
+            self.xp_req += int(self.xp_req / 7)
             new_lvl = True
         return new_lvl
         

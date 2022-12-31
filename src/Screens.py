@@ -168,6 +168,13 @@ frozen_tooltip = tooltip((340,570,130,40), "Frozen!", "For the duration of the d
 poisoned_tooltip = tooltip((530,480,160,40), "Poisoned!", "Deals X damage per second and\nlowers attack damage and defense by X %\nfor the duration of the debuff.", ["Skill board"],"top_right",True, poison_dart.shown)
 shocked_tooltip = tooltip((345,525,150,35), "Shocked!", "Lowers attack damage by X % for\nthe duration of the debuff.", ["Skill board"],"top_right",True, lightning_bolt.shown)
 
+# Debuff tooltipy v bitvě
+#fire = tooltip()
+#wet = tooltip()
+#frozen = tooltip()
+#poisoned = tooltip()
+#shocked = tooltip()
+
 class table():
     def __init__(self, name):
         on__screen.tables.append(self)
