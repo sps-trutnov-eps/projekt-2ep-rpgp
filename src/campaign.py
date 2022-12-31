@@ -425,11 +425,11 @@ for i in range(1,21):
 levels[0].unlocked = True
 
 # Nepřátelé
-slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/slime.png"), 30, 5, 0)
+slime = Enemy("Slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/slime.png"), 30, 5, 10)
 zombie = Enemy("Zombie", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/zombie.png"), 60, 10, 20)
 skeleton = Enemy("Skeleton", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/skeleton.png"), 70, 15, 0)
-fire_slime = Enemy("Fire slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/fire_slime.png"), 50, 16, 0)
-goblin = Enemy("Goblin", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/goblin.png"), 80, 18, 4)
+fire_slime = Enemy("Fire slime", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/fire_slime.png"), 50, 16, 10)
+goblin = Enemy("Goblin", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/goblin.png"), 80, 18, 15)
 ogre = Enemy("Orge", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/ogre.png"), 300, 18, 10)
 # Mini bossové
 death_lord = Mini_boss("Death lord", pg.image.load(DATA_ROOT + "/data/textures/characters/enemy/reaper.png"), 500, 10, 20, skill_class.skills[6])
