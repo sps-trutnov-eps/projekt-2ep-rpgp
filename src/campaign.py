@@ -41,6 +41,8 @@ class Counter():
                 text = str(self.number)
                 if self.number % 5 == 0:
                     surf = self.font.render(text, True, (190,20,20))
+                elif levels[self.number - 1].completed:
+                    surf = self.font.render(text, True, (40,100,15))
                 else:
                     surf = self.font.render(text, True, (30,30,30))
                 width = self.font.size(text)[0]
@@ -259,9 +261,9 @@ class Battle_info():
             xp_gain = int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 25)))
             player.xp += xp_gain
         else:
-            gold_gain = int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / (25 - 40))))
+            gold_gain = int(levels[counter.number - 1].gold_reward * (1 + (player.luck_stat / 25) - 0.5))
             player.gold += gold_gain
-            xp_gain = int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / (25 - 60))))
+            xp_gain = int(levels[counter.number - 1].xp_reward * (1 + (player.int_stat / 25) - 0.6))
             player.xp += xp_gain
         next_level = player.calculate_level()
         
