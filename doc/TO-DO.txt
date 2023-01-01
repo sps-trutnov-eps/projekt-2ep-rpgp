@@ -1,10 +1,10 @@
 Nesplněno:
 * Vykreslování informací v bitvě
-* Update textů po prohrané bitvě
 * Tooltipy
 * Texty nad skillama v bitvě
 
 Splněno:
+* Update textů po prohrané bitvě
 * Jedno kolo -> tah hráče a i nepřítele
 * Ikonka pro množství lektvarů
 * Uložení skillů + MNOHA DALŠÍCH VĚCÍ

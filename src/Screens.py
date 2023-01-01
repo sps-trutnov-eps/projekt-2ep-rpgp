@@ -432,11 +432,12 @@ class Button():
                     on__screen.active_table = "Close"
                 
     def end_battle(self):
+        self.update_texts()
         on__screen.battle = False
         self.change_screen("Campaign", on__screen)
         text_class.texts.pop()
         
-    def win_battle(self):
+    def update_texts(self):
         # Update textů
         index_stat = text_class.texts.index(stat_point_value)
         text_class.texts[index_stat].update(str(player.stat_point), None)
@@ -453,6 +454,7 @@ class Button():
         index_mana_p = text_class.texts.index(mana_p)
         text_class.texts[index_mana_p].update(": " + str(player.inventory["mana_potion"]), None)
         
+    def win_battle(self):
         # Odemknutí dalšího levelu
         levels[counter.number].unlocked = True
         levels[counter.number - 1].completed = True
