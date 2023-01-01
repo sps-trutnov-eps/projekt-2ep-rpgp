@@ -191,7 +191,7 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc):
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show(": 10", pressed, screen, (200,200,200))
+        tt.show("You", pressed, screen, (190,20,20))
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:

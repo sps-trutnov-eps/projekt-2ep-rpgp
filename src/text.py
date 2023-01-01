@@ -116,7 +116,7 @@ dark_colour = (30,30,30)
 dark_red = (190,20,20)
 black = (0,0,0)
 white = (255,255,255)
-cooldown_color = (220,100,220)
+cooldown_colour = (220,100,220)
 golden = (240,200,60)
 skill_colour = (60,200,240)
 
@@ -163,9 +163,9 @@ text_class.counter_texts = [
                     health_p_counter,
                     mana_p_counter
                             ]
-cooldown_text1 = text(["Battle"], "0", (749,825), pg.font.Font(def_link, heading1_size), cooldown_color)
-cooldown_text2 = text(["Battle"], "0", (837,825), pg.font.Font(def_link, heading1_size), cooldown_color)
-cooldown_text3 = text(["Battle"], "0", (925,825), pg.font.Font(def_link, heading1_size), cooldown_color)
+cooldown_text1 = text(["Battle"], "0", (749,825), pg.font.Font(def_link, heading1_size), cooldown_colour)
+cooldown_text2 = text(["Battle"], "0", (837,825), pg.font.Font(def_link, heading1_size), cooldown_colour)
+cooldown_text3 = text(["Battle"], "0", (925,825), pg.font.Font(def_link, heading1_size), cooldown_colour)
 text_class.cooldown_texts = [
                     cooldown_text1,
                     cooldown_text2,
@@ -173,6 +173,13 @@ text_class.cooldown_texts = [
                             ]
 for t in text_class.cooldown_texts:
     t.show = False
+    
+skill_number_1 = text(["Battle"], "1", (748,764), pg.font.Font(def_link, message_size), dark_colour)
+skill_number_2 = text(["Battle"], "2", (836,764), pg.font.Font(def_link, message_size), dark_colour)
+skill_number_3 = text(["Battle"], "3", (924,764), pg.font.Font(def_link, message_size), dark_colour)
+#player_caption
+#enemy_caption
+#next_enemy
     
 # Texty po bitvě
 death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, heading0_size), def_colour)
