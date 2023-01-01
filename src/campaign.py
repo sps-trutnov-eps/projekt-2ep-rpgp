@@ -104,6 +104,7 @@ class Battle_info():
         for s in player.equipped_skills:
             if not s == None:
                 s.momental_cooldown = 0
+        self.cooldown_tick = True
         
     def get_info(self, level):
         self.level = level
@@ -242,10 +243,14 @@ class Battle_info():
                         on__screen.active_table = table
                 button_class, small_xp_bar = self.rewards(button_class, small_xp_bar)
         
-        for s in player.equipped_skills:
-            if not s == None:
-                if s.momental_cooldown > 0:
-                    s.momental_cooldown -= 1
+        if self.cooldown_tick:
+            self.cooldown_tick = False
+            for s in player.equipped_skills:
+                if not s == None:
+                    if s.momental_cooldown > 0:
+                        s.momental_cooldown -= 1
+        else:
+            self.cooldown_tick = True
         
         return button_class, small_xp_bar
     
