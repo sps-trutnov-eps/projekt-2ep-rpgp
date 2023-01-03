@@ -186,23 +186,11 @@ def init_items(role):
             ]
     
     ### BRNĚNÍ ###
-    armor_name_1 = "Leather Padding"
-    armor_name_2 = "Sturdy Shield"
-    armor_name_3 = "Iron Armor"
-    armor_name_4 = "Golden Armor"
-    armor_name_5 = "ARMOR 5"
-    
-    armor_desc_1 = "Tough leather padding and hat."
-    armor_desc_2 = "A fairly big shield\nthat can block some blows."
-    armor_desc_3 = "Thonny Stank built\nthis in a cave."
-    armor_desc_4 = "This is one very glorious,\nvery shiny set of armor."
-    armor_desc_5 = "armor desc 5"
-    
-    armor_1 = item(armor_name_1, armor_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/armors/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [40,None,5,None,None,2],"armor_1")
-    armor_2 = item(armor_name_2, armor_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/armors/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [120,None,10,None,None,5],"armor_2")
-    armor_3 = item(armor_name_3, armor_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/armors/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [350,None,15,None,None,8],"armor_3")
-    armor_4 = item(armor_name_4, armor_desc_4, pg.image.load(DATA_ROOT + "/data/textures/items/armors/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [600,None,25,None,None,15],"armor_4")
-    armor_5 = item(armor_name_5, armor_desc_5, pg.image.load(DATA_ROOT + "/data/textures/items/armors/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [850,None,50,None,None,20],"armor_5")
+    armor_1 = item("Leather Padding", "Tough leather padding and hat.", pg.image.load(DATA_ROOT + "/data/textures/items/armors/1.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [40,None,5,None,None,2],"armor_1")
+    armor_2 = item("Sturdy Shield", "A fairly big shield\nthat can block some blows.", pg.image.load(DATA_ROOT + "/data/textures/items/armors/2.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [120,None,10,None,None,5],"armor_2")
+    armor_3 = item("Iron Armor", "Thonny Stank built\nthis in a cave.", pg.image.load(DATA_ROOT + "/data/textures/items/armors/3.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [350,None,15,None,None,8],"armor_3")
+    armor_4 = item("Golden Armor", "This is one very glorious,\nvery shiny set of armor.", pg.image.load(DATA_ROOT + "/data/textures/items/armors/4.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [600,None,25,None,None,15],"armor_4")
+    armor_5 = item("ARMOR 5", "armor desc 5", pg.image.load(DATA_ROOT + "/data/textures/items/armors/5.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Armor board", False, [850,None,50,None,None,20],"armor_5")
     
     item_class.armors = [
         armor_1,
@@ -213,19 +201,11 @@ def init_items(role):
         ]
     
     ### MISC ITEMY ###
-    scroll_name_1 = "Vitriolic scroll"
-    scroll_name_2 = "Tempestous scroll"
-    scroll_name_3 = "Rancid scroll"
-    
-    scroll_desc_1 = "Your eyes begin to water\njust in the presence of it."
-    scroll_desc_2 = "Sometimes it flashes and makes your\nmuscles twitch when touched."
-    scroll_desc_3 = "It gives off a musty smell with\na bit of the essence of death."
-    
     potion_healing = item("Healing potion", "A round bottle filled\nwith a strange red liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/healing_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,2],"healing_potion")
     potion_mana = item("Mana potion", "A small bottle full of\nblue shimmering liquid.", pg.image.load(DATA_ROOT + "/data/textures/items/mana_potion.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [50,None,None,1,None,8],"mana_potion")
-    skill_scroll_1 = item(scroll_name_1, scroll_desc_1, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [750,None,None,1,None,8],"skill_1")
-    skill_scroll_2 = item(scroll_name_2, scroll_desc_2, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1000,None,None,1,None,12],"skill_2")
-    skill_scroll_3 = item(scroll_name_3, scroll_desc_3, pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_death.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1200,None,None,1,None,15],"skill_3")
+    skill_scroll_1 = item("The scroll of tears", "It is suspiciously wet and\nseems to be dripping water.", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_water.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [600,None,None,1,None,8],"skill_1")
+    skill_scroll_2 = item("Vitriolic scroll", "Your eyes begin to water\njust in the presence of it.", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_poison.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1000,None,None,1,None,12],"skill_2")
+    skill_scroll_3 = item("Tempestous scroll", "Sometimes it flashes and makes your\nmuscles twitch when touched.", pg.image.load(DATA_ROOT + "/data/textures/items/scrolls/scroll_lightning.png"),((resolution[0]/4) - 96, (resolution[1]/2) - 225),"Item board", False, [1200,None,None,1,None,15],"skill_3")
     
     item_class.misc_items = [
         potion_healing,
