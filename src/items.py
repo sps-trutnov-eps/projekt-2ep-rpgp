@@ -133,15 +133,15 @@ def init_items(role):
         weapon_desc_5_type_2 = "The Waraxe of the\nlegendary dwarf warrior\nVorneag Grimbow."
         
         
-        weapon_name_1_type_3 = "Wooden Mallet"
-        weapon_name_2_type_3 = "Steel Hammer"
-        weapon_name_3_type_3 = "Spiked Mace"
+        weapon_name_1_type_3 = "Boomerang"
+        weapon_name_2_type_3 = "Steel Shuriken"
+        weapon_name_3_type_3 = "Kunai"
         weapon_name_4_type_3 = "Metal Flail"
         weapon_name_5_type_3 = "Thor's Mjölnir"
         
-        weapon_desc_1_type_3 = "A wooden simple wooden\nmallet made from a stick\nand a piece of wood."
-        weapon_desc_2_type_3 = "A solid hammer made\nof cast steel."
-        weapon_desc_3_type_3 = "A spiked mace on a stick."
+        weapon_desc_1_type_3 = "Surprisingly, it doesn't return."
+        weapon_desc_2_type_3 = "Be a proper ninja with\nthis iconic throwing weapon!"
+        weapon_desc_3_type_3 = "Now this is next-level ninja gear."
         weapon_desc_4_type_3 = "A spiky metal ball\non a chain."
         weapon_desc_5_type_3 = "The mythical hammer\nof the norse god\nof thunder, Thor."
 
