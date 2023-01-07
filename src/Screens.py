@@ -685,7 +685,7 @@ class Button():
                 # Skill scrolly #
                 if active_item.id == "skill_1":
                     for i in skill_class.skills:
-                        if i.name == "Poison Dart":
+                        if i.name == "Water Blast":
                             if not i in player.skills:
                                 player.skills.append(i)
                                 index = len(player.skills) - 1
@@ -695,7 +695,7 @@ class Button():
                                 
                 if active_item.id == "skill_2":
                     for i in skill_class.skills:
-                        if i.name == "Lightning Bolt":
+                        if i.name == "Poison Dart":
                             if not i in player.skills:
                                 player.skills.append(i)
                                 index = len(player.skills) - 1
@@ -705,7 +705,7 @@ class Button():
                                         
                 if active_item.id == "skill_3":
                     for i in skill_class.skills:
-                        if i.name == "Life Steal":
+                        if i.name == "Lightning Bolt":
                             if not i in player.skills:
                                 player.skills.append(i)
                                 index = len(player.skills) - 1
@@ -923,7 +923,7 @@ class blit_object():
     def check_active_item(self, screen):
         for it in item_class.all_items:
             for i in it:
-                if (i.shown and not self.position == (330,700)) or (i.shown and not i.name in ["Vitriolic scroll", "Tempestous scroll", "Rancid scroll"] and not (i.name == "Healing potion" and self.id == "mq") and not (i.name == "Mana potion" and self.id == "hq")):
+                if (i.shown and not self.position == (330,700)) or (i.shown and not i.name in ["Vitriolic scroll", "Tempestous scroll", "The scroll of tears"] and not (i.name == "Healing potion" and self.id == "mq") and not (i.name == "Mana potion" and self.id == "hq")):
                     screen.blit(self.texture, self.position)
     
     def get_condition(self, condition):
