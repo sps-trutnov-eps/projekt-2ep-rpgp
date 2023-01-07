@@ -16,10 +16,11 @@ class text_cl():
     def __init__(self):
         self.texts = []
         self.messages = []
+        self.text_walls = []
         
     def texts_bundling(self):
         self.all = []
-        self.all = self.texts + self.messages
+        self.all = self.texts + self.messages + self.text_walls
         
     def hide_messages(self):
         for m in self.messages:
@@ -78,7 +79,53 @@ class text():
         self.text = new_text
         if not new_pos == None:
             self.position = new_pos
-            
+     
+class text_wall():
+    def __init__(self, belonging, close, text, font, colour):
+        text_class.text_walls.append(self)
+        self.belonging = belonging
+        self.text = text
+        self.font = font
+        self.colour = colour
+        self.size = self.font.size(self.text)
+        if close:
+            self.start_point = 225
+        else:
+            self.start_point = 145
+        
+    def blit_self(self, screen, on_screen):
+        if not on_screen.active_screen == "Exit":
+            if not on_screen.active_table == "Close":
+                if on_screen.active_table.name in self.belonging:
+                    text_list = []
+                    y_list = []
+                    i = 0
+                    
+                    for line in self.text.split("\n"):
+                        text_line = self.font.render(line, True, self.colour)
+                        text_list.append(text_line)
+                        y = self.start_point + i * (self.size[1] + 10)
+                        y_list.append(y)
+                        i += 1
+                        
+                    for j in range(i):
+                        line_width = text_list[j].get_width()
+                        screen.blit(text_list[j], (600 - (line_width / 2), y_list[j]))
+                        
+            elif on_screen.active_screen.name in self.belonging:
+                text_list = []
+                y_list = []
+                i = 0
+                
+                for line in self.text.split("\n"):
+                    text_line = self.font.render(line, True, self.colour)
+                    text_list.append(text_line)
+                    y = 225 + i * (self.size[1] + 10)
+                    i += 1
+                    
+                for j in range(i):
+                    screen.blit(text_list[j], (600 - (text_list[j].get_width / 2)))
+     
 class message():
     def __init__(self, name, belonging, text, pos, font, colour):
         text_class.messages.append(self)
@@ -232,5 +279,8 @@ xp_value = text(["Profile"], "XP: " + str(player.xp) + " / " + str(player.xp_req
 profile = text(["Game menu"], "PROFILE", (145,520), pg.font.Font(def_link, settings_size),def_colour)
 campaign = text(["Game menu"], "CAMPAIGN", (600,530), pg.font.Font(def_link, settings_size),def_colour)
 shop = text(["Game menu"], "SHOP", (990, 520), pg.font.Font(def_link, settings_size),def_colour)
+
+# Tutoriály
+intro = text_wall(["Tutorial table"], True, "So here we have some\nfirst experimental\n \n text you know", pg.font.Font(def_link,settings_size), def_colour)
 
 text_class.texts_bundling()
