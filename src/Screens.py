@@ -1107,7 +1107,7 @@ shop_potion_quantity_mana.show = False
 
 # Tlačítka pro změnu obrazovky
 exit_b = Button(["Main menu"], (806,726), None, 187, 92, [["change_screen", "Exit"]], False, None, False, None)
-continue_b = Button(["Main menu"], (733, 431), None, 334, 88, [["load"],["skip_tutorials"]] False, None)
+continue_b = Button(["Main menu"], (733, 431), None, 334, 88, [["load"],["skip_tutorials"]], False, None, False, None)
 warrior_class_b = Button(["New game table"], (230, 400), None, 180, 220, [["change_role", "warrior"], ["change_screen", "Game menu"], ["change_table", "Tutorial table 1"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/warrior_class_icon.png"), True, None)
 ranger_class_b = Button(["New game table"], (510, 400), None, 180, 220, [["change_role", "ranger"], ["change_screen", "Game menu"], ["change_table", "Tutorial table 1"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/ranger_class_icon.png"), True, None)
 mage_class_b = Button(["New game table"], (790, 400), None, 180, 220, [["change_role", "mage"], ["change_screen", "Game menu"], ["change_table", "Tutorial table 1"], ["create_items"], ["delete_save"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/mage_class_icon.png"), True, None)
