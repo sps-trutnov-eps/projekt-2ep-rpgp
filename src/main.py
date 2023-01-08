@@ -33,6 +33,7 @@ bt_acc = True
 tt_acc = True
 pt_acc = True
 sg_acc = True
+gg_acc = True
 
 def blit_background():
     if not on__screen.active_screen.backbackground == None:
@@ -112,7 +113,7 @@ def blit_tooltips():
             tooltip.draw_tooltip(m_pos, screen, on__screen)
             
 def blit_xp_bar():
-    if not on__screen.active_screen == "Exit":
+    if not on__screen.active_screen == "Exit" and on__screen.active_table == "Close":
         if on__screen.active_screen.name == "Profile":
             xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
         if not on__screen.active_table == "Close":
@@ -120,7 +121,7 @@ def blit_xp_bar():
                 small_xp_bar.draw_bar(screen, player.xp, player.level, player.xp_req)
                 
 def blit_stat_bar():
-    if not on__screen.active_screen == "Exit":
+    if not on__screen.active_screen == "Exit" and on__screen.active_table == "Close":
         if on__screen.active_screen.name == "Profile":
                health_stat_bar.draw_stat_bar(screen, player.hp_stat, 0)
                mana_stat_bar.draw_stat_bar(screen, player.mana_stat, 1)
@@ -191,7 +192,7 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc):
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("You", pressed, screen, (190,20,20))
+        tt.show("Skip tutorials", pressed, screen, (200,200,200))
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
@@ -214,6 +215,12 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc):
             pass
         else:
             sg_acc = True
+            
+        if pressed[pg.K_o]:
+            player.gold += 100
+            
+        if pressed[pg.K_p]:
+            player.level += 1
             
         return devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc
     

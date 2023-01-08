@@ -281,6 +281,8 @@ campaign = text(["Game menu"], "CAMPAIGN", (600,530), pg.font.Font(def_link, set
 shop = text(["Game menu"], "SHOP", (990, 520), pg.font.Font(def_link, settings_size),def_colour)
 
 # Tutoriály
-intro = text_wall(["Tutorial table"], True, "So here we have some\nfirst experimental\n \n text you know", pg.font.Font(def_link,settings_size), def_colour)
+skip_tut = text(["Tutorial table 1"], "Skip tutorials", (280, 720), pg.font.Font(def_link, settings_size),def_colour)
+next_t = text(["Tutorial table 1"], "Next", (960, 720), pg.font.Font(def_link, settings_size),def_colour)
+intro = text_wall(["Tutorial table 1"], False, "You were living your original life but one day everything changed.\n\nYou find yourself standing in\nTHE WORLD OF GENERICITY.\n\nHow did this happen? Maybe a better question would be how to get out.\nNot like the first question is stupid but I have not figured that part\nof strory out yet.\n\nTo escape this world you have to utilise your knowledge of cheap RPG games.", pg.font.Font(def_link,regular_size), def_colour)
 
 text_class.texts_bundling()
