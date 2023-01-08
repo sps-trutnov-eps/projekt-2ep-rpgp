@@ -84,7 +84,7 @@ class tooltip():
     def draw_tooltip(self, mouse_pos, screen, on__screen):
         if self.condition_met == True:
             if not on__screen.active_screen == "Exit":
-                if on__screen.active_screen.name in self.belonging and self.show:
+                if on__screen.active_screen.name in self.belonging and self.show and on__screen.active_table == "Close":
                     pg.font.init()
                     
                     name_size = 40
@@ -151,8 +151,8 @@ class tooltip():
                     
 health_stat_tooltip = tooltip((700,170,64,64), "Maximum health", "Each point of this stat increases\nmaximum health by 20.", ["Profile"],"bottom_left",False, None)
 mana_stat_tooltip = tooltip((700,254,64,64), "Maximum mana", "Each point of this stat increases\nmaximum mana by 20.", ["Profile"],"bottom_left",False, None)
-int_stat_tooltip = tooltip((700,338,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"top_left",False, None)
-luck_stat_tooltip = tooltip((700,422,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"top_left",False, None)
+int_stat_tooltip = tooltip((700,338,64,64), "Intelligence", "Each point of this stat increases\nthe experience reward for each campaign level.", ["Profile"],"bottom_left",False, None)
+luck_stat_tooltip = tooltip((700,422,64,64), "Luck", "Each point of this stat increases\nthe gold reward for each campaign level.", ["Profile"],"bottom_left",False, None)
 stat_point_tooltip = tooltip((800,506,64,64),"Stat Point", "With every level up you gain\na stat point which you can\nuse to upgrade your stats.", ["Profile"], "top_left", False, None)
 cost_tooltip = tooltip((60,640,54,54), "Item cost", "Cost of the item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
 level_tooltip = tooltip((60,700,54,54), "Item level", "Level needed to buy item", ["Weapon board", "Armor board", "Item board"],"top_right",False, None)
@@ -167,6 +167,12 @@ wet_tooltip = tooltip((860,535,75,35), "Wet!", "Lowers defense by X % for\nthe d
 frozen_tooltip = tooltip((340,570,130,40), "Frozen!", "For the duration of the debuff\nthere is an X % chance to\nfreeze completely every round.", ["Skill board"],"top_right",True, ice_storm.shown)
 poisoned_tooltip = tooltip((530,480,160,40), "Poisoned!", "Deals X damage per second and\nlowers attack damage and defense by X %\nfor the duration of the debuff.", ["Skill board"],"top_right",True, poison_dart.shown)
 shocked_tooltip = tooltip((345,525,150,35), "Shocked!", "Lowers attack damage by X % for\nthe duration of the debuff.", ["Skill board"],"top_right",True, lightning_bolt.shown)
+
+# Tooltipy v obchodě
+weapons = tooltip((731,245,221,267), "Weapons", "---", ["Shop"],"bottom_left",False,None)
+armor = tooltip((239,240,232,126), "Armor", "---", ["Shop"],"bottom_right",False,None)
+misc = tooltip((248,395,224,105), "Misc items", "---", ["Shop"],"top_right",False,None)
+shopkeep = tooltip((561,293,93,95), "Hello there player", "Willing to make a deal?",["Shop"],"bottom_right",False,None)
 
 # Debuff tooltipy v bitvě
 #fire = tooltip()
@@ -369,7 +375,7 @@ class Button():
             if task[0] == "change_tasks":
                 self.change_tasks(task[1])
             if task[0] == "skip_tutorials":
-                self.skil_tutorials()
+                self.skip_tutorials()
         
     def change_tasks(self, new_tasks):
         self.tasks = new_tasks
