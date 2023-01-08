@@ -168,11 +168,12 @@ frozen_tooltip = tooltip((340,570,130,40), "Frozen!", "For the duration of the d
 poisoned_tooltip = tooltip((530,480,160,40), "Poisoned!", "Deals X damage per second and\nlowers attack damage and defense by X %\nfor the duration of the debuff.", ["Skill board"],"top_right",True, poison_dart.shown)
 shocked_tooltip = tooltip((345,525,150,35), "Shocked!", "Lowers attack damage by X % for\nthe duration of the debuff.", ["Skill board"],"top_right",True, lightning_bolt.shown)
 
-# Tooltipy v obchodě
+# Tooltipy nedůležité
 weapons = tooltip((731,245,221,267), "Weapons", "---", ["Shop"],"bottom_left",False,None)
 armor = tooltip((239,240,232,126), "Armor", "---", ["Shop"],"bottom_right",False,None)
 misc = tooltip((248,395,224,105), "Misc items", "---", ["Shop"],"top_right",False,None)
 shopkeep = tooltip((561,293,93,95), "Hello there player", "Willing to make a deal?",["Shop"],"bottom_right",False,None)
+portal = tooltip((588,288,38,38), "Portal to the original world", "Goal of your journey",["Game menu"],"top_right",False,None)
 
 # Debuff tooltipy v bitvě
 #fire = tooltip()
@@ -475,6 +476,7 @@ class Button():
         self.end_battle()
     
     def continue_battle(self):
+        levels[counter.number - 1].completed = True
         levels[counter.number].unlocked = True
         counter.number += 1
         self.restart_battle(on__screen)
