@@ -175,34 +175,35 @@ class Battle_info():
             self.awaiting_skill = None
         # Útok nepřítele
         else:
-            used_skill = False
-            if self.active_enemy.id == "mini_boss":
-                if self.mb_skill_chance > 1:
-                    r = random.randint(2, 12)
-                    if self.mb_skill_chance > r:
-                        self.active_enemy.skill.skill_used("enemy", battle_info)
-                        self.mb_skill_chance = 0
-                        used_skill = True
+            if not self.enemy_hp_copy <= 0:
+                used_skill = False
+                if self.active_enemy.id == "mini_boss":
+                    if self.mb_skill_chance > 1:
+                        r = random.randint(2, 12)
+                        if self.mb_skill_chance > r:
+                            self.active_enemy.skill.skill_used("enemy", battle_info)
+                            self.mb_skill_chance = 0
+                            used_skill = True
+                        else:
+                            self.mb_skill_chance += 1
                     else:
                         self.mb_skill_chance += 1
-                else:
-                    self.mb_skill_chance += 1
-            
-            if not used_skill:
-                if self.player_copy.armor == None:
-                    damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 + self.player_effects["defense_ef"]) / 100)
-                    damage = round(damage)
-                    if damage >= 0:
-                        self.player_hp_copy -= damage
+                
+                if not used_skill:
+                    if self.player_copy.armor == None:
+                        damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 + self.player_effects["defense_ef"]) / 100)
+                        damage = round(damage)
+                        if damage >= 0:
+                            self.player_hp_copy -= damage
+                        else:
+                            pass
                     else:
-                        pass
-                else:
-                    damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
-                    damage = round(damage)
-                    if damage >= 0:
-                        self.player_hp_copy -= damage
-                    else:
-                        pass
+                        damage = (self.active_enemy.damage * ((100 - self.enemy_effects["damage_ef"]) / 100)) * ((100 - self.player_copy.armor.armor + self.player_effects["defense_ef"]) / 100)
+                        damage = round(damage)
+                        if damage >= 0:
+                            self.player_hp_copy -= damage
+                        else:
+                            pass
             self.player_turn = True
             
     def pause_battle(self):

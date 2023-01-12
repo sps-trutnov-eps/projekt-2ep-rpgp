@@ -560,7 +560,8 @@ class Button():
             for l in levels:
                 if l.number <= int(d_l[9]):
                     l.unlocked = True
-                    levels[l.number - 1].completed = True
+                    if not l.number == 1:
+                        levels[l.number - 2].completed = True
             player.hp_stat = int(d_l[10])
             player.mana_stat = int(d_l[11])
             player.int_stat = int(d_l[12])
@@ -610,13 +611,13 @@ class Button():
             index_mana_p = text_class.texts.index(mana_p)
             text_class.texts[index_mana_p].update(str(player.inventory["mana_potion"]), None)
             index_hp = text_class.texts.index(hp_stat_value)
-            text_class.texts[index_hp].update(str(player.hp_stat + "/10"), None)
+            text_class.texts[index_hp].update(str(player.hp_stat) + "/10", None)
             index_mana = text_class.texts.index(mana_stat_value)
-            text_class.texts[index_mana].update(str(player.mana_stat + "/10"), None)
+            text_class.texts[index_mana].update(str(player.mana_stat) + "/10", None)
             index_int = text_class.texts.index(int_stat_value)
-            text_class.texts[index_int].update(str(player.int_stat + "/10"), None)
+            text_class.texts[index_int].update(str(player.int_stat) + "/10", None)
             index_luck = text_class.texts.index(luck_stat_value)
-            text_class.texts[index_luck].update(str(player.luck_stat + "/10"), None)
+            text_class.texts[index_luck].update(str(player.luck_stat) + "/10", None)
             index_xp_name = text_class.texts.index(xp_name)
             text_class.texts[index_xp_name].update("LEVEL: " + str(player.level), None)
             index_xp_value = text_class.texts.index(xp_value)
