@@ -192,7 +192,7 @@ def work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc):
         tt.change(pressed)
         
         # Vypisování a vykreslení výsledků Text_tool
-        tt.show("Skip tutorials", pressed, screen, (200,200,200))
+        tt.show("Go touch some grass", pressed, screen, (200,200,200))
         
         # Aktivace/Deaktivace Text_tool
         if pressed[pg.K_t] and tt_acc:
@@ -278,7 +278,7 @@ while True:
     update_tooltips()
 
     if pressed[pg.K_a]:
-        print(player.skills)
+        Button.change_table(button_class.buttons[0], "End table", on__screen)
         
     # BITVA
     if on__screen.battle == True:
@@ -334,9 +334,6 @@ while True:
             else:
                 round_time = 0
                 affects_time = 0
-            
-            if pressed[pg.K_a]:
-                print(text_class.cooldown_texts)
             
             devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc = work_devmode(devmode, dev_shortcut, bt_acc, tt_acc, pt_acc, sg_acc)
             

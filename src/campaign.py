@@ -239,9 +239,14 @@ class Battle_info():
                     self.icon_memory_next = None
             else:
                 self.pause_battle()
-                for table in on__screen.tables:
-                    if table.name == "Win table":
-                        on__screen.active_table = table
+                if not self.level.number == 20:
+                    for table in on__screen.tables:
+                        if table.name == "Win table":
+                            on__screen.active_table = table
+                else:
+                    for table in on__screen.tables:
+                        if table.name == "Final win table":
+                            on__screen.active_table = table
                 button_class, small_xp_bar = self.rewards(button_class, small_xp_bar)
         
         if self.cooldown_tick:

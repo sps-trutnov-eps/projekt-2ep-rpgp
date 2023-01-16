@@ -451,6 +451,13 @@ class Button():
         self.change_screen("Campaign", on__screen)
         text_class.texts.pop()
         
+    def win_game(self):
+        self.update_texts()
+        on__screen.battle = False
+        self.change_screen("Game menu", on__screen)
+        self.change_table("End table", on__screen)
+        text_class.texts.pop()
+        
     def update_texts(self):
         # Update textů
         index_stat = text_class.texts.index(stat_point_value)
@@ -470,10 +477,14 @@ class Button():
         
     def win_battle(self):
         # Odemknutí dalšího levelu
-        levels[counter.number].unlocked = True
-        levels[counter.number - 1].completed = True
-        counter.number += 1
-        self.end_battle()
+        if not levels[counter.number - 1].number == 20:
+            levels[counter.number].unlocked = True
+            levels[counter.number - 1].completed = True
+            counter.number += 1
+            self.end_battle()
+        else:
+            levels[counter.number - 1].completed = True
+            self.win_game()
     
     def continue_battle(self):
         levels[counter.number - 1].completed = True
@@ -1130,7 +1141,7 @@ battle_pause_b = Button(["Battle"], (100,30), (30,30,30,180), 64, 64, [["change_
 leave_battle_b = Button(["Pause table", "Death table"], (320,500), (30,30,30,180), 260, 85, [["end_battle"]], "r", None, False, None)
 stay_battle_b = Button(["Pause table"], (620, 500), (30,30,30,180), 260, 85, [["change_table", "Close"],["unpause_battle"]], "r", None, False, None)
 retry_battle_b = Button(["Death table"], (620, 500), (30,30,30,180), 260, 85, [["restart_battle"]], "r", None, False, None)
-completed_battle_b = Button(["Win table"], (320,680), (30,30,30,180), 260, 85, [["win_battle"]], "r", None, False, None)
+completed_battle_b = Button(["Win table", "Final win talbe"], (320,680), (30,30,30,180), 260, 85, [["win_battle"]], "r", None, False, None)
 continue_battle_b = Button(["Win table"], (620,680), (30,30,30,180), 260, 85, [["continue_battle"]], "r", None, False, None)
 
 shop_back_b = Button(["Weapon board", "Armor board", "Item board"], (30,30), (30,30,30,180), 64, 64, [["change_screen", "Shop"]], "c", pg.image.load(DATA_ROOT + "/data/textures/icons/back_icon.png"), False, None)
@@ -1185,6 +1196,8 @@ game_b = Button(["Game menu"], (30,30), (30,30,30,180), 64, 64, [["change_table"
 skip = Button(["Tutorial table 1"], (140,680), (30,30,30,180), 280, 80, [["skip_tutorials"], ["change_table", "Close"]], "r", None, False, None)
 next1 = Button(["Tutorial table 1"], (860,680), (30,30,30,180), 200, 80, [["change_table", "Tutorial table 2"]], "r", None, False, None)
 
+end_b = Button(["End table"], (400, 670), (30,30,30,180), 400, 80, [["zatím nic"]], "r", None, False, None)
+
 close_b = Button(["New game table", "Settings table", "Credits table", "Game table", "Tutorial table 2", "Profile tutorial table", "Shop tutorial table", "Campaign tutorial table"], (1000,125), None, 64, 64, [["change_table", "Close"]], False, pg.image.load(DATA_ROOT + "/data/textures/icons/close_icon.png"), False, None)
 
 # Obrazovky
@@ -1212,9 +1225,11 @@ game_table = table("Game table")
 pause_table = table("Pause table")
 death_table = table("Death table")
 win_table = table("Win table")
+final_win_table = table("Final win table")
 tutorial_table1 = table("Tutorial table 1")
 tutorial_table2 = table("Tutorial table 2")
 profile_tutorial = table("Profile tutorial table")
 shop_tutorial = table("Shop tutorial table")
 campaign_tutorial = table("Campaign tutorial table")
+end = table("End table")
 pause_table.change_format([275,275],[650,350])        

@@ -232,15 +232,15 @@ skill_number_3 = text(["Battle"], "3", (924,764), pg.font.Font(def_link, message
 death_statement = text(["Death table"], "You have lost the battle", (600,330), pg.font.Font(def_link, heading0_size), def_colour)
 death_leave = text(["Death table"], "Leave", (450,542), pg.font.Font(def_link, 38), def_colour)
 death_retry = text(["Death table"], "Retry", (750,542), pg.font.Font(def_link, 38), def_colour)
-win_statement = text(["Win table"], "You have won this battle!", (600, 200), pg.font.Font(def_link, heading0_size), def_colour)
-win_leave = text(["Win table"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
+win_statement = text(["Win table", "Final win talbe"], "You have won this battle!", (600, 200), pg.font.Font(def_link, heading0_size), def_colour)
+win_leave = text(["Win table", "Final win talbe"], "Back", (450,722), pg.font.Font(def_link, 38), def_colour)
 win_continue = text(["Win table"], "Next level", (750, 722), pg.font.Font(def_link, 38), def_colour)
-gold_gained = text(["Win table"], "", (600, 300), pg.font.Font(def_link, regular_size), def_colour)
-xp_gained = text(["Win table"], "", (600, 350), pg.font.Font(def_link, regular_size), def_colour)
-new_level = text(["Win table"], "NEXT LEVEL", (600, 470), pg.font.Font(def_link, message_size), golden)
-new_point = text(["Win table"], "you gained a stat point", (600, 500), pg.font.Font(def_link, regular_size), golden)
-new_skill_1 = text(["Win table"], "NEW SKILL", (600, 580), pg.font.Font(def_link, message_size), skill_colour)
-new_skill_2 = text(["Win table"], "you unlocked a new skill", (600, 610), pg.font.Font(def_link, regular_size), skill_colour)
+gold_gained = text(["Win table", "Final win table"], "", (600, 300), pg.font.Font(def_link, regular_size), def_colour)
+xp_gained = text(["Win table", "Final win talbe"], "", (600, 350), pg.font.Font(def_link, regular_size), def_colour)
+new_level = text(["Win table", "Final win talbe"], "NEXT LEVEL", (600, 470), pg.font.Font(def_link, message_size), golden)
+new_point = text(["Win table", "Final win talbe"], "you gained a stat point", (600, 500), pg.font.Font(def_link, regular_size), golden)
+new_skill_1 = text(["Win table", "Final win talbe"], "NEW SKILL", (600, 580), pg.font.Font(def_link, message_size), skill_colour)
+new_skill_2 = text(["Win table", "Final win talbe"], "you unlocked a new skill", (600, 610), pg.font.Font(def_link, regular_size), skill_colour)
 
 # Zprávy v ochodě
 buy = message("buy", ["Weapon board", "Armor board", "Item board"], "Item has been purchased", (300,150), pg.font.Font(def_link, message_size), dark_colour)
@@ -288,5 +288,8 @@ intro2 = text_wall(["Tutorial table 2"], True, 'PROFILE - upgrade you character 
 shop_intro = text_wall(["Shop tutorial table"], True, "Here is the place where you can buy new stuff.\nNew gear that you will surely forget to equip, potions and skill scrolls.\n\nFor buying things you have to use Golds. What are Golds?\nIt is the generic currency of this generic world. Full name Generic old,\nbut people shorten it to Gold.\nFun fact: It is made of brass.\n\nThe shopkeeper's name is shopkeep.png. Why is he even here selling gear to you?\nBecause gaining loot from enemies would a too complex mechanic.\nJust be glad that he's here and try not to think about him that much.", pg.font.Font(def_link,regular_size), def_colour)
 profile_intro = text_wall(["Profile tutorial table"], True, "Here is the place for YOU. Or your character if you will.\nDecide how you want to upgrade your stats and manage your skills.\n\nI hope I don't have to explain this too much. When you fight and you gain XP.\nAfter you get enought XP you get a higher level.\nAfter that you can upgrade one of your stats.\n\nWhat about the skills? You have three slots for skills that you can use in battle.\nAlso don't forget to check effects of debuffs.", pg.font.Font(def_link,regular_size), def_colour)
 campaign_intro = text_wall(["Campaign tutorial table"], True, "The main part of your story. Here you have to fight your way\n to the portal.\nNavigate yourself through levels with the counter down here.\nGreen number means that the level has been completed.\nRed number means a rarer opponent.\n\nWhen you're in battle the fighting happens automaticaly.\nYou can just sit, watch\nAND use your skills in the skill slots or drink a potion.\nIt is kind of fundamental for winning a battle.", pg.font.Font(def_link,regular_size), def_colour)
+
+# Konec hry
+end_button_text = text(["End table"], "Go touch some grass", (600,710), pg.font.Font(def_link,settings_size),def_colour)
 
 text_class.texts_bundling()
