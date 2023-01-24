@@ -105,6 +105,8 @@ class Battle_info():
             if not s == None:
                 s.momental_cooldown = 0
         self.cooldown_tick = True
+        self.active_font = pg.font.Font(def_link, 60)
+        self.next_font = pg.font.Font(def_link, 30)
         
     def get_info(self, level):
         self.level = level
@@ -120,8 +122,10 @@ class Battle_info():
         self.icon_memory_now = self.active_enemy.texture
         if not self.stages == self.stage:
             self.icon_memory_next = level.enemies[self.stage + 1].texture
+            self.name_memory_next = level.enemies[self.stage + 1].name
         else:
             self.icon_memory_next = None
+            self.name_memory_text = None
     
     def make_player(self, player):
         self.player_copy = player
@@ -145,6 +149,11 @@ class Battle_info():
         width, height = icon.get_size()
         screen.blit(icon, (108 - (width / 2), 820 - (height / 2)))
         
+        text = "You"
+        surf = self.active_font.render(text, True, dark_red)
+        width, height = self.active_font.size(text)[0], self.active_font.size(text)[1]
+        screen.blit(surf, ((180 + (self.player_texture_copy.get_width() / 2) - (width / 2)), (210 - (height / 2))))
+        
     def blit_enemy(self, screen):
         if not self.active_enemy == None:
             screen.blit(self.active_enemy.texture, (1020 - self.active_enemy.width, 663 - self.active_enemy.height))
@@ -153,10 +162,22 @@ class Battle_info():
         icon_now = pg.transform.scale(self.icon_memory_now, ((self.icon_memory_now.get_size()[0] / 9) * 2, (self.icon_memory_now.get_size()[1] / 9) * 2))
         width, height = icon_now.get_size()
         screen.blit(icon_now, (1088 - (width / 2), 80 - (height / 2)))
-        if not self.icon_memory_next == None:
+        
+        if not self.active_enemy == None:
+            text = self.active_enemy.name
+            surf = self.active_font.render(text, True, dark_red)
+            width, height = self.active_font.size(text)[0], self.active_font.size(text)[1]
+            screen.blit(surf, ((1020 - (self.active_enemy.width / 2) - (width / 2)), (210 - (height / 2))))
+        
+        if not self.icon_memory_next == None and not self.name_memory_next == None:
             icon_next = pg.transform.scale(self.icon_memory_next, ((self.icon_memory_next.get_size()[0] / 9) * 2, (self.icon_memory_next.get_size()[1] / 9) * 2))
             width, height = icon_next.get_size()
             screen.blit(icon_next, (284 - (width / 2), 80 - (height / 2)))
+            
+            text = self.name_memory_next
+            surf = self.next_font.render(text, True, def_colour)
+            width, height = self.next_font.size(text)[0], self.next_font.size(text)[1]
+            screen.blit(surf, ((414 - (width / 2)), (82 - (height / 2))))
         
     def fight(self):
         # Útok hráče
@@ -235,8 +256,10 @@ class Battle_info():
                 self.icon_memory_now = self.active_enemy.texture
                 if not self.stages == self.stage:
                     self.icon_memory_next = self.level.enemies[self.stage + 1].texture
+                    self.name_memory_next = self.level.enemies[self.stage + 1].name
                 else:
                     self.icon_memory_next = None
+                    self.name_memory_next = None
             else:
                 self.pause_battle()
                 if not self.level.number == 20:
