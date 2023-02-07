@@ -1,1 +1,0 @@
-# Použitá díla třetích stran
