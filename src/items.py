@@ -61,7 +61,7 @@ def init_items(role):
         weapon_name_4_type_3 = "Metal Flail"
         weapon_name_5_type_3 = "Thor's Mjölnir"
         
-        weapon_desc_1_type_3 = "A wooden simple wooden\nmallet made from a stick\nand a piece of wood."
+        weapon_desc_1_type_3 = "A simple wooden\nmallet made from a stick\nand a piece of wood."
         weapon_desc_2_type_3 = "A solid hammer made\nof cast steel."
         weapon_desc_3_type_3 = "A spiked mace on a stick."
         weapon_desc_4_type_3 = "A spiky metal ball\non a chain."
